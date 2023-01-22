@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DialogEvents : MonoBehaviour
 {
+    private DialogPanel dialogPanel;
+
     [SerializeField] CanvasGroup blackScreen;
     [SerializeField] CanvasGroup whiteScreen;
 
@@ -13,6 +15,17 @@ public class DialogEvents : MonoBehaviour
     [SerializeField] CanvasGroup choicePanelTrm;
 
     private Action onTextEndAction;
+    private Action onClickedAction;
+
+    private void Awake()
+    {
+        dialogPanel = GetComponent<DialogPanel>();
+    }
+
+    private void Start()
+    {
+        Global.Pool.CreatePool<DialogSelectButtonUI>(dialogSelectButtonPrefab.gameObject, choicePanelTrm.transform, 3);
+    }
 
     public void ThrowEvent(string[] _eventMethod)
     {
@@ -47,35 +60,41 @@ public class DialogEvents : MonoBehaviour
     {
         DialogPanel.useWaitFlag = true;
 
-        if (choices.Length != affectResults.Length)
+        onClickedAction += () =>
         {
-            Debug.LogError("에러 : CHOOSE의 파라미터 길이가 각각 다릅니다.");
-            return;
-        }
+            dialogPanel.SetSpeakingDir(2);
 
-        for (int i = 0; i < choicePanelTrm.transform.childCount; i++)
-        {
-            choicePanelTrm.transform.GetChild(i).gameObject.SetActive(false);
-        }
-
-        choicePanelTrm.gameObject.SetActive(true);
-        Global.UI.UIFade(choicePanelTrm, false);
-
-        for (int i = 0; i < choices.Length; i++)
-        {
-            DialogSelectButtonUI selectButton = Global.Pool.GetItem<DialogSelectButtonUI>();
-            int affectResult = affectResults[i];
-            selectButton.Init(choices[i], () =>
+            if (choices.Length != affectResults.Length)
             {
-                //CookingManager.Counter.AddDialog(affectResult);
-                choicePanelTrm.gameObject.SetActive(false);
-                DialogPanel.eventWaitFlag = false;
-            });
-        }
+                Debug.LogError("에러 : CHOOSE의 파라미터 길이가 각각 다릅니다.");
+                return;
+            }
+
+            for (int i = 0; i < choicePanelTrm.transform.childCount; i++)
+            {
+                choicePanelTrm.transform.GetChild(i).gameObject.SetActive(false);
+            }
+
+            Global.UI.UIFade(choicePanelTrm, true);
+
+            for (int i = 0; i < choices.Length; i++)
+            {
+                DialogSelectButtonUI selectButton = Global.Pool.GetItem<DialogSelectButtonUI>();
+                int affectResult = affectResults[i];
+                selectButton.Init(choices[i], () =>
+                {
+                    dialogPanel.StartDialog(dialogPanel.dialogDic[affectResult]);
+                    Global.UI.UIFade(choicePanelTrm, false);
+                    DialogPanel.eventWaitFlag = false;
+                });
+            }
+        };
     }
 
     private void FADE_BLACK()
     {
+        DialogPanel.useWaitFlag = true;
+
         Global.UI.UIFade(blackScreen, UIFadeType.IN, 1, true, () =>
         {
             DialogPanel.eventWaitFlag = false;
@@ -91,5 +110,15 @@ public class DialogEvents : MonoBehaviour
         }
 
         onTextEndAction = null;
+    }
+
+    public void OnClicked()
+    {
+        if (onClickedAction != null)
+        {
+            onClickedAction.Invoke();
+        }
+
+        onClickedAction = null;
     }
 }

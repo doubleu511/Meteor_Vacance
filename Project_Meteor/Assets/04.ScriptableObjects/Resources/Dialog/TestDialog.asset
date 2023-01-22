@@ -17,15 +17,23 @@ MonoBehaviour:
   - text: "\uADF8\uB7F0\uAC74\uAC00\xB7\xB7\xB7"
     background: 0
     speakingDir: 0
-    chracter_1: 2
-    chracter_2: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: idle
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
     eventMethod: []
     isStopAtSkip: 0
   - text: "\uC124\uB9C8\xB7\xB7\xB7 \uADF8\uB807\uAC8C \uB418\uC5B4\uBC84\uB9B0 \uAC74\uAC00\xB7\xB7\xB7"
     background: 0
     speakingDir: 0
-    chracter_1: 2
-    chracter_2: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: idle
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
     eventMethod:
     - 'CHOOSE
 

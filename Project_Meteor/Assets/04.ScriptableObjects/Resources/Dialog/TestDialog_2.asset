@@ -18,6 +18,11 @@ MonoBehaviour:
       \uD574\uC8FC\uB3C4\uB85D \uD558\uC9C0"
     background: 0
     speakingDir: 0
-    chracter_1: 2
-    chracter_2: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: idle
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
     eventMethod: []
+    isStopAtSkip: 0

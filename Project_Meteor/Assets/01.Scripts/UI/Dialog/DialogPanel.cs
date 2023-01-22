@@ -6,18 +6,23 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class DialogPanel : MonoBehaviour
+public class DialogPanel : MonoBehaviour, IPointerClickHandler
 {
     private CanvasGroup dialogPanel;
     private DialogEvents dialogEvents;
     public static bool useWaitFlag = false;
     public static bool eventWaitFlag = false;
 
+    #region 다이얼로그 변수
     [Header("Dialog")]
     [SerializeField] Image backgroundImg = null;
+    [SerializeField] DialogCharacterHandler[] characterHandlers;
+    private int currentHandlerIndex = 0;
+    [SerializeField] TextMeshProUGUI nameText = null;
     [SerializeField] TextMeshProUGUI dialogText = null;
     [SerializeField] Text phoneDialogText = null;
-    public static DialogInfo currentDialog;
+    private DialogInfo beforeDialogInfo;
+    private DialogInfo currentDialogInfo;
 
     [Space(10)]
     [SerializeField] CanvasGroup topUICanvasGroup;
@@ -35,7 +40,13 @@ public class DialogPanel : MonoBehaviour
     private Coroutine textCoroutine = null;
     private Tweener textTween = null;
 
-    private string textString = "";
+    [SerializeField] DialogSO testDialog;
+    #endregion
+
+    #region 다이얼로그 리소스 저장
+    private Dictionary<eCharacter, CharacterSO> characterDic = new Dictionary<eCharacter, CharacterSO>();
+    public Dictionary<int, DialogSO> dialogDic = new Dictionary<int, DialogSO>();
+    #endregion
 
     private void Awake()
     {
@@ -46,6 +57,24 @@ public class DialogPanel : MonoBehaviour
         {
             DialogSkip();
         });
+    }
+
+    private void Start()
+    {
+        CharacterSO[] allCharacterSOs = Resources.LoadAll<CharacterSO>("Character");
+        foreach(CharacterSO item in allCharacterSOs)
+        {
+            characterDic.Add(item.characterUID, item);
+        }
+        characterDic.Add(eCharacter.NONE, null);
+
+        DialogSO[] allDialogSOs = Resources.LoadAll<DialogSO>("Dialog");
+        foreach (DialogSO item in allDialogSOs)
+        {
+            dialogDic.Add(item.dialogID, item);
+        }
+
+        StartDialog(testDialog);
     }
 
     public void StartDialog(DialogSO dialog)
@@ -59,7 +88,7 @@ public class DialogPanel : MonoBehaviour
         {
             isPlayingDialog = true;
 
-            Global.UI.UIFade(dialogPanel, true);
+            //Global.UI.UIFade(dialogPanel, true);
 
             textCoroutine = StartCoroutine(TextCoroutine());
         }
@@ -71,19 +100,26 @@ public class DialogPanel : MonoBehaviour
         {
             isClicked = false;
             DialogInfo dialog = dialogQueue.Dequeue();
-            currentDialog = dialog;
+            currentDialogInfo = dialog;
+
             ShowText(dialog.text);
+            SetCharacter(dialog);
+            SetSpeakingDir(dialog.speakingDir);
 
-            Global.UI.UIFade(dialogPanel, true);
+            //Global.UI.UIFade(dialogPanel, true);
 
+            useWaitFlag = false;
             // 이벤트가 걸리는지 확인
             if (EventTest(dialog))
             {
-                yield return new WaitUntil(() => isTextEnd);
                 if (useWaitFlag)
                 {
+                    yield return new WaitUntil(() => isTextEnd);
                     dialogEvents.OnTextEnd();
-                    Global.UI.UIFade(dialogPanel, false);
+
+                    yield return new WaitUntil(() => isClicked);
+                    dialogEvents.OnClicked();
+
                     yield return new WaitUntil(() => !eventWaitFlag);
                 }
                 else
@@ -93,12 +129,13 @@ public class DialogPanel : MonoBehaviour
             }
             else
             {
-                yield return new WaitUntil(() => isTextEnd);
                 yield return new WaitUntil(() => isClicked);
             }
+
+            beforeDialogInfo = dialog;
         }
 
-        Global.UI.UIFade(dialogPanel, false);
+        //Global.UI.UIFade(dialogPanel, false);
         isPlayingDialog = false;
     }
 
@@ -114,20 +151,43 @@ public class DialogPanel : MonoBehaviour
         return false;
     }
 
+    private void SetCharacter(DialogInfo dialogInfo)
+    {
+        if (beforeDialogInfo != null)
+        {
+            if (beforeDialogInfo.chracter_1.characterType != dialogInfo.chracter_1.characterType || beforeDialogInfo.chracter_2.characterType != dialogInfo.chracter_2.characterType)
+            {
+                characterHandlers[currentHandlerIndex].SetFade(false);
+                currentHandlerIndex = (currentHandlerIndex + 1) % 2;
+            }
+        }
+
+        characterHandlers[currentHandlerIndex].SetFade(true);
+        characterHandlers[currentHandlerIndex].SetCharacter(
+            characterDic[dialogInfo.chracter_1.characterType],
+            characterDic[dialogInfo.chracter_2.characterType],
+            dialogInfo.chracter_1.characterSpriteName,
+            dialogInfo.chracter_2.characterSpriteName);
+    }
+
+    public void SetSpeakingDir(int dir)
+    {
+        characterHandlers[currentHandlerIndex].SetSpeakingDir(dir);
+
+        if(dir == 0)
+        {
+            nameText.text = characterDic[currentDialogInfo.chracter_1.characterType].characterName;
+        }
+        else if (dir == 1)
+        {
+            nameText.text = characterDic[currentDialogInfo.chracter_2.characterType].characterName;
+        }
+    }
+
     public void SetBackground(Sprite background)
     {
         if (backgroundImg.sprite != background)
             backgroundImg.sprite = background;
-    }
-
-    public void SetCharacterColor(Image chara, Color color)
-    {
-        Image[] charaImgs = chara.GetComponentsInChildren<Image>();
-
-        for (int i = 0; i < charaImgs.Length; i++)
-        {
-            charaImgs[i].color = color;
-        }
     }
 
     private void ShowText(string text)
@@ -143,21 +203,11 @@ public class DialogPanel : MonoBehaviour
                     .SetEase(Ease.Linear)
                     .OnComplete(() =>
                     {
-                        textString = "";
                         isTextEnd = true;
                     })
                     .OnUpdate(() =>
                     {
                         dialogText.text = phoneDialogText.text;
-                        string parsed_textString = textString.Replace(" ", "");
-                        string parsed_dialogText = dialogText.text.Replace(" ", "");
-
-                        if (parsed_textString != parsed_dialogText)
-                        {
-                            Global.Sound.Play("SFX/talk", eSound.Effect);
-                        }
-
-                        textString = dialogText.text;
                     }).SetUpdate(true);
 
         int TextLength(string richText)
@@ -192,9 +242,6 @@ public class DialogPanel : MonoBehaviour
         {
             StopCoroutine(textCoroutine);
             textTween.Complete();
-
-            textString = "";
-
             isPlayingDialog = false;
 
             Global.UI.UIFade(dialogPanel, UIFadeType.OUT, 0.5f, true);

@@ -14,13 +14,20 @@ public class DialogInfo
 {
     public string text;
     public int background;
-    public int speakingDir; // 0이면 왼쪽, 1이면 오른쪽, 2면 둘다
-    public eCharacter chracter_1;
-    public eCharacter chracter_2;
+    public int speakingDir; // 0이면 왼쪽, 1이면 오른쪽, 2면 둘다 아님
+    public CharacterTexture chracter_1;
+    public CharacterTexture chracter_2;
 
     [TextArea(3, 4)]
     public string[] eventMethod;
 
     public bool isStopAtSkip = false;
     // ...더 추가
+}
+
+[System.Serializable]
+public struct CharacterTexture
+{
+    public eCharacter characterType;
+    public string characterSpriteName;
 }

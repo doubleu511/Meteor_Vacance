@@ -25,7 +25,6 @@ public class DialogSelectButtonUI : MonoBehaviour
             {
                 onClick.Invoke();
             }
-            Global.Sound.Play("SFX/button_interactive00", eSound.Effect);
         });
     }
 
