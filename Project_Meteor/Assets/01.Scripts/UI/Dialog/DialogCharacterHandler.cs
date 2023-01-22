@@ -34,7 +34,7 @@ public class DialogCharacterHandler : MonoBehaviour
 
     public void SetFade(bool value)
     {
-        canvasGroup.DOFade(value ? 1 : 0, 0.5f);
+        canvasGroup.DOFade(value ? 1 : 0, 0.25f);
     }
 
     public void SetSpeakingDir(int dir) // 0이면 왼쪽, 1이면 오른쪽, 2면 둘다 아님
