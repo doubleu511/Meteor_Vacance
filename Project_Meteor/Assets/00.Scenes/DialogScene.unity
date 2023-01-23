@@ -1303,6 +1303,12 @@ MonoBehaviour:
   logButton: {fileID: 0}
   skipButton: {fileID: 819234540}
   testDialog: {fileID: 11400000, guid: 29a45332c18cb7d44a8a8849fe8b8477, type: 2}
+  backgroundSprites:
+  - {fileID: 21300000, guid: 380f5fe6086f4b043b997126ee0ea1ef, type: 3}
+  - {fileID: 21300000, guid: 400e3741263358641b78a68fe729e1c6, type: 3}
+  - {fileID: 21300000, guid: 48575340bcd8c96478e8fb79edd5c498, type: 3}
+  - {fileID: 21300000, guid: c91bba788907a6243b6788ce0ea3f244, type: 3}
+  - {fileID: 21300000, guid: be937f55592616e4fa93ccf7789a20f1, type: 3}
 --- !u!114 &997767640
 MonoBehaviour:
   m_ObjectHideFlags: 0

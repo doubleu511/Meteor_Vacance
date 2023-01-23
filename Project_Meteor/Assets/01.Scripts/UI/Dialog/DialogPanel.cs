@@ -43,6 +43,9 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     [SerializeField] DialogSO testDialog;
     #endregion
 
+    [Header("Backgrounds")]
+    [SerializeField] Sprite[] backgroundSprites;
+
     #region 다이얼로그 리소스 저장
     private Dictionary<eCharacter, CharacterSO> characterDic = new Dictionary<eCharacter, CharacterSO>();
     public Dictionary<int, DialogSO> dialogDic = new Dictionary<int, DialogSO>();
@@ -102,6 +105,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
             DialogInfo dialog = dialogQueue.Dequeue();
             currentDialogInfo = dialog;
 
+            SetBackground(dialog.background);
             ShowText(dialog.text);
             SetCharacter(dialog);
             SetSpeakingDir(dialog.speakingDir);
@@ -184,10 +188,10 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void SetBackground(Sprite background)
+    public void SetBackground(int backgroundIndex)
     {
-        if (backgroundImg.sprite != background)
-            backgroundImg.sprite = background;
+        if (backgroundImg.sprite != backgroundSprites[backgroundIndex])
+            backgroundImg.sprite = backgroundSprites[backgroundIndex];
     }
 
     private void ShowText(string text)
@@ -238,13 +242,27 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
     public void DialogSkip()
     {
-        if (isPlayingDialog)
-        {
-            StopCoroutine(textCoroutine);
-            textTween.Complete();
-            isPlayingDialog = false;
+        if (!isPlayingDialog) return;
+        if (eventWaitFlag) return;
 
-            Global.UI.UIFade(dialogPanel, UIFadeType.OUT, 0.5f, true);
+        StopCoroutine(textCoroutine);
+
+        while (dialogQueue.Count > 0)
+        {
+            DialogInfo dialog = dialogQueue.Peek();
+            if (dialog.isStopAtSkip)
+            {
+                textCoroutine = StartCoroutine(TextCoroutine());
+                isTextEnd = true;
+                textTween.Complete();
+                isText = false;
+                isClicked = true;
+                break;
+            }
+            else
+            {
+                dialogQueue.Dequeue();
+            }
         }
     }
 
