@@ -5,6 +5,7 @@ using UnityEngine;
 public enum eCharacter
 {
     NONE,
+    DOCTOR,
     METEOR,
     KALTSIT
 }

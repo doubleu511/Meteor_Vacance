@@ -8,7 +8,6 @@ public class DialogEvents : MonoBehaviour
     private DialogPanel dialogPanel;
 
     [SerializeField] CanvasGroup blackScreen;
-    [SerializeField] CanvasGroup whiteScreen;
 
     [Header("Choice")]
     [SerializeField] DialogSelectButtonUI dialogSelectButtonPrefab;
@@ -16,6 +15,8 @@ public class DialogEvents : MonoBehaviour
 
     private Action onTextEndAction;
     private Action onClickedAction;
+
+    private bool instantInvoke = false;
 
     private void Awake()
     {
@@ -36,14 +37,35 @@ public class DialogEvents : MonoBehaviour
 
             if (methodParameters.Length > 0)
             {
+                if(methodParameters[0][0] == '$')
+                {
+                    instantInvoke = true;
+                    methodParameters[0] = methodParameters[0].Replace("$", "");
+                }
+
                 switch (methodParameters[0])
                 {
+                    case "ADDDIALOG":
+                        ExtractADDDIALOGParameters(methodParameters[1]);
+                        break;
                     case "CHOOSE":
                         ExtractCHOOSEParameters(methodParameters[1], methodParameters[2]);
                         break;
                 }
             }
+            instantInvoke = false;
         }
+    }
+
+    private void ExtractADDDIALOGParameters(string param1)
+    {
+        ADDDIALOG(int.Parse(param1));
+    }
+
+    private void ADDDIALOG(int dialogId)
+    {
+        dialogPanel.StartDialog(dialogPanel.dialogDic[dialogId]);
+        DialogPanel.eventWaitFlag = false;
     }
 
     private void ExtractCHOOSEParameters(string param1, string param2)
@@ -60,7 +82,22 @@ public class DialogEvents : MonoBehaviour
     {
         DialogPanel.useWaitFlag = true;
 
-        onClickedAction += () =>
+        if (instantInvoke)
+        {
+            onTextEndAction += () =>
+            {
+                ChooseEvent();
+            };
+        }
+        else
+        {
+            onClickedAction += () =>
+            {
+                ChooseEvent();
+            };
+        }
+
+        void ChooseEvent()
         {
             dialogPanel.SetSpeakingDir(2);
 
@@ -81,14 +118,16 @@ public class DialogEvents : MonoBehaviour
             {
                 DialogSelectButtonUI selectButton = Global.Pool.GetItem<DialogSelectButtonUI>();
                 int affectResult = affectResults[i];
+                print(choices[i] + affectResult);
                 selectButton.Init(choices[i], () =>
                 {
                     dialogPanel.StartDialog(dialogPanel.dialogDic[affectResult]);
                     Global.UI.UIFade(choicePanelTrm, false);
+                    dialogPanel.isClicked = true;
                     DialogPanel.eventWaitFlag = false;
                 });
             }
-        };
+        }
     }
 
     private void FADE_BLACK()

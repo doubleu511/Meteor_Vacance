@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7c96b082111754abf4feb0dc88f9b4, type: 3}
   m_Name: Kaltsit
   m_EditorClassIdentifier: 
-  characterUID: 2
+  characterUID: 3
   characterName: "\uCF08\uC2DC"
   characterSprites:
   - spriteName: idle

@@ -33,7 +33,8 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     private bool isText = false;
     private bool isTextEnd = false;
 
-    private bool isClicked = false;
+    [HideInInspector]
+    public bool isClicked = false;
 
     private Queue<DialogInfo> dialogQueue = new Queue<DialogInfo>();
 
@@ -186,6 +187,10 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         {
             nameText.text = characterDic[currentDialogInfo.chracter_2.characterType].characterName;
         }
+        else
+        {
+            nameText.text = "";
+        }
     }
 
     public void SetBackground(int backgroundIndex)
@@ -245,6 +250,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         if (!isPlayingDialog) return;
         if (eventWaitFlag) return;
 
+        print("asd");
         StopCoroutine(textCoroutine);
 
         while (dialogQueue.Count > 0)

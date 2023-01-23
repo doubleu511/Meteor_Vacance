@@ -33,5 +33,6 @@ public class DialogSelectButtonUI : MonoBehaviour
         onClick = null;
         buttonText.text = text;
         onClick += onClickEvent;
+        transform.SetAsLastSibling();
     }
 }

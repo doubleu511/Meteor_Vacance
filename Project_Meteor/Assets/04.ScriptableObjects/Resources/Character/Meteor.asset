@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7c96b082111754abf4feb0dc88f9b4, type: 3}
   m_Name: Meteor
   m_EditorClassIdentifier: 
-  characterUID: 1
+  characterUID: 2
   characterName: "\uBA54\uD14C\uC624"
   characterSprites:
   - spriteName: idle

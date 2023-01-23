@@ -212,8 +212,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.8
-  m_fontSizeBase: 34.8
+  m_fontSize: 34.92
+  m_fontSizeBase: 34.92
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1302,7 +1302,7 @@ MonoBehaviour:
   topUICanvasGroup: {fileID: 470830445}
   logButton: {fileID: 0}
   skipButton: {fileID: 819234540}
-  testDialog: {fileID: 11400000, guid: 29a45332c18cb7d44a8a8849fe8b8477, type: 2}
+  testDialog: {fileID: 11400000, guid: 5e4e8e7a40088f54f9b421146e0c6e12, type: 2}
   backgroundSprites:
   - {fileID: 21300000, guid: 380f5fe6086f4b043b997126ee0ea1ef, type: 3}
   - {fileID: 21300000, guid: 400e3741263358641b78a68fe729e1c6, type: 3}
@@ -1322,7 +1322,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackScreen: {fileID: 0}
-  whiteScreen: {fileID: 0}
   dialogSelectButtonPrefab: {fileID: 7772258690928856941, guid: 5c0290c1113651f4f92056afce052760, type: 3}
   choicePanelTrm: {fileID: 298306920}
 --- !u!225 &997767641
