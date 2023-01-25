@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Meteor_ShootL
+  m_Name: Meteor_StringR
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -39,10 +39,6 @@ AnimationClip:
       value: {fileID: 21300000, guid: 13f3af1c4ecd981408c1b651aa5238ec, type: 3}
     - time: 0.33333334
       value: {fileID: 21300000, guid: b520403f21b1c76459f8d7faf212c2fe, type: 3}
-    - time: 1
-      value: {fileID: 21300000, guid: fd38c2b83c522fb439655ffb316db787, type: 3}
-    - time: 1.0833334
-      value: {fileID: 21300000, guid: fd38c2b83c522fb439655ffb316db787, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -71,14 +67,12 @@ AnimationClip:
     pptrCurveMapping:
     - {fileID: 21300000, guid: 13f3af1c4ecd981408c1b651aa5238ec, type: 3}
     - {fileID: 21300000, guid: b520403f21b1c76459f8d7faf212c2fe, type: 3}
-    - {fileID: 21300000, guid: fd38c2b83c522fb439655ffb316db787, type: 3}
-    - {fileID: 21300000, guid: fd38c2b83c522fb439655ffb316db787, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.1666667
+    m_StopTime: 0.4166667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
