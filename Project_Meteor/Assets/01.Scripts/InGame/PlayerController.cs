@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,31 +17,22 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            detectDir = animationLookDir = Vector2Int.left;
-            playerDetect.SetDetectRange(detectDir);
+            ChangeLookingDir(Vector2Int.left);
         }
 
         if(Input.GetKeyDown(KeyCode.RightArrow))
         {
-            detectDir = animationLookDir = Vector2Int.right;
-            playerDetect.SetDetectRange(detectDir);
+            ChangeLookingDir(Vector2Int.right);
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            detectDir = animationLookDir = Vector2Int.up;
-            playerDetect.SetDetectRange(detectDir);
+            ChangeLookingDir(Vector2Int.up);
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            detectDir = Vector2Int.down;
-
-            if (animationLookDir == Vector2Int.up)
-            {
-                animationLookDir = Vector2Int.right;
-            }
-            playerDetect.SetDetectRange(detectDir);
+            ChangeLookingDir(Vector2Int.down);
         }
 
         if (detectDir == Vector2.down)
@@ -61,6 +53,33 @@ public class PlayerController : MonoBehaviour
 
         playerAnimator.SetInteger("dirX", animationLookDir.x);
         playerAnimator.SetInteger("dirY", animationLookDir.y);
+    }
+
+    private void ChangeLookingDir(Vector2Int dir)
+    {
+        detectDir = dir;
+        Vector2Int lookDir = dir;
+
+        if (dir == Vector2Int.down)
+        {
+            if (animationLookDir == Vector2Int.up)
+            {
+                lookDir = Vector2Int.right;
+            }
+        }
+
+        if(animationLookDir != lookDir)
+        {
+            transform.DOKill();
+            transform.DOScaleY(0.8f, 0.1f).OnComplete(() =>
+            {
+                transform.DOScaleY(1f, 0.1f);
+            });
+        }
+
+        animationLookDir = lookDir;
+
+        playerDetect.SetDetectRange(dir);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
