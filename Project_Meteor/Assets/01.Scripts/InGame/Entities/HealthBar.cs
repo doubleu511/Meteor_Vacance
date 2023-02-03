@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class HealthBar : MonoBehaviour
 {
@@ -8,10 +9,12 @@ public class HealthBar : MonoBehaviour
     private HealthSystem healthSystem;
 
     private Transform barTrm;
+    private Transform barAnimTrm;
 
     private void Awake()
     {
         barTrm = transform.Find("bar");
+        barAnimTrm = transform.Find("barAnim");
     }
 
     private void Start()
@@ -35,8 +38,10 @@ public class HealthBar : MonoBehaviour
 
     private void UpdateBar()
     {
-        Debug.Log("¹Ù Ãß°¡µÊ");
         barTrm.localScale = new Vector3(healthSystem.GetHealthAmountNormalized(), 1, 1);
+
+        barAnimTrm.DOKill();
+        barAnimTrm.DOScaleX(healthSystem.GetHealthAmountNormalized(), 0.5f);
     }
 
     private void UpdateHealthBarVisible()
