@@ -49,4 +49,9 @@ public class SlashRangeEffect : MonoBehaviour
 
         slashFlag = !slashFlag;
     }
+
+    private void OnDestroy()
+    {
+        slashMat.SetTextureOffset("_MainTex", Vector2.zero);
+    }
 }
