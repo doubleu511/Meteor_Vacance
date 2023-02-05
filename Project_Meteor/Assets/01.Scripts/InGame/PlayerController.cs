@@ -11,40 +11,53 @@ public class PlayerController : MonoBehaviour
     private Vector2Int detectDir = Vector2Int.right; // 감지 방향
     private Vector2Int animationLookDir = Vector2Int.right; // 애니메이션 바라보는 방향
 
-    [SerializeField] GameObject target = null; // test
+    [SerializeField] List<EnemyBase> detectTargets = new List<EnemyBase>();
+    private EnemyBase targetEnemy = null;
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        // 키 입력
         {
-            ChangeLookingDir(Vector2Int.left);
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                ChangeLookingDir(Vector2Int.left);
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                ChangeLookingDir(Vector2Int.right);
+            }
+
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                ChangeLookingDir(Vector2Int.up);
+            }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                ChangeLookingDir(Vector2Int.down);
+            }
         }
 
-        if(Input.GetKeyDown(KeyCode.RightArrow))
+        if(targetEnemy == null)
         {
-            ChangeLookingDir(Vector2Int.right);
-        }
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            ChangeLookingDir(Vector2Int.up);
-        }
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            ChangeLookingDir(Vector2Int.down);
+            if (detectTargets.Count > 0)
+            {
+                EnemyBase detectedEnemy = UtilClass.GetClosestObject(transform, detectTargets.ToArray());
+                targetEnemy = detectedEnemy;
+            }
         }
 
         if (detectDir == Vector2.down)
         {
-            if(target != null)
+            if (targetEnemy != null)
             {
-                Vector2 dir = target.transform.position - transform.position;
-                if(dir.x > 1)
+                Vector2 dir = targetEnemy.transform.position - transform.position;
+                if (dir.x > 1)
                 {
                     animationLookDir = Vector2Int.right;
                 }
-                else if (dir.x < - 1)
+                else if (dir.x < -1)
                 {
                     animationLookDir = Vector2Int.left;
                 }
@@ -78,17 +91,27 @@ public class PlayerController : MonoBehaviour
         }
 
         animationLookDir = lookDir;
-
+        targetEnemy = null;
         playerDetect.SetDetectRange(dir);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print(collision);
+        EnemyBase enemy = collision.GetComponent<EnemyBase>();
+
+        if (enemy != null)
+        {
+            detectTargets.Add(enemy);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        print(collision);
+        EnemyBase enemy = collision.GetComponent<EnemyBase>();
+
+        if (enemy != null)
+        {
+            detectTargets.Remove(enemy);
+        }
     }
 }

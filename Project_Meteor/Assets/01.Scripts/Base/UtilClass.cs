@@ -86,4 +86,27 @@ public static class UtilClass
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)glgs[i].transform);
         }
     }
+
+    public static T GetClosestObject<T>(Transform mainTrm, T[] subObjects) where T : MonoBehaviour
+    {
+        if(subObjects.Length > 0)
+        {
+            float distance = float.MaxValue;
+            T returnValue = subObjects[0];
+            for(int i = 0; i<subObjects.Length;i++)
+            {
+                if((mainTrm.position - subObjects[i].transform.position).sqrMagnitude < distance)
+                {
+                    returnValue = subObjects[i];
+                    distance = (mainTrm.position - subObjects[i].transform.position).sqrMagnitude;
+                }
+            }
+
+            return returnValue;
+        }
+        else
+        {
+            return null;
+        }
+    }
 }
