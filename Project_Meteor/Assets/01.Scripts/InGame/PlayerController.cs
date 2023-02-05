@@ -7,12 +7,20 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] Animator playerAnimator;
     [SerializeField] PlayerDetect playerDetect;
+    [SerializeField] Transform playerDirectArrow;
 
     private Vector2Int detectDir = Vector2Int.right; // 감지 방향
     private Vector2Int animationLookDir = Vector2Int.right; // 애니메이션 바라보는 방향
+    private Quaternion directRot;
 
     [SerializeField] List<EnemyBase> detectTargets = new List<EnemyBase>();
     private EnemyBase targetEnemy = null;
+
+    private void Start()
+    {
+        directRot = playerDirectArrow.transform.localRotation;
+        print(Vector2.SignedAngle(Vector2.up, Vector2.right)); // right에서 up으로 갈때 필요한 각도?
+    }
 
     private void Update()
     {
@@ -70,6 +78,10 @@ public class PlayerController : MonoBehaviour
 
     private void ChangeLookingDir(Vector2Int dir)
     {
+        float turnAngle = Vector2.SignedAngle(detectDir, dir);
+        directRot *= Quaternion.Euler(0, 0, turnAngle);
+        playerDirectArrow.transform.DOLocalRotateQuaternion(directRot, 0.5f);
+
         detectDir = dir;
         Vector2Int lookDir = dir;
 
