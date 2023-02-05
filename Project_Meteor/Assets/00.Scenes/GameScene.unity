@@ -4054,7 +4054,7 @@ GameObject:
   - component: {fileID: 1238805338}
   - component: {fileID: 1238805337}
   m_Layer: 5
-  m_Name: Image
+  m_Name: CostImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4347,7 +4347,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1325164684}
   m_LocalRotation: {x: 0.18480907, y: 0, z: 0, w: 0.98277444}
-  m_LocalPosition: {x: -7.49, y: -2.73, z: -0.02}
+  m_LocalPosition: {x: -7.49, y: -2.73, z: 0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
