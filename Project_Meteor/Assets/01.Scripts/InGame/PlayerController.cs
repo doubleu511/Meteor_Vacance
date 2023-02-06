@@ -9,6 +9,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerDetect playerDetect;
     [SerializeField] Transform playerDirectArrow;
 
+    [SerializeField] Arrow playerArrowPrefab;
+    [SerializeField] Transform arrowStartPos;
+
+    private PlayerStat playerStat;
+
     private Vector2Int detectDir = Vector2Int.right; // 감지 방향
     private Vector2Int animationLookDir = Vector2Int.right; // 애니메이션 바라보는 방향
     private Quaternion directRot;
@@ -16,10 +21,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] List<EnemyBase> detectTargets = new List<EnemyBase>();
     private EnemyBase targetEnemy = null;
 
+
+    private void Awake()
+    {
+        playerStat = GetComponent<PlayerStat>();
+        playerAnimator.SetFloat("AttackSpeedMultiplier", playerStat.playerAttackSpeed);
+    }
+
     private void Start()
     {
         directRot = playerDirectArrow.transform.localRotation;
-        print(Vector2.SignedAngle(Vector2.up, Vector2.right)); // right에서 up으로 갈때 필요한 각도?
+
+        Global.Pool.CreatePool<Arrow>(playerArrowPrefab.gameObject, arrowStartPos, 5);
     }
 
     private void Update()
@@ -47,14 +60,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(targetEnemy == null)
-        {
-            if (detectTargets.Count > 0)
-            {
-                EnemyBase detectedEnemy = UtilClass.GetClosestObject(transform, detectTargets.ToArray());
-                targetEnemy = detectedEnemy;
-            }
-        }
+        Attack();
 
         if (detectDir == Vector2.down)
         {
@@ -76,11 +82,43 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetInteger("dirY", animationLookDir.y);
     }
 
+    private void Attack()
+    {
+        if (targetEnemy == null)
+        {
+            if (detectTargets.Count > 0)
+            {
+                EnemyBase detectedEnemy = UtilClass.GetClosestObject(transform, detectTargets.ToArray());
+                targetEnemy = detectedEnemy;
+
+                playerAnimator.SetTrigger("Shoot");
+                playerStat.attackWaitTime = 0;
+            }
+        }
+        else
+        {
+            playerStat.attackWaitTime += Time.deltaTime;
+            if(playerStat.attackWaitTime > 1 / playerStat.playerAttackSpeed)
+            {
+                // 공격
+                playerAnimator.SetTrigger("Shoot");
+                playerStat.attackWaitTime = 0;
+            }
+        }
+    }
+
+    public void ArrowAttack()
+    {
+        Arrow arrow = Global.Pool.GetItem<Arrow>();
+        arrow.Init(arrowStartPos.position, targetEnemy);
+        arrow.SetArrowDamage(playerStat.playerDamage);
+    }
+
     private void ChangeLookingDir(Vector2Int dir)
     {
         float turnAngle = Vector2.SignedAngle(detectDir, dir);
         directRot *= Quaternion.Euler(0, 0, turnAngle);
-        playerDirectArrow.transform.DOLocalRotateQuaternion(directRot, 0.5f);
+        playerDirectArrow.transform.DOLocalRotateQuaternion(directRot, 0.25f);
 
         detectDir = dir;
         Vector2Int lookDir = dir;
@@ -102,7 +140,11 @@ public class PlayerController : MonoBehaviour
             });
         }
 
-        animationLookDir = lookDir;
+        if (lookDir != Vector2Int.down)
+        {
+            animationLookDir = lookDir;
+        }
+
         targetEnemy = null;
         playerDetect.SetDetectRange(dir);
     }
@@ -114,6 +156,7 @@ public class PlayerController : MonoBehaviour
         if (enemy != null)
         {
             detectTargets.Add(enemy);
+            playerAnimator.SetBool("EnemyDetected", true);
         }
     }
 
@@ -124,6 +167,10 @@ public class PlayerController : MonoBehaviour
         if (enemy != null)
         {
             detectTargets.Remove(enemy);
+            if (detectTargets.Count == 0)
+            {
+                playerAnimator.SetBool("EnemyDetected", false);
+            }
         }
     }
 }
