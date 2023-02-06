@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] Transform playerScaler;
     [SerializeField] Animator playerAnimator;
     [SerializeField] PlayerDetect playerDetect;
     [SerializeField] Transform playerDirectArrow;
@@ -133,10 +134,10 @@ public class PlayerController : MonoBehaviour
 
         if(animationLookDir != lookDir)
         {
-            transform.DOKill();
-            transform.DOScaleY(0.8f, 0.1f).OnComplete(() =>
+            playerScaler.DOKill();
+            playerScaler.DOScaleY(0.8f, 0.1f).OnComplete(() =>
             {
-                transform.DOScaleY(1f, 0.1f);
+                playerScaler.DOScaleY(1f, 0.1f);
             });
         }
 
