@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
     public void ArrowAttack()
     {
         Arrow arrow = Global.Pool.GetItem<Arrow>();
-        arrow.Init(arrowStartPos.position, targetEnemy);
+        arrow.Init(arrowStartPos.position, targetEnemy, animationLookDir);
         arrow.SetArrowDamage(playerStat.playerDamage);
     }
 

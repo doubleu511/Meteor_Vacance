@@ -17,7 +17,7 @@ public class Arrow : MonoBehaviour
     private int m_ArcDirScale = 1;
     private float m_UpArrowSpeedScale = 1f;
 
-    public void Init(Vector3 initPos, EnemyBase target)
+    public void Init(Vector3 initPos, EnemyBase target, Vector2Int playerAnimationDir)
     {
         transform.position = initPos;
         m_StartPosition = initPos;
@@ -26,8 +26,24 @@ public class Arrow : MonoBehaviour
 
         Vector2 dirVec = target.transform.position - initPos;
         m_IsBasedX = Mathf.Abs(dirVec.x) > Mathf.Abs(dirVec.y);
-        m_ArcDirScale = dirVec.x < 0 ? 1 : -1;
-        m_UpArrowSpeedScale = dirVec.y > 0 ? 0.65f : 1;
+
+        if (dirVec.y <= 0)
+        {
+            if (playerAnimationDir == Vector2Int.left)
+            {
+                m_ArcDirScale = -1;
+            }
+            else if (playerAnimationDir == Vector2Int.right)
+            {
+                m_ArcDirScale = 1;
+            }
+            m_UpArrowSpeedScale = 1;
+        }
+        else
+        {
+            m_ArcDirScale = dirVec.x < 0 ? 1 : -1;
+            m_UpArrowSpeedScale = 0.65f;
+        }
     }
 
     public void SetArrowDamage(int arrowDamage)
