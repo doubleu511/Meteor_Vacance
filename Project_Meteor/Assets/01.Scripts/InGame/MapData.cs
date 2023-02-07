@@ -8,10 +8,12 @@ public class MapData : MonoBehaviour
     public Transform[,] Position2D;
 
     [SerializeField] Transform mapPin3D;
+    [SerializeField] Transform mapPin2D;
 
     private void Awake()
     {
         InitPins(mapPin3D, ref Position3D);
+        InitPins(mapPin2D, ref Position2D);
     }
 
     private void InitPins(Transform pinParent, ref Transform[,] transforms)

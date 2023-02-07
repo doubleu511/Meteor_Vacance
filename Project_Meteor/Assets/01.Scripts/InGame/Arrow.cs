@@ -93,7 +93,8 @@ public class Arrow : MonoBehaviour
             gameObject.SetActive(true);
         }
 
-        if (nextPosition.x == m_Target.transform.position.x && nextPosition.y == m_Target.transform.position.y)
+        Vector2 disDir = nextPosition - m_Target.transform.position;
+        if (disDir.sqrMagnitude < 0.01f)
             Arrived();
     }
 

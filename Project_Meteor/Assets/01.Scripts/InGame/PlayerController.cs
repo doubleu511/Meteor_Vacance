@@ -83,6 +83,14 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetInteger("dirY", animationLookDir.y);
     }
 
+    public void SetTargetNull(EnemyBase target)
+    {
+        if(targetEnemy == target)
+        {
+            targetEnemy = null;
+        }
+    }
+
     private void Attack()
     {
         if (targetEnemy == null)

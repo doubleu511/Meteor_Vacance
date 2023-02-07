@@ -25,6 +25,7 @@ public class HealthBar : MonoBehaviour
         }
 
         healthSystem.OnDamaged += CallHealthSystemOnDamaged;
+        healthSystem.OnDied += () => gameObject.SetActive(false);
 
         UpdateBar();
         UpdateHealthBarVisible();
