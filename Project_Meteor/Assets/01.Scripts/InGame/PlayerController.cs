@@ -95,21 +95,19 @@ public class PlayerController : MonoBehaviour
 
     private void Attack()
     {
-        if (targetEnemy == null)
+        if (detectTargets.Count > 0)
         {
-            if (detectTargets.Count > 0)
-            {
-                EnemyBase detectedEnemy = UtilClass.GetClosestObject(transform, detectTargets.ToArray());
-                targetEnemy = detectedEnemy;
+            EnemyBase detectedEnemy = UtilClass.GetClosestObject(transform, detectTargets.ToArray());
+            targetEnemy = detectedEnemy;
 
-                playerAnimator.SetTrigger("Shoot");
-                playerStat.attackWaitTime = 0;
-            }
+            playerAnimator.SetTrigger("Shoot");
+            playerStat.attackWaitTime = 0;
         }
-        else
+
+        if (targetEnemy != null)
         {
             playerStat.attackWaitTime += Time.deltaTime;
-            if(playerStat.attackWaitTime > 1 / playerStat.playerAttackSpeed)
+            if (playerStat.attackWaitTime > 1 / playerStat.playerAttackSpeed)
             {
                 // АјАн
                 playerAnimator.SetTrigger("Shoot");
