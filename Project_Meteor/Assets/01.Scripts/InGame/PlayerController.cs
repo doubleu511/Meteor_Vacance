@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform arrowStartPos;
 
     private PlayerStat playerStat;
+    private HealthSystem playerHealth;
 
     private Vector2Int detectDir = Vector2Int.right; // 감지 방향
     private Vector2Int animationLookDir = Vector2Int.right; // 애니메이션 바라보는 방향
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerStat = GetComponent<PlayerStat>();
+        playerHealth = GetComponent<HealthSystem>();
         playerAnimator.SetFloat("AttackSpeedMultiplier", playerStat.playerAttackSpeed);
     }
 
@@ -156,6 +158,19 @@ public class PlayerController : MonoBehaviour
 
         targetEnemy = null;
         playerDetect.SetDetectRange(dir);
+    }
+
+    public void TakeDamage()
+    {
+        StartCoroutine(TakeDamageCo());
+    }
+
+    private IEnumerator TakeDamageCo()
+    {
+        playerHealth.TakeDamage(1);
+        playerAnimator.SetBool("isHit", true);
+        yield return new WaitForSeconds(0.6f);
+        playerAnimator.SetBool("isHit", false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -36,7 +36,8 @@ public abstract class EnemyBase : MonoBehaviour
 
         Health.OnDied += () =>
         {
-            Die();
+            // Die
+            Die(true);
         }; // 테스트
 
         Init(new Vector2Int[] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(1, 2), new Vector2Int(5, 2) });
@@ -98,10 +99,12 @@ public abstract class EnemyBase : MonoBehaviour
         {
             // 플레이어에게 도착
             print("플레이어에게 도착");
+            GameManager.Player.TakeDamage();
+            Die(false);
         }
     }
 
-    private void Die()
+    private void Die(bool dieToPlayer)
     {
         coll.enabled = false;
         GameManager.Player.SetTargetNull(this);
