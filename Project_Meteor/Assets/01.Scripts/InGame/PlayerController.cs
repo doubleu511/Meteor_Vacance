@@ -167,6 +167,8 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator TakeDamageCo()
     {
+        InGameUI.Info.ShowRedBlur();
+
         playerHealth.TakeDamage(1);
         playerAnimator.SetBool("isHit", true);
         yield return new WaitForSeconds(0.6f);
