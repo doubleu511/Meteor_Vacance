@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] Transform playerScaler;
     [SerializeField] Animator playerAnimator;
+    [SerializeField] Animator playerHitAnimator;
     [SerializeField] PlayerDetect playerDetect;
     [SerializeField] Transform playerDirectArrow;
 
@@ -168,9 +169,11 @@ public class PlayerController : MonoBehaviour
         InGameUI.Info.ShowRedBlur();
 
         playerHealth.TakeDamage(1);
-        playerAnimator.SetBool("isHit", true);
+        playerHitAnimator.gameObject.SetActive(true);
+        playerAnimator.GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(0.6f);
-        playerAnimator.SetBool("isHit", false);
+        playerHitAnimator.gameObject.SetActive(false);
+        playerAnimator.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

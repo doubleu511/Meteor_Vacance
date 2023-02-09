@@ -7,6 +7,7 @@ public class HealthSystem : MonoBehaviour
 {
     public Action OnDamaged;
     public Action OnDied;
+    public Action OnDisappeared;
 
     [SerializeField]
     private float healthAmountMax = 100f;
@@ -64,4 +65,8 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
+    public void Disappear()
+    {
+        OnDisappeared?.Invoke();
+    }
 }
