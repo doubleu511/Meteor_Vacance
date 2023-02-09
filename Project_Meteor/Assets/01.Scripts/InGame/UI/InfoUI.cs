@@ -24,4 +24,14 @@ public class InfoUI : MonoBehaviour
             redBlur.DOFade(0, 0.75f);
         });
     }
+
+    public void SetEnemyKilledText(int value)
+    {
+        enemyKilledText.text = $"{value}";
+    }
+
+    public void SetPlayerHeathText(int value)
+    {
+        playerHealthText.text = $"{value}";
+    }
 }
