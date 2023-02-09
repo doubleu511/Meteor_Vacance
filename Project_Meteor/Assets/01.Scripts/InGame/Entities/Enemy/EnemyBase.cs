@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+public enum EnemyType
+{
+    BUG01 = 1,
+}
+
 public abstract class EnemyBase : MonoBehaviour
 {
+    public virtual EnemyType enemyType => EnemyType.BUG01;
+
     private Collider2D coll;
     private SpriteRenderer enemySpriteRenderer;
     private Coroutine moveCoroutine;
@@ -38,11 +45,12 @@ public abstract class EnemyBase : MonoBehaviour
         {
             Die();
         }; // 테스트
-
-        Init(new Vector2Int[] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(1, 2), new Vector2Int(5, 2) });
     }
 
-    public void Init(Vector2Int[] wayPoints)
+    public abstract void CreatePool(EnemyBase enemyPrefab);
+    public abstract EnemyBase PoolInit(Vector2Int[] wayPoints);
+
+    public virtual void Init(Vector2Int[] wayPoints)
     {
         coll.enabled = true;
         enemyAnimator.transform.localScale = Vector3.one;
@@ -97,7 +105,6 @@ public abstract class EnemyBase : MonoBehaviour
         if (playerDir.sqrMagnitude <= 0.4f)
         {
             // 플레이어에게 도착
-            print("플레이어에게 도착");
             GameManager.Player.TakeDamage();
             Disappear();
         }

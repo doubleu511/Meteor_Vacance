@@ -36,6 +36,12 @@ public class PlayerController : MonoBehaviour
     {
         directRot = playerDirectArrow.transform.localRotation;
 
+        InGameUI.Info.SetPlayerHeathText(playerHealth.GetHealthAmount());
+        playerHealth.OnDamaged += () =>
+        {
+            InGameUI.Info.SetPlayerHeathText(playerHealth.GetHealthAmount());
+        };
+
         Global.Pool.CreatePool<Arrow>(playerArrowPrefab.gameObject, arrowStartPos, 5);
     }
 

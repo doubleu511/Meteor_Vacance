@@ -20,13 +20,10 @@ public class EnemyWaypointTrailEffect : MonoBehaviour
         particle = GetComponent<ParticleSystem>();
     }
 
-    void Start()
-    {
-        Init(new Vector2Int[4] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(1, 2), new Vector2Int(5, 2) });
-    }
-
     public void Init(Vector2Int[] wayPoints)
     {
+        gameObject.SetActive(true);
+
         savedWaypoints = wayPoints;
         Vector3 targetPinPos = GameManager.MapData.Position3D[savedWaypoints[currentPlayIndex].y, savedWaypoints[currentPlayIndex].x].position;
         transform.position = targetPinPos;
