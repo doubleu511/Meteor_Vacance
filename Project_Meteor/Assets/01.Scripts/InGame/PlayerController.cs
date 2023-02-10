@@ -167,14 +167,15 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage()
     {
+        InGameUI.Info.ShowRedBlur();
+        playerHealth.TakeDamage(1);
+        Global.Sound.Play("SFX/Battle/b_ui_alarmenter");
+
         StartCoroutine(TakeDamageCo());
     }
 
     private IEnumerator TakeDamageCo()
     {
-        InGameUI.Info.ShowRedBlur();
-
-        playerHealth.TakeDamage(1);
         playerHitAnimator.gameObject.SetActive(true);
         playerAnimator.GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(0.6f);

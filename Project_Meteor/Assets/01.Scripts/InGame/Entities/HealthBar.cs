@@ -7,6 +7,8 @@ public class HealthBar : MonoBehaviour
 {
     [SerializeField]
     private HealthSystem healthSystem;
+    [SerializeField]
+    private bool isAlwaysShow = false;
 
     private Transform barTrm;
     private Transform barAnimTrm;
@@ -47,6 +49,8 @@ public class HealthBar : MonoBehaviour
 
     private void UpdateHealthBarVisible()
     {
+        if (isAlwaysShow) return;
+
         if (healthSystem.IsFullHealth())
         {
             gameObject.SetActive(false);

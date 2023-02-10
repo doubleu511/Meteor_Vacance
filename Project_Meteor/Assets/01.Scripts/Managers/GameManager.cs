@@ -27,12 +27,19 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        costTimer += Time.deltaTime;
-
-        if(costTimer >= CostRefillTime)
+        if (currentCost < 99)
         {
-            costTimer -= CostRefillTime;
-            currentCost = Mathf.Clamp(currentCost + 1, 0, 99);
+            costTimer += Time.deltaTime;
+
+            if (costTimer >= CostRefillTime)
+            {
+                costTimer -= CostRefillTime;
+                currentCost = Mathf.Clamp(currentCost + 1, 0, 99);
+            }
+        }
+        else
+        {
+            costTimer = 0;
         }
 
         InGameUI.Cost.SetCostValue(currentCost, costTimer / CostRefillTime);
