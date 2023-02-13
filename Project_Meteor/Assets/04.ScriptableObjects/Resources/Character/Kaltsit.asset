@@ -16,4 +16,10 @@ MonoBehaviour:
   characterName: "\uCF08\uC2DC"
   characterSprites:
   - spriteName: idle
-    sprite: {fileID: 21300000, guid: 69117e7dc9434b042babc575f5131ebc, type: 3}
+    sprite: {fileID: 21300000, guid: f47c66705c4f25f43b5f58bd43a1febc, type: 3}
+  - spriteName: haa
+    sprite: {fileID: 21300000, guid: d3c8a8574ea88b04db147038dcb659d0, type: 3}
+  - spriteName: angry
+    sprite: {fileID: 21300000, guid: 45cfc52e7571a1e4085efd619e0fafac, type: 3}
+  - spriteName: megaangry
+    sprite: {fileID: 21300000, guid: f5b2c854979a14242ae99b48ee6c0712, type: 3}
