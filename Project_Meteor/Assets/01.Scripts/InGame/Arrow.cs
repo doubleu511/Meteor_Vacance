@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class Arrow : MonoBehaviour
     public float m_Speed = 10;
     public float m_HeightArc = 1;
 
-    [SerializeField] int m_ArrowDamage = 40;
+    [SerializeField] float m_ArrowDamage = 40;
     private EnemyBase m_Target;
     private Vector3 m_StartPosition;
     private bool m_IsStart;
@@ -17,12 +18,15 @@ public class Arrow : MonoBehaviour
     private int m_ArcDirScale = 1;
     private float m_UpArrowSpeedScale = 1f;
 
-    public void Init(Vector3 initPos, EnemyBase target, Vector2Int playerAnimationDir)
+    private Action<EnemyBase> OnArrived;
+
+    public void Init(Vector3 initPos, EnemyBase target, Vector2Int playerAnimationDir, Action<EnemyBase> onArrived = null)
     {
         transform.position = initPos;
         m_StartPosition = initPos;
         m_Target = target;
         m_IsStart = true;
+        OnArrived = onArrived;
 
         Vector2 dirVec = target.transform.position - initPos;
         m_IsBasedX = Mathf.Abs(dirVec.x) > Mathf.Abs(dirVec.y);
@@ -46,7 +50,7 @@ public class Arrow : MonoBehaviour
         }
     }
 
-    public void SetArrowDamage(int arrowDamage)
+    public void SetArrowDamage(float arrowDamage)
     {
         m_ArrowDamage = arrowDamage;
     }
@@ -101,6 +105,7 @@ public class Arrow : MonoBehaviour
     private void Arrived()
     {
         m_Target.Health.TakeDamage(m_ArrowDamage);
+        OnArrived?.Invoke(m_Target);
         SetReset();
     }
 

@@ -5,15 +5,21 @@ using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player Components")]
     [SerializeField] Transform playerScaler;
     [SerializeField] Animator playerAnimator;
     [SerializeField] Animator playerHitAnimator;
     [SerializeField] PlayerDetect playerDetect;
     [SerializeField] Transform playerDirectArrow;
 
+    [Header("Arrow Prefabs")]
     [SerializeField] Arrow playerArrowPrefab;
+    [SerializeField] SpecialArrow playerSpecialArrowPrefab;
+    [SerializeField] DefaultArrowEffect defaultArrowHitParticlePrefab;
+    [SerializeField] SpecialArrowEffect specialArrowHitParticlePrefab;
     [SerializeField] Transform arrowStartPos;
 
+    private PlayerAbility playerAbility;
     private PlayerStat playerStat;
     private HealthSystem playerHealth;
 
@@ -27,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        playerAbility = GetComponent<PlayerAbility>();
         playerStat = GetComponent<PlayerStat>();
         playerHealth = GetComponent<HealthSystem>();
         playerAnimator.SetFloat("AttackSpeedMultiplier", playerStat.playerAttackSpeed);
@@ -36,13 +43,16 @@ public class PlayerController : MonoBehaviour
     {
         directRot = playerDirectArrow.transform.localRotation;
 
-        InGameUI.Info.SetPlayerHeathText(playerHealth.GetHealthAmount());
+        InGameUI.Info.SetPlayerHeathText((int)playerHealth.GetHealthAmount());
         playerHealth.OnDamaged += () =>
         {
-            InGameUI.Info.SetPlayerHeathText(playerHealth.GetHealthAmount());
+            InGameUI.Info.SetPlayerHeathText((int)playerHealth.GetHealthAmount());
         };
 
         Global.Pool.CreatePool<Arrow>(playerArrowPrefab.gameObject, arrowStartPos, 5);
+        Global.Pool.CreatePool<SpecialArrow>(playerSpecialArrowPrefab.gameObject, arrowStartPos, 5);
+        Global.Pool.CreatePool<DefaultArrowEffect>(defaultArrowHitParticlePrefab.gameObject, arrowStartPos, 2);
+        Global.Pool.CreatePool<SpecialArrowEffect>(specialArrowHitParticlePrefab.gameObject, arrowStartPos, 5);
     }
 
     private void Update()
@@ -92,7 +102,7 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetInteger("dirY", animationLookDir.y);
     }
 
-    public void SetTargetNull(EnemyBase target)
+    public void KillTargetHandle(EnemyBase target)
     {
         if(targetEnemy == target)
         {
@@ -126,8 +136,30 @@ public class PlayerController : MonoBehaviour
     public void ArrowAttack()
     {
         Arrow arrow = Global.Pool.GetItem<Arrow>();
-        arrow.Init(arrowStartPos.position, targetEnemy, animationLookDir);
+        arrow.Init(arrowStartPos.position, targetEnemy, animationLookDir, (enemy) =>
+        {
+            DefaultArrowEffect effect = Global.Pool.GetItem<DefaultArrowEffect>();
+
+            effect.transform.SetParent(enemy.GetHitTransform());
+            effect.transform.localPosition = Vector3.zero;
+            effect.transform.localScale = Vector3.one;
+            playerAbility.AddPoint(1);
+        });
         arrow.SetArrowDamage(playerStat.playerDamage);
+    }
+
+    public void SpecialArrowAttack(EnemyBase target, float damageScale)
+    {
+        SpecialArrow arrow = Global.Pool.GetItem<SpecialArrow>();
+        arrow.Init(arrowStartPos.position, target, animationLookDir, (enemy) =>
+        {
+            SpecialArrowEffect effect = Global.Pool.GetItem<SpecialArrowEffect>();
+
+            effect.transform.SetParent(enemy.GetHitTransform());
+            effect.transform.localPosition = Vector3.zero;
+            effect.transform.localScale = Vector3.one;
+        });
+        arrow.SetArrowDamage(playerStat.playerDamage * damageScale);
     }
 
     private void ChangeLookingDir(Vector2Int dir)
@@ -181,6 +213,11 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
         playerHitAnimator.gameObject.SetActive(false);
         playerAnimator.GetComponent<SpriteRenderer>().enabled = true;
+    }
+
+    public List<EnemyBase> GetDetectEnemies()
+    {
+        return detectTargets;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

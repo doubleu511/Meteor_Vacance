@@ -16,12 +16,16 @@ public abstract class EnemyBase : MonoBehaviour
     private SpriteRenderer enemySpriteRenderer;
     private Coroutine moveCoroutine;
 
+    [Header("Enemy Components")]
     [SerializeField] Transform enemyScaler;
     [SerializeField] Animator enemyAnimator;
     [SerializeField] SpriteRenderer shadowSprite;
+
     [SerializeField] float moveSpeed = 5f;
+
+    [Header("Particles")]
     [SerializeField] ParticleSystem dieParticle;
-    [SerializeField] ParticleSystem hitParticle;
+    [SerializeField] Transform hitTransform;
 
     public HealthSystem Health { get; private set; }
 
@@ -38,7 +42,6 @@ public abstract class EnemyBase : MonoBehaviour
         {
             enemySpriteRenderer.color = Color.red;
             enemySpriteRenderer.DOColor(Color.white, 0.1f);
-            hitParticle.Play();
         };
 
         Health.OnDied += () =>
@@ -119,7 +122,7 @@ public abstract class EnemyBase : MonoBehaviour
     private void Disappear()
     {
         coll.enabled = false;
-        GameManager.Player.SetTargetNull(this);
+        GameManager.Player.KillTargetHandle(this);
         StopCoroutine(moveCoroutine);
         Health.Disappear();
 
@@ -135,5 +138,10 @@ public abstract class EnemyBase : MonoBehaviour
         {
             gameObject.SetActive(false);
         });
+    }
+
+    public Transform GetHitTransform()
+    {
+        return hitTransform;
     }
 }

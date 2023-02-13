@@ -11,14 +11,14 @@ public class HealthSystem : MonoBehaviour
 
     [SerializeField]
     private int healthAmountMax = 100;
-    private int curHealthAmount;
+    private float curHealthAmount;
 
     private void Awake()
     {
         curHealthAmount = healthAmountMax;
     }
 
-    public void Damage(int damageAmount)
+    public void Damage(float damageAmount)
     {
         curHealthAmount -= damageAmount;
         curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
@@ -34,14 +34,14 @@ public class HealthSystem : MonoBehaviour
         return curHealthAmount == healthAmountMax;
     }
 
-    public int GetHealthAmount()
+    public float GetHealthAmount()
     {
         return curHealthAmount;
     }
 
     public float GetHealthAmountNormalized()
     {
-        return (float)curHealthAmount / healthAmountMax;
+        return curHealthAmount / healthAmountMax;
     }
 
     public void SetHealthAmountMax(int hpAmountMax, bool updateHpAmount)
@@ -53,7 +53,7 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(float damageAmount)
     {
         Damage(damageAmount);
         OnDamaged?.Invoke();
