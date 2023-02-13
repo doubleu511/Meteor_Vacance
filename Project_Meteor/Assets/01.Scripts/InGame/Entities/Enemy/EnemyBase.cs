@@ -109,20 +109,20 @@ public abstract class EnemyBase : MonoBehaviour
         {
             // 플레이어에게 도착
             GameManager.Player.TakeDamage();
-            Disappear();
+            Disappear(false);
         }
     }
 
     private void Die()
     {
         dieParticle.Play();
-        Disappear();
+        Disappear(true);
     }
 
-    private void Disappear()
+    private void Disappear(bool kill)
     {
         coll.enabled = false;
-        GameManager.Player.KillTargetHandle(this);
+        GameManager.Player.KillTargetHandle(this, !kill);
         StopCoroutine(moveCoroutine);
         Health.Disappear();
 

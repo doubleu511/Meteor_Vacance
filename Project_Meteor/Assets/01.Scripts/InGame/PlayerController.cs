@@ -104,15 +104,18 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetInteger("dirY", animationLookDir.y);
     }
 
-    public void KillTargetHandle(EnemyBase target)
+    public void KillTargetHandle(EnemyBase target, bool disappear)
     {
         if(targetEnemy == target)
         {
             targetEnemy = null;
         }
 
-        enemyKillCount++;
-        InGameUI.Info.SetEnemyKilledText(enemyKillCount);
+        if (!disappear)
+        {
+            enemyKillCount++;
+            InGameUI.Info.SetEnemyKilledText(enemyKillCount);
+        }
     }
 
     private void Attack()
