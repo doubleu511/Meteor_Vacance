@@ -43,6 +43,9 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        Global.Sound.Play("SFX/Voice/deploy1");
+        Global.Sound.Play("SFX/Battle/b_char_set");
+
         directRot = playerDirectArrow.transform.localRotation;
 
         InGameUI.Info.SetPlayerHeathText((int)playerHealth.GetHealthAmount());
@@ -59,6 +62,19 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Meteor_Appear"))
+        {
+            print(playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+            if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
+            {
+                playerAnimator.SetBool("Appear", false);
+            }
+            else
+            {
+                return;
+            }
+        }
+
         // е╟ ют╥б
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
