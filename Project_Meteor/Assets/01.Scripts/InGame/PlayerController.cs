@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] List<EnemyBase> detectTargets = new List<EnemyBase>();
     private EnemyBase targetEnemy = null;
 
+    private int enemyKillCount = 0;
+
 
     private void Awake()
     {
@@ -108,6 +110,9 @@ public class PlayerController : MonoBehaviour
         {
             targetEnemy = null;
         }
+
+        enemyKillCount++;
+        InGameUI.Info.SetEnemyKilledText(enemyKillCount);
     }
 
     private void Attack()
@@ -197,13 +202,19 @@ public class PlayerController : MonoBehaviour
         playerDetect.SetDetectRange(dir);
     }
 
+    private Coroutine damageTakeCoroutine = null;
     public void TakeDamage()
     {
         InGameUI.Info.ShowRedBlur();
         playerHealth.TakeDamage(1);
         Global.Sound.Play("SFX/Battle/b_ui_alarmenter");
 
-        StartCoroutine(TakeDamageCo());
+        if (damageTakeCoroutine != null)
+        {
+            StopCoroutine(damageTakeCoroutine);
+            playerHitAnimator.Rebind();
+        }
+        damageTakeCoroutine = StartCoroutine(TakeDamageCo());
     }
 
     private IEnumerator TakeDamageCo()

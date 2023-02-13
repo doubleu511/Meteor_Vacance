@@ -7,8 +7,6 @@ public class DialogEvents : MonoBehaviour
 {
     private DialogPanel dialogPanel;
 
-    [SerializeField] CanvasGroup blackScreen;
-
     [Header("Choice")]
     [SerializeField] DialogSelectButtonUI dialogSelectButtonPrefab;
     [SerializeField] CanvasGroup choicePanelTrm;
@@ -118,7 +116,6 @@ public class DialogEvents : MonoBehaviour
             {
                 DialogSelectButtonUI selectButton = Global.Pool.GetItem<DialogSelectButtonUI>();
                 int affectResult = affectResults[i];
-                print(choices[i] + affectResult);
                 selectButton.Init(choices[i], () =>
                 {
                     dialogPanel.StartDialog(dialogPanel.dialogDic[affectResult]);
@@ -128,17 +125,6 @@ public class DialogEvents : MonoBehaviour
                 });
             }
         }
-    }
-
-    private void FADE_BLACK()
-    {
-        DialogPanel.useWaitFlag = true;
-
-        Global.UI.UIFade(blackScreen, UIFadeType.IN, 1, true, () =>
-        {
-            DialogPanel.eventWaitFlag = false;
-            Global.UI.UIFade(blackScreen, UIFadeType.OUT, 1, true);
-        });
     }
 
     public void OnTextEnd()

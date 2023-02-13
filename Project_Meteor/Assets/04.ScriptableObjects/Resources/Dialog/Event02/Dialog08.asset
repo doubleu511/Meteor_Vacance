@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4452a61955949243ab46ae03440cf01, type: 3}
+  m_Name: Dialog08
+  m_EditorClassIdentifier: 
+  dialogID: 8
+  dialogInfos:
+  - text: "\uC5B4\uBA38, \uC9C0\uAE08 \uBC14\uB85C? \uC900\uBE44 \uD560 \uC2DC\uAC04\uB3C4
+      \uC5C6\uC774? \uADF8\uB807\uAC8C \uAE09\uD55C \uC77C\uC774\uC5C8\uB2C8?!"
+    background: 0
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: uee
+    chracter_2:
+      characterType: 0
+      characterSpriteName: idle
+    eventMethod: []
+    isStopAtSkip: 0

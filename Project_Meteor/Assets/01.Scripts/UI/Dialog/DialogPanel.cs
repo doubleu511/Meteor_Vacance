@@ -41,11 +41,13 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     private Coroutine textCoroutine = null;
     private Tweener textTween = null;
 
-    [SerializeField] DialogSO testDialog;
+    [SerializeField] ActEvent testAct;
+    private ActEvent currentAct;
     #endregion
 
     [Header("Backgrounds")]
     [SerializeField] Sprite[] backgroundSprites;
+    [SerializeField] CanvasGroup blackScreen;
 
     #region 다이얼로그 리소스 저장
     private Dictionary<eCharacter, CharacterSO> characterDic = new Dictionary<eCharacter, CharacterSO>();
@@ -78,7 +80,21 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
             dialogDic.Add(item.dialogID, item);
         }
 
-        StartDialog(testDialog);
+        StartAct(testAct);
+    }
+
+    public void StartAct(ActEvent act)
+    {
+        currentAct = act;
+        Global.UI.UIFade(blackScreen, true);
+        StartCoroutine(StartActCoroutine(act));
+    }
+
+    private IEnumerator StartActCoroutine(ActEvent act)
+    {
+        yield return new WaitForSeconds(0.5f);
+        Global.UI.UIFade(blackScreen, UIFadeType.OUT, 1, true);
+        StartDialog(act.startDialog);
     }
 
     public void StartDialog(DialogSO dialog)
@@ -140,8 +156,15 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
             beforeDialogInfo = dialog;
         }
 
-        //Global.UI.UIFade(dialogPanel, false);
         isPlayingDialog = false;
+        StartCoroutine(BlackScreenFade());
+    }
+
+    private IEnumerator BlackScreenFade()
+    {
+        Global.UI.UIFade(blackScreen, UIFadeType.IN, 1, true);
+        yield return new WaitForSeconds(0.5f);
+        currentAct.onActEnded?.Invoke();
     }
 
     private bool EventTest(DialogInfo info)
@@ -250,8 +273,8 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         if (!isPlayingDialog) return;
         if (eventWaitFlag) return;
 
-        print("asd");
         StopCoroutine(textCoroutine);
+        textTween.Kill();
 
         while (dialogQueue.Count > 0)
         {
@@ -261,15 +284,19 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
                 textCoroutine = StartCoroutine(TextCoroutine());
                 isTextEnd = true;
                 textTween.Complete();
+                print("?");
                 isText = false;
                 isClicked = true;
-                break;
+                return;
             }
             else
             {
                 dialogQueue.Dequeue();
             }
         }
+
+        isPlayingDialog = false;
+        StartCoroutine(BlackScreenFade());
     }
 
     public void OnPointerClick(PointerEventData eventData)

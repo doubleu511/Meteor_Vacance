@@ -20,7 +20,7 @@ MonoBehaviour:
     speakingDir: 0
     chracter_1:
       characterType: 3
-      characterSpriteName: idle
+      characterSpriteName: angry
     chracter_2:
       characterType: 0
       characterSpriteName: idle

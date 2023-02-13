@@ -2950,7 +2950,7 @@ MonoBehaviour:
   abilityIconEffect: {fileID: 1020650526}
   skillUsePanel: {fileID: 1489431018}
   skillLevel: 1
-  abilityPointAmountMax: 2
+  abilityPointAmountMax: 20
 --- !u!1 &537115870
 GameObject:
   m_ObjectHideFlags: 0
