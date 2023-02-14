@@ -41,8 +41,6 @@ public class HealthBar : MonoBehaviour
 
     private void UpdateBar()
     {
-        if (healthSystem.IsDead()) return;
-
         barTrm.localScale = new Vector3(healthSystem.GetHealthAmountNormalized(), 1, 1);
 
         barAnimTrm.DOKill();

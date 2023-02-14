@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        Global.Sound.Play("SFX/Voice/deploy1");
+        Global.Sound.PlayRandom(eSound.Effect, 1, "SFX/Voice/deploy1", "SFX/Voice/deploy2");
         Global.Sound.Play("SFX/Battle/b_char_set");
 
         directRot = playerDirectArrow.transform.localRotation;

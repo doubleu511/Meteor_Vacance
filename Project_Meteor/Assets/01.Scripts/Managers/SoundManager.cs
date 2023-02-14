@@ -75,14 +75,11 @@ public class SoundManager
         Play(audioClip, type, pitch);
     }
 
-    public void Play(string path, AudioSource audioSource, float pitch = 1.0f)
+    public void PlayRandom(eSound type = eSound.Effect, float pitch = 1.0f, params string[] path)
     {
-        AudioClip audioClip = GetOrAddAudioClip(path);
-        if (audioClip == null)
-            return;
-
-        audioSource.pitch = pitch;
-        audioSource.PlayOneShot(audioClip);
+        int randomIndex = Random.Range(0, path.Length);
+        AudioClip audioClip = GetOrAddAudioClip(path[randomIndex], type);
+        Play(audioClip, type, pitch);
     }
 
     public AudioClip GetOrAddAudioClip(string path, eSound type = eSound.Effect)
