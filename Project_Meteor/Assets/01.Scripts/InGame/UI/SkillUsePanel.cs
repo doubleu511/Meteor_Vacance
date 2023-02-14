@@ -17,6 +17,7 @@ public class SkillUsePanel : MonoBehaviour
     {
         skillAnimator.SetTrigger("Appear");
         Global.Sound.Play("SFX/Battle/b_char_atkboost");
+        Global.Sound.PlayRandom(eSound.Effect, 1, "SFX/Voice/fight1", "SFX/Voice/fight2", "SFX/Voice/fight3", "SFX/Voice/fight4");
     }
 
     private void SetMaskDisable()

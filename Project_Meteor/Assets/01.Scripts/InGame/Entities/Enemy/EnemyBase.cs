@@ -22,6 +22,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] SpriteRenderer shadowSprite;
 
     [SerializeField] float moveSpeed = 5f;
+    [SerializeField] GameObject armorBreakEffect;
     [SerializeField] float initArmor = 10f;
     private float currentArmor = 10f;
 
@@ -126,12 +127,17 @@ public abstract class EnemyBase : MonoBehaviour
     {
         coll.enabled = false;
         GameManager.Player.KillTargetHandle(this, !kill);
-        StopCoroutine(moveCoroutine);
+
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+        }
         healthSystem.Disappear();
 
         Sequence seq = DOTween.Sequence();
 
         seq.AppendInterval(0.1f);
+        seq.AppendCallback(() => armorBreakEffect.SetActive(false));
         seq.Append(enemyAnimator.transform.DOScaleY(0.85f, 0.4f));
         seq.Join(enemySpriteRenderer.DOColor(Color.black, 0.3f));
         seq.Append(enemySpriteRenderer.DOColor(new Color(0, 0, 0, 0), 0.3f));
@@ -154,17 +160,20 @@ public abstract class EnemyBase : MonoBehaviour
         if (debuffDuration > 0f)
         {
             debuffDuration = duration;
-            return;
         }
-
-        StartCoroutine(DebuffCo(amount));
+        else
+        {
+            debuffDuration = duration;
+            StartCoroutine(DebuffCo(amount));
+        }
     }
 
     private IEnumerator DebuffCo(float amount)
     {
         currentArmor = Mathf.Clamp(currentArmor - currentArmor * amount, 0, float.MaxValue);
+        armorBreakEffect.SetActive(true);
 
-        while (debuffDuration < 0f)
+        while (debuffDuration > 0f)
         {
             debuffDuration -= Time.deltaTime;
 
@@ -172,5 +181,6 @@ public abstract class EnemyBase : MonoBehaviour
         }
 
         currentArmor = initArmor;
+        armorBreakEffect.SetActive(false);
     }
 }
