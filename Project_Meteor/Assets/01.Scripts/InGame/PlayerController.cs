@@ -278,7 +278,7 @@ public class PlayerController : MonoBehaviour
             {
                 if(isAttackVoiceReady)
                 {
-                    Global.Sound.PlayRandom(eSound.Effect, 1, "SFX/Voice/fight1", "SFX/Voice/fight2", "SFX/Voice/fight3", "SFX/Voice/fight4", "SFX/Voice/fight5");
+                    Global.Sound.PlayRandom(eSound.Effect, 1, "SFX/Voice/fight1", "SFX/Voice/fight2", "SFX/Voice/fight3", "SFX/Voice/fight4");
                     isAttackVoiceReady = false;
                 }
             }
