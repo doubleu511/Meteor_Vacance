@@ -22,29 +22,31 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] SpriteRenderer shadowSprite;
 
     [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float initArmor = 10f;
+    private float currentArmor = 10f;
 
     [Header("Particles")]
     [SerializeField] ParticleSystem dieParticle;
     [SerializeField] Transform hitTransform;
 
-    public HealthSystem Health { get; private set; }
+    private HealthSystem healthSystem;
 
     private void Awake()
     {
         coll = GetComponent<Collider2D>();
-        Health = GetComponent<HealthSystem>();
+        healthSystem = GetComponent<HealthSystem>();
         enemySpriteRenderer = enemyAnimator.GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        Health.OnDamaged += () =>
+        healthSystem.OnDamaged += () =>
         {
             enemySpriteRenderer.color = Color.red;
             enemySpriteRenderer.DOColor(Color.white, 0.1f);
         };
 
-        Health.OnDied += () =>
+        healthSystem.OnDied += () =>
         {
             Die();
         }; // Å×½ºÆ®
@@ -59,6 +61,7 @@ public abstract class EnemyBase : MonoBehaviour
         enemyAnimator.transform.localScale = Vector3.one;
         shadowSprite.color = Color.white;
         enemySpriteRenderer.color = Color.white;
+        currentArmor = initArmor;
 
         Vector3 targetPinPos = GameManager.MapData.Position2D[wayPoints[0].y, wayPoints[0].x].position;
         transform.position = targetPinPos;
@@ -72,35 +75,30 @@ public abstract class EnemyBase : MonoBehaviour
 
         while (true)
         {
-            if (wayPoints.Length > currentPlayIndex)
-            {
-                Vector3 targetPinPos = GameManager.MapData.Position2D[wayPoints[currentPlayIndex].y, wayPoints[currentPlayIndex].x].position;
-                Vector3 dir = targetPinPos - transform.position;
+            if (wayPoints.Length <= currentPlayIndex) break;
 
-                if (dir.sqrMagnitude >= 0.01f)
-                {
-                    transform.position = Vector3.MoveTowards(transform.position, targetPinPos, moveSpeed * Time.deltaTime);
-                    float scale = -0.084f * transform.position.y + 1;
-                    enemyScaler.transform.localScale = new Vector3(scale, scale, 1);
+            Vector3 targetPinPos = GameManager.MapData.Position2D[wayPoints[currentPlayIndex].y, wayPoints[currentPlayIndex].x].position;
+            Vector3 dir = targetPinPos - transform.position;
 
-                    if(dir.x > 1f)
-                    {
-                        enemySpriteRenderer.flipX = false;
-                    }
-                    else if (dir.x < -1f)
-                    {
-                        enemySpriteRenderer.flipX = true;
-                    }
-                }
-                else
-                {
-                    currentPlayIndex++;
-                }
-            }
-            else
+            if (dir.sqrMagnitude < 0.01f)
             {
-                break;
+                currentPlayIndex++;
+                continue;
             }
+
+            transform.position = Vector3.MoveTowards(transform.position, targetPinPos, moveSpeed * Time.deltaTime);
+            float scale = -0.084f * transform.position.y + 1;
+            enemyScaler.transform.localScale = new Vector3(scale, scale, 1);
+
+            if (dir.x > 1f)
+            {
+                enemySpriteRenderer.flipX = false;
+            }
+            else if (dir.x < -1f)
+            {
+                enemySpriteRenderer.flipX = true;
+            }
+
             yield return null;
         }
 
@@ -111,6 +109,11 @@ public abstract class EnemyBase : MonoBehaviour
             GameManager.Player.TakeDamage();
             Disappear(false);
         }
+    }
+
+    public void TakeDamage(float amount)
+    {
+        healthSystem.TakeDamage(amount - currentArmor);
     }
 
     private void Die()
@@ -124,7 +127,7 @@ public abstract class EnemyBase : MonoBehaviour
         coll.enabled = false;
         GameManager.Player.KillTargetHandle(this, !kill);
         StopCoroutine(moveCoroutine);
-        Health.Disappear();
+        healthSystem.Disappear();
 
         Sequence seq = DOTween.Sequence();
 
@@ -143,5 +146,31 @@ public abstract class EnemyBase : MonoBehaviour
     public Transform GetHitTransform()
     {
         return hitTransform;
+    }
+
+    private float debuffDuration = 0f;
+    public void GainDebuff(float duration, float amount)
+    {
+        if (debuffDuration > 0f)
+        {
+            debuffDuration = duration;
+            return;
+        }
+
+        StartCoroutine(DebuffCo(amount));
+    }
+
+    private IEnumerator DebuffCo(float amount)
+    {
+        currentArmor = Mathf.Clamp(currentArmor - currentArmor * amount, 0, float.MaxValue);
+
+        while (debuffDuration < 0f)
+        {
+            debuffDuration -= Time.deltaTime;
+
+            yield return null;
+        }
+
+        currentArmor = initArmor;
     }
 }

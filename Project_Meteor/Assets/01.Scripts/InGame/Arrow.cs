@@ -59,7 +59,14 @@ public class Arrow : MonoBehaviour
     {
         if (m_IsStart)
         {
-            SetMove(m_IsBasedX);
+            if (m_Target != null)
+            {
+                SetMove(m_IsBasedX);
+            }
+            else
+            {
+                SetReset();
+            }
         }
     }
 
@@ -104,7 +111,7 @@ public class Arrow : MonoBehaviour
 
     private void Arrived()
     {
-        m_Target.Health.TakeDamage(m_ArrowDamage);
+        m_Target.TakeDamage(m_ArrowDamage);
         OnArrived?.Invoke(m_Target);
         SetReset();
     }

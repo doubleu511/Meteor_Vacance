@@ -20,6 +20,22 @@ public class PlayerAbility : MonoBehaviour
     private int abilityPointAmountMax = 100;
     private int curAbilityPoint = 0;
 
+    private Dictionary<int, float> damageScaleDic = new Dictionary<int, float>()
+    {
+        { 1 , 1.4f },
+        { 2 , 1.55f },
+        { 3 , 1.7f },
+        { 4 , 2f },
+    };
+
+    private Dictionary<int, float> debuffAmountDic = new Dictionary<int, float>()
+    {
+        { 1 , 0.25f },
+        { 2 , 0.30f },
+        { 3 , 0.35f },
+        { 4 , 0.40f },
+    };
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.F))
@@ -42,7 +58,7 @@ public class PlayerAbility : MonoBehaviour
 
         for (int i = 0; i < repeatCount; i++)
         {
-            GameManager.Player.SpecialArrowAttack(detectEnemies[i], 1.5f);
+            GameManager.Player.SpecialArrowAttack(detectEnemies[i], damageScaleDic[skillLevel], debuffAmountDic[skillLevel]);
         }
     }
 

@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private EnemyBase targetEnemy = null;
 
     private int enemyKillCount = 0;
+    private bool isAttackVoiceReady = true;
 
 
     private void Awake()
@@ -58,6 +59,8 @@ public class PlayerController : MonoBehaviour
         Global.Pool.CreatePool<SpecialArrow>(playerSpecialArrowPrefab.gameObject, arrowStartPos, 5);
         Global.Pool.CreatePool<DefaultArrowEffect>(defaultArrowHitParticlePrefab.gameObject, arrowStartPos, 2);
         Global.Pool.CreatePool<SpecialArrowEffect>(specialArrowHitParticlePrefab.gameObject, arrowStartPos, 5);
+
+        StartCoroutine(AttackVoiceCooldownCo());
     }
 
     private void Update()
@@ -172,7 +175,7 @@ public class PlayerController : MonoBehaviour
         arrow.SetArrowDamage(playerStat.playerDamage);
     }
 
-    public void SpecialArrowAttack(EnemyBase target, float damageScale)
+    public void SpecialArrowAttack(EnemyBase target, float damageScale, float debuffAmount)
     {
         SpecialArrow arrow = Global.Pool.GetItem<SpecialArrow>();
         arrow.Init(arrowStartPos.position, target, animationLookDir, (enemy) =>
@@ -182,6 +185,8 @@ public class PlayerController : MonoBehaviour
             effect.transform.SetParent(enemy.GetHitTransform());
             effect.transform.localPosition = Vector3.zero;
             effect.transform.localScale = Vector3.one;
+
+            target.GainDebuff(5, debuffAmount);
         });
         arrow.SetArrowDamage(playerStat.playerDamage * damageScale);
     }
@@ -245,6 +250,16 @@ public class PlayerController : MonoBehaviour
         playerAnimator.GetComponent<SpriteRenderer>().enabled = true;
     }
 
+    private IEnumerator AttackVoiceCooldownCo()
+    {
+        while(true)
+        {
+            float cooldown = Random.Range(30, 45);
+            yield return new WaitForSeconds(cooldown);
+            isAttackVoiceReady = true;
+        }
+    }
+
     public List<EnemyBase> GetDetectEnemies()
     {
         return detectTargets;
@@ -258,6 +273,15 @@ public class PlayerController : MonoBehaviour
         {
             detectTargets.Add(enemy);
             playerAnimator.SetBool("EnemyDetected", true);
+
+            if(detectTargets.Count == 1)
+            {
+                if(isAttackVoiceReady)
+                {
+                    Global.Sound.PlayRandom(eSound.Effect, 1, "SFX/Voice/fight1", "SFX/Voice/fight2", "SFX/Voice/fight3", "SFX/Voice/fight4", "SFX/Voice/fight5");
+                    isAttackVoiceReady = false;
+                }
+            }
         }
     }
 
