@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour
         playerAbility = GetComponent<PlayerAbility>();
         playerStat = GetComponent<PlayerStat>();
         playerHealth = GetComponent<HealthSystem>();
-        playerAnimator.SetFloat("AttackSpeedMultiplier", playerStat.playerAttackSpeed);
     }
 
     private void Start()
@@ -136,6 +135,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void SetAttackSpeedMultiplier(float attackSpeed)
+    {
+        playerAnimator.SetFloat("AttackSpeedMultiplier", attackSpeed);
+    }
+
     private void Attack()
     {
         if (detectTargets.Count > 0)
@@ -172,8 +176,11 @@ public class PlayerController : MonoBehaviour
                 effect.transform.localPosition = Vector3.zero;
                 effect.transform.localScale = Vector3.one;
                 playerAbility.AddPoint(1);
+
+                Global.Sound.Play("SFX/Battle/b_enemy_hit");
             });
             arrow.SetArrowDamage(playerStat.playerDamage);
+            Global.Sound.Play("SFX/Battle/b_char_arrowshot");
         }
     }
 
@@ -265,6 +272,11 @@ public class PlayerController : MonoBehaviour
     public List<EnemyBase> GetDetectEnemies()
     {
         return detectTargets;
+    }
+
+    public Vector2Int GetDetectDirection()
+    {
+        return detectDir;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

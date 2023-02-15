@@ -15,12 +15,14 @@ MonoBehaviour:
   statType: 0
   statUpgradeInfos:
   - upgradeValue: 100
-    needCost: 0
+    needCost: 15
   - upgradeValue: 120
-    needCost: 15
+    needCost: 20
   - upgradeValue: 140
-    needCost: 15
+    needCost: 25
   - upgradeValue: 175
-    needCost: 15
+    needCost: 30
   - upgradeValue: 200
-    needCost: 15
+    needCost: 35
+  - upgradeValue: 225
+    needCost: 99

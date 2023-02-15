@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
 public class PlayerAbility : MonoBehaviour
@@ -12,6 +13,7 @@ public class PlayerAbility : MonoBehaviour
     [SerializeField] GameObject abilityIcon;
     [SerializeField] SpriteRenderer abilityIconEffect;
     [SerializeField] SkillUsePanel skillUsePanel;
+    [SerializeField] Image abilitySlash;
 
     [SerializeField]
     private int skillLevel = 1;
@@ -52,7 +54,10 @@ public class PlayerAbility : MonoBehaviour
 
     private void UseSkill()
     {
-        skillUsePanel.UseSkill();
+        Vector2Int detectDir = GameManager.Player.GetDetectDirection();
+        bool isLeftDir = detectDir.x == -1 && detectDir.y == 0;
+        skillUsePanel.UseSkill(!isLeftDir);
+
         List<EnemyBase> detectEnemies = GameManager.Player.GetDetectEnemies();
         int repeatCount = Mathf.Min(detectEnemies.Count, 5);
 
@@ -108,10 +113,15 @@ public class PlayerAbility : MonoBehaviour
         {
             abilityIcon.SetActive(true);
             AbilityEffectAnimation();
+
+            abilitySlash.DOFade(1, 1f);
         }
         else
         {
             abilityIcon.SetActive(false);
+
+            abilitySlash.DOKill();
+            abilitySlash.DOFade(0, 0.25f);
         }
     }
 }

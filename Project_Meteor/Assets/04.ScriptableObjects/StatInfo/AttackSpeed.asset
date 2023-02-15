@@ -19,8 +19,8 @@ MonoBehaviour:
   - upgradeValue: 2
     needCost: 15
   - upgradeValue: 2.5
-    needCost: 15
+    needCost: 25
   - upgradeValue: 3
-    needCost: 15
+    needCost: 35
   - upgradeValue: 3.5
-    needCost: 15
+    needCost: 45

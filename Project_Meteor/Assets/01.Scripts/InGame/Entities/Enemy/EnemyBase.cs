@@ -60,8 +60,12 @@ public abstract class EnemyBase : MonoBehaviour
     {
         coll.enabled = true;
         enemyAnimator.transform.localScale = Vector3.one;
-        shadowSprite.color = Color.white;
-        enemySpriteRenderer.color = Color.white;
+        shadowSprite.color = new Color(1, 1, 1, 0);
+        shadowSprite.DOFade(1, 0.5f);
+
+        enemySpriteRenderer.color = new Color(0, 0, 0, 0);
+        enemySpriteRenderer.DOFade(1, 0.5f);
+        enemySpriteRenderer.DOColor(Color.white, 0.25f).SetDelay(0.1f);
         currentArmor = initArmor;
 
         Vector3 targetPinPos = GameManager.MapData.Position2D[wayPoint.enemyWayPoints[0].enemyWayPoint.y, wayPoint.enemyWayPoints[0].enemyWayPoint.x].position;

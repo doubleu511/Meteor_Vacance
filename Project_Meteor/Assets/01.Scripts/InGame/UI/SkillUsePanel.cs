@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class SkillUsePanel : MonoBehaviour
 {
+    [SerializeField] RectTransform rectTransform;
     private Animator skillAnimator;
+
     [SerializeField] Image charaImg;
 
     private void Awake()
@@ -13,8 +15,12 @@ public class SkillUsePanel : MonoBehaviour
         skillAnimator = GetComponent<Animator>();
     }
 
-    public void UseSkill()
+    public void UseSkill(bool isLeft)
     {
+        Vector3 offset = rectTransform.anchoredPosition;
+        offset.x = isLeft ? 0 : 1245;
+        rectTransform.anchoredPosition = offset;
+
         skillAnimator.SetTrigger("Appear");
         Global.Sound.Play("SFX/Battle/b_char_atkboost");
         Global.Sound.PlayRandom(eSound.Effect, 1, "SFX/Voice/fight1", "SFX/Voice/fight2", "SFX/Voice/fight3", "SFX/Voice/fight4");

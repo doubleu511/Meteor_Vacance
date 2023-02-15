@@ -31,7 +31,8 @@ public class PlayerStat : MonoBehaviour
         for (int i = 0; i < statTreeUIs.Length; i++)
         {
             statTreeUIDic[statTreeUIs[i].statType] = statTreeUIs[i];
-            statTreeUIs[i].SetSkillTreeCost(statTreeDic[statTreeUIs[i].statType].statUpgradeInfos[1].needCost);
+            statTreeUIs[i].SetSkillTreeCost(statTreeDic[statTreeUIs[i].statType].statUpgradeInfos[0].needCost);
+            statTreeUIs[i].SetBottomLine(1);
         }
 
         playerDamage = statTreeDic[StatType.ATTACK].statUpgradeInfos[0].upgradeValue;
@@ -39,15 +40,19 @@ public class PlayerStat : MonoBehaviour
 
         playerAttackSpeed = statTreeDic[StatType.ATTACK_SPEED].statUpgradeInfos[0].upgradeValue;
         InGameUI.UI.Stat.SetAttackSpeedValue(playerAttackSpeed);
+        GameManager.Player.SetAttackSpeedMultiplier(playerAttackSpeed);
 
         statTreeUIDic[StatType.ATTACK].btnClickAction += () =>
         {
             TryStatUpgrade(StatType.ATTACK, ref playerDamage);
+            InGameUI.UI.Stat.SetAttackValue((int)playerDamage);
         };
 
         statTreeUIDic[StatType.ATTACK_SPEED].btnClickAction += () =>
         {
             TryStatUpgrade(StatType.ATTACK_SPEED, ref playerAttackSpeed);
+            InGameUI.UI.Stat.SetAttackSpeedValue(playerAttackSpeed);
+            GameManager.Player.SetAttackSpeedMultiplier(playerAttackSpeed);
         };
 
         statTreeUIDic[StatType.HEAL].btnClickAction += () =>
@@ -73,7 +78,8 @@ public class PlayerStat : MonoBehaviour
         {
             if(TryStatUpgrade(StatType.ATTACK_SPEED, ref playerAttackSpeed))
             {
-                InGameUI.UI.Stat.SetAttackSpeedValue((int)playerAttackSpeed);
+                InGameUI.UI.Stat.SetAttackSpeedValue(playerAttackSpeed);
+                GameManager.Player.SetAttackSpeedMultiplier(playerAttackSpeed);
             }
         }
 
@@ -93,11 +99,16 @@ public class PlayerStat : MonoBehaviour
 
     private bool TryStatUpgrade(StatType statType)
     {
+        if (statTreeDic[statType].statUpgradeInfos.Length <= statLevelDic[statType])
+        {
+            return false;
+        }
+
         if (IsEnoughCost(statType))
         {
-            statLevelDic[statType] += 1;
             statTreeUIDic[statType].SetSkillTreeCost(statTreeDic[statType].statUpgradeInfos[statLevelDic[statType]].needCost);
-
+            statLevelDic[statType] += 1;
+            statTreeUIDic[statType].SetBottomLine(statLevelDic[statType]);
             return true;
         }
 
@@ -106,12 +117,17 @@ public class PlayerStat : MonoBehaviour
 
     private bool TryStatUpgrade(StatType statType, ref float targetChangeValue)
     {
-        if(IsEnoughCost(statType))
+        if (statTreeDic[statType].statUpgradeInfos.Length <= statLevelDic[statType])
         {
-            statLevelDic[statType] += 1;
-            targetChangeValue = statTreeDic[statType].statUpgradeInfos[statLevelDic[statType] - 1].upgradeValue;
-            statTreeUIDic[statType].SetSkillTreeCost(statTreeDic[statType].statUpgradeInfos[statLevelDic[statType]].needCost);
+            return false;
+        }
 
+        if (IsEnoughCost(statType))
+        {
+            targetChangeValue = statTreeDic[statType].statUpgradeInfos[statLevelDic[statType]].upgradeValue;
+            statTreeUIDic[statType].SetSkillTreeCost(statTreeDic[statType].statUpgradeInfos[statLevelDic[statType]].needCost);
+            statLevelDic[statType] += 1;
+            statTreeUIDic[statType].SetBottomLine(statLevelDic[statType]);
             return true;
         }
 
@@ -121,7 +137,7 @@ public class PlayerStat : MonoBehaviour
     private bool IsEnoughCost(StatType statType)
     {
         int currentCost = GameManager.Game.currentCost;
-        int needCost = statTreeDic[statType].statUpgradeInfos[statLevelDic[statType]].needCost;
+        int needCost = statTreeDic[statType].statUpgradeInfos[statLevelDic[statType] - 1].needCost;
 
         if (needCost <= currentCost)
         {

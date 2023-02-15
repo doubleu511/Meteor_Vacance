@@ -1722,6 +1722,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statType: 0
   skillTreeDisabledPanel: {fileID: 639547215}
+  bottomLine: {fileID: 1996314809}
   skillTreeCostText: {fileID: 581484317}
 --- !u!222 &216573342
 CanvasRenderer:
@@ -3211,7 +3212,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &521386757
 GameObject:
@@ -3484,6 +3485,7 @@ MonoBehaviour:
   abilityIcon: {fileID: 1086045143}
   abilityIconEffect: {fileID: 1020650526}
   skillUsePanel: {fileID: 1489431018}
+  abilitySlash: {fileID: 794280708}
   skillLevel: 1
   abilityPointAmountMax: 2
 --- !u!1 &537115870
@@ -5606,18 +5608,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794280706}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1875731687}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -356.80002, y: 11.200012}
-  m_SizeDelta: {x: -804.8, y: -69.5}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 47, y: 11.2}
+  m_SizeDelta: {x: 130, y: 130}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &794280708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5631,7 +5633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 495f15816641c6b469a62f102d0f49a9, type: 2}
-  m_Color: {r: 0.9843138, g: 0.59607846, b: 0, a: 1}
+  m_Color: {r: 0.9843138, g: 0.59607846, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14333,6 +14335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statType: 1
   skillTreeDisabledPanel: {fileID: 2091266172}
+  bottomLine: {fileID: 299378524}
   skillTreeCostText: {fileID: 464006462}
 --- !u!1 &1303132103
 GameObject:
@@ -15834,6 +15837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61fec4808c65dad4a80c37b2cc1802d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rectTransform: {fileID: 1333763143}
   charaImg: {fileID: 1762227832}
 --- !u!1 &1510738005
 GameObject:
@@ -16374,7 +16378,7 @@ RectTransform:
   - {fileID: 1543129341}
   - {fileID: 1333763143}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -17499,6 +17503,63 @@ Transform:
   m_Father: {fileID: 971288926}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 22.7, y: 0, z: 0}
+--- !u!1001 &1788489633
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7943200723244818352, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
+      propertyPath: m_Name
+      value: Bug01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943200723244818354, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943200723244818354, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.892
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943200723244818354, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.543
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943200723244818354, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943200723244818354, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943200723244818354, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943200723244818354, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943200723244818354, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943200723244818354, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943200723244818354, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943200723244818354, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
 --- !u!1 &1796218851
 GameObject:
   m_ObjectHideFlags: 0
@@ -19203,6 +19264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statType: 3
   skillTreeDisabledPanel: {fileID: 2109992238}
+  bottomLine: {fileID: 1353293523}
   skillTreeCostText: {fileID: 546222792}
 --- !u!1 &1973721124
 GameObject:
@@ -19519,7 +19581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607845, g: 0.17254902, b: 0.20000002, a: 1}
+  m_Color: {r: 0.86274517, g: 0.8980393, b: 0.21568629, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
