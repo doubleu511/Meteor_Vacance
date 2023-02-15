@@ -49,10 +49,10 @@ public class PlayerController : MonoBehaviour
 
         directRot = playerDirectArrow.transform.localRotation;
 
-        InGameUI.Info.SetPlayerHeathText((int)playerHealth.GetHealthAmount());
+        InGameUI.UI.Info.SetPlayerHeathText((int)playerHealth.GetHealthAmount());
         playerHealth.OnDamaged += () =>
         {
-            InGameUI.Info.SetPlayerHeathText((int)playerHealth.GetHealthAmount());
+            InGameUI.UI.Info.SetPlayerHeathText((int)playerHealth.GetHealthAmount());
         };
 
         Global.Pool.CreatePool<Arrow>(playerArrowPrefab.gameObject, arrowStartPos, 5);
@@ -67,7 +67,6 @@ public class PlayerController : MonoBehaviour
     {
         if (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Meteor_Appear"))
         {
-            print(playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime);
             if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
             {
                 playerAnimator.SetBool("Appear", false);
@@ -133,7 +132,7 @@ public class PlayerController : MonoBehaviour
         if (!disappear)
         {
             enemyKillCount++;
-            InGameUI.Info.SetEnemyKilledText(enemyKillCount);
+            InGameUI.UI.Info.SetEnemyKilledText(enemyKillCount);
         }
     }
 
@@ -162,17 +161,20 @@ public class PlayerController : MonoBehaviour
 
     public void ArrowAttack()
     {
-        Arrow arrow = Global.Pool.GetItem<Arrow>();
-        arrow.Init(arrowStartPos.position, targetEnemy, animationLookDir, (enemy) =>
+        if (targetEnemy != null)
         {
-            DefaultArrowEffect effect = Global.Pool.GetItem<DefaultArrowEffect>();
+            Arrow arrow = Global.Pool.GetItem<Arrow>();
+            arrow.Init(arrowStartPos.position, targetEnemy, animationLookDir, (enemy) =>
+            {
+                DefaultArrowEffect effect = Global.Pool.GetItem<DefaultArrowEffect>();
 
-            effect.transform.SetParent(enemy.GetHitTransform());
-            effect.transform.localPosition = Vector3.zero;
-            effect.transform.localScale = Vector3.one;
-            playerAbility.AddPoint(1);
-        });
-        arrow.SetArrowDamage(playerStat.playerDamage);
+                effect.transform.SetParent(enemy.GetHitTransform());
+                effect.transform.localPosition = Vector3.zero;
+                effect.transform.localScale = Vector3.one;
+                playerAbility.AddPoint(1);
+            });
+            arrow.SetArrowDamage(playerStat.playerDamage);
+        }
     }
 
     public void SpecialArrowAttack(EnemyBase target, float damageScale, float debuffAmount)
@@ -229,7 +231,7 @@ public class PlayerController : MonoBehaviour
     private Coroutine damageTakeCoroutine = null;
     public void TakeDamage()
     {
-        InGameUI.Info.ShowRedBlur();
+        InGameUI.UI.Info.ShowRedBlur();
         playerHealth.TakeDamage(1);
         Global.Sound.Play("SFX/Battle/b_ui_alarmenter");
 

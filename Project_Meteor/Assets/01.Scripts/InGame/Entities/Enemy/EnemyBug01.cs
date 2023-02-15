@@ -11,10 +11,10 @@ public class EnemyBug01 : EnemyBase
         Global.Pool.CreatePool<EnemyBug01>(enemyPrefab.gameObject, GameManager.Wave.transform, 5);
     }
 
-    public override EnemyBase PoolInit(Vector2Int[] wayPoints)
+    public override EnemyBase PoolInit(WaveTime waveTime)
     {
         EnemyBug01 enemy = Global.Pool.GetItem<EnemyBug01>();
-        enemy.Init(wayPoints);
+        enemy.Init(waveTime.wayPointSO, waveTime.wayPointOffset);
 
         return enemy;
     }

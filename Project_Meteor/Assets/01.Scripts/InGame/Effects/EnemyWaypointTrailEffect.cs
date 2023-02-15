@@ -8,7 +8,7 @@ public class EnemyWaypointTrailEffect : MonoBehaviour
     private TrailRenderer[] trailRenderers;
     private ParticleSystem particle;
 
-    private Vector2Int[] savedWaypoints;
+    private WaypointSO.EnemyWayPoint[] savedWaypoints;
     private int currentPlayIndex = 0;
     private bool isPlaying = false;
 
@@ -20,12 +20,12 @@ public class EnemyWaypointTrailEffect : MonoBehaviour
         particle = GetComponent<ParticleSystem>();
     }
 
-    public void Init(Vector2Int[] wayPoints)
+    public void Init(WaypointSO.EnemyWayPoint[] wayPoints)
     {
         gameObject.SetActive(true);
 
         savedWaypoints = wayPoints;
-        Vector3 targetPinPos = GameManager.MapData.Position3D[savedWaypoints[currentPlayIndex].y, savedWaypoints[currentPlayIndex].x].position;
+        Vector3 targetPinPos = GameManager.MapData.Position3D[savedWaypoints[currentPlayIndex].enemyWayPoint.y, savedWaypoints[currentPlayIndex].enemyWayPoint.x].position;
         transform.position = targetPinPos;
 
         foreach (TrailRenderer trail in trailRenderers)
@@ -43,7 +43,7 @@ public class EnemyWaypointTrailEffect : MonoBehaviour
         {
             if (savedWaypoints.Length > currentPlayIndex)
             {
-                Vector3 targetPinPos = GameManager.MapData.Position3D[savedWaypoints[currentPlayIndex].y, savedWaypoints[currentPlayIndex].x].position;
+                Vector3 targetPinPos = GameManager.MapData.Position3D[savedWaypoints[currentPlayIndex].enemyWayPoint.y, savedWaypoints[currentPlayIndex].enemyWayPoint.x].position;
                 Vector3 dir = targetPinPos - transform.position;
 
                 if (dir.sqrMagnitude >= 0.01f)

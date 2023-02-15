@@ -54,9 +54,9 @@ public abstract class EnemyBase : MonoBehaviour
     }
 
     public abstract void CreatePool(EnemyBase enemyPrefab);
-    public abstract EnemyBase PoolInit(Vector2Int[] wayPoints);
+    public abstract EnemyBase PoolInit(WaveTime waveTime);
 
-    public virtual void Init(Vector2Int[] wayPoints)
+    public virtual void Init(WaypointSO wayPoint, Vector2 wayPointOffset)
     {
         coll.enabled = true;
         enemyAnimator.transform.localScale = Vector3.one;
@@ -64,25 +64,30 @@ public abstract class EnemyBase : MonoBehaviour
         enemySpriteRenderer.color = Color.white;
         currentArmor = initArmor;
 
-        Vector3 targetPinPos = GameManager.MapData.Position2D[wayPoints[0].y, wayPoints[0].x].position;
+        Vector3 targetPinPos = GameManager.MapData.Position2D[wayPoint.enemyWayPoints[0].enemyWayPoint.y, wayPoint.enemyWayPoints[0].enemyWayPoint.x].position;
+        targetPinPos.x += wayPointOffset.x;
+        targetPinPos.y += wayPointOffset.y;
         transform.position = targetPinPos;
 
-        moveCoroutine = StartCoroutine(MoveCoroutine(wayPoints));
+        moveCoroutine = StartCoroutine(MoveCoroutine(wayPoint, wayPointOffset));
     }
 
-    private IEnumerator MoveCoroutine(Vector2Int[] wayPoints)
+    private IEnumerator MoveCoroutine(WaypointSO wayPoint, Vector2 wayPointOffset)
     {
         int currentPlayIndex = 0;
 
         while (true)
         {
-            if (wayPoints.Length <= currentPlayIndex) break;
+            if (wayPoint.enemyWayPoints.Length <= currentPlayIndex) break;
 
-            Vector3 targetPinPos = GameManager.MapData.Position2D[wayPoints[currentPlayIndex].y, wayPoints[currentPlayIndex].x].position;
+            Vector3 targetPinPos = GameManager.MapData.Position2D[wayPoint.enemyWayPoints[currentPlayIndex].enemyWayPoint.y, wayPoint.enemyWayPoints[currentPlayIndex].enemyWayPoint.x].position;
+            targetPinPos.x += wayPointOffset.x;
+            targetPinPos.y += wayPointOffset.y;
             Vector3 dir = targetPinPos - transform.position;
 
             if (dir.sqrMagnitude < 0.01f)
             {
+                yield return new WaitForSeconds(wayPoint.enemyWayPoints[currentPlayIndex].waitTime);
                 currentPlayIndex++;
                 continue;
             }
@@ -103,7 +108,7 @@ public abstract class EnemyBase : MonoBehaviour
             yield return null;
         }
 
-        Vector3 playerDir = GameManager.Player.transform.position - transform.position;
+        Vector3 playerDir = GameManager.Player.transform.position - transform.position + (Vector3)wayPointOffset;
         if (playerDir.sqrMagnitude <= 0.4f)
         {
             // 플레이어에게 도착

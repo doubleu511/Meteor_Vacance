@@ -38,7 +38,7 @@ public class PlayerAbility : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             if(IsFullPoint())
             {

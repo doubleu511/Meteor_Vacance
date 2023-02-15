@@ -10,11 +10,6 @@ public class InfoUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI playerHealthText;
     [SerializeField] CanvasGroup redBlur;
 
-    private void Awake()
-    {
-        InGameUI.Info = this;
-    }
-
     public void ShowRedBlur()
     {
         redBlur.DOKill();

@@ -25,6 +25,11 @@ public class GameManager : MonoBehaviour
     private const float CostRefillTime = 1;
     private float costTimer = 0.0f;
 
+    private void Start()
+    {
+        InGameUI.UI.Cost.SetCost(currentCost);
+    }
+
     private void Update()
     {
         if (currentCost < 99)
@@ -35,6 +40,7 @@ public class GameManager : MonoBehaviour
             {
                 costTimer -= CostRefillTime;
                 currentCost = Mathf.Clamp(currentCost + 1, 0, 99);
+                InGameUI.UI.Cost.SetCost(currentCost);
             }
         }
         else
@@ -42,6 +48,12 @@ public class GameManager : MonoBehaviour
             costTimer = 0;
         }
 
-        InGameUI.Cost.SetCostValue(currentCost, costTimer / CostRefillTime);
+        InGameUI.UI.Cost.SetCostValue(costTimer / CostRefillTime);
+    }
+
+    public void RemoveCost(int costValue)
+    {
+        currentCost = Mathf.Clamp(currentCost - costValue, 0, 99);
+        InGameUI.UI.Cost.SetCost(currentCost);
     }
 }

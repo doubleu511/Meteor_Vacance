@@ -7,7 +7,8 @@ public class WaveTime
 {
     public EnemyType enemyType = EnemyType.BUG01;
     public float enemySpawnTime = 0f;
-    public Vector2Int[] enemyWayPoints;
+    public WaypointSO wayPointSO;
+    public Vector2 wayPointOffset;
 }
 
 public class WaveManager : MonoBehaviour
@@ -45,18 +46,18 @@ public class WaveManager : MonoBehaviour
 
                 if (waveTimes[waveTimeIndex].enemySpawnTime <= waveTimer)
                 {
-                    StartCoroutine(SpawnDelayCo(waveTimes[waveTimeIndex].enemyWayPoints, enemyDic[waveTimes[waveTimeIndex].enemyType]));
+                    StartCoroutine(SpawnDelayCo(waveTimes[waveTimeIndex], enemyDic[waveTimes[waveTimeIndex].enemyType]));
                     waveTimeIndex++;
                 }
             }
         }
     }
 
-    private IEnumerator SpawnDelayCo(Vector2Int[] wayPoints, EnemyBase prefab)
+    private IEnumerator SpawnDelayCo(WaveTime waveTime, EnemyBase prefab)
     {
         EnemyWaypointTrailEffect trailEffect = Global.Pool.GetItem<EnemyWaypointTrailEffect>();
-        trailEffect.Init(wayPoints);
+        trailEffect.Init(waveTime.wayPointSO.enemyWayPoints);
         yield return new WaitForSeconds(3);
-        prefab.PoolInit(wayPoints);
+        prefab.PoolInit(waveTime);
     }
 }
