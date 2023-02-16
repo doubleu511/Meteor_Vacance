@@ -38,6 +38,20 @@ public class PlayerAbility : MonoBehaviour
         { 4 , 0.40f },
     };
 
+    private Dictionary<int, int> abilityMaxDic = new Dictionary<int, int>()
+    {
+        { 1 , 20 },
+        { 2 , 19 },
+        { 3 , 18 },
+        { 4 , 15 },
+    };
+
+    private void Start()
+    {
+        Debug.LogFormat("{0}", 1.4f * 100);
+        InGameUI.UI.Ability.SetAbilityUI(skillLevel, damageScaleDic[skillLevel] * 100, debuffAmountDic[skillLevel] * 100, false);
+    }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
@@ -89,13 +103,27 @@ public class PlayerAbility : MonoBehaviour
         return (float)curAbilityPoint / abilityPointAmountMax;
     }
 
-    public void SetPointAmountMax(int pointAmountMax, bool updatePointAmount)
+    private void SetPointAmountMax(int pointAmountMax, bool updatePointAmount)
     {
         abilityPointAmountMax = pointAmountMax;
         if (updatePointAmount)
         {
             curAbilityPoint = pointAmountMax;
         }
+    }
+
+    public void AddAbilityLevel()
+    {
+        SetAbilityLevel(skillLevel + 1);
+    }
+
+    private void SetAbilityLevel(int level)
+    {
+        skillLevel = level;
+        SetPointAmountMax(abilityMaxDic[level], false);
+        SetPoint(curAbilityPoint);
+
+        InGameUI.UI.Ability.SetAbilityUI(skillLevel, damageScaleDic[skillLevel] * 100, debuffAmountDic[skillLevel] * 100, true);
     }
 
     public void AddPoint(int pointAmount)
@@ -109,7 +137,7 @@ public class PlayerAbility : MonoBehaviour
         curAbilityPoint = Mathf.Clamp(curAbilityPoint, 0, abilityPointAmountMax);
         OnChanged?.Invoke();
 
-        if(curAbilityPoint == abilityPointAmountMax)
+        if(IsFullPoint())
         {
             abilityIcon.SetActive(true);
             AbilityEffectAnimation();

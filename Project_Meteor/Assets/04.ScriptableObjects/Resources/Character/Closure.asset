@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b7c96b082111754abf4feb0dc88f9b4, type: 3}
+  m_Name: Closure
+  m_EditorClassIdentifier: 
+  characterUID: 4
+  characterName: "\uD074\uB85C\uC800"
+  characterSprites:
+  - spriteName: idle
+    sprite: {fileID: 21300000, guid: f8c1969f45e305f489c192940124c54a, type: 3}
+  - spriteName: happy
+    sprite: {fileID: 21300000, guid: cfafc9c96447e734ab5f5eaa2af00177, type: 3}
+  - spriteName: acjil
+    sprite: {fileID: 21300000, guid: 3e283da4ee8d7fc4789fc237d974a309, type: 3}
+  - spriteName: cat
+    sprite: {fileID: 21300000, guid: e70141b015400804386da695ec96d05f, type: 3}

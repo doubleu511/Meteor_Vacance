@@ -71,7 +71,7 @@ public static class UtilClass
     {
         // ContentSizeFitter를 강제 새로고침한다.
         ContentSizeFitter[] csfs = transform.GetComponentsInChildren<ContentSizeFitter>();
-        for (int i = 0; i < csfs.Length; i++)
+        for (int i = csfs.Length - 1; i >= 0; i--)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)csfs[i].transform);
         }

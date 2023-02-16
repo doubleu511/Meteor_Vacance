@@ -22,4 +22,10 @@ public class StatTreeSO : ScriptableObject
 
     public StatType statType;
     public StatUpgradeInfo[] statUpgradeInfos;
+
+    [Header("Hover")]
+    public Sprite iconSpr;
+    public string statTreeName;
+    public string statTreeLore;
+    public bool isDontNeedUpgradeValue;
 }

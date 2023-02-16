@@ -18,9 +18,15 @@ public class HealthSystem : MonoBehaviour
         curHealthAmount = healthAmountMax;
     }
 
-    public void Damage(float damageAmount)
+    private void Damage(float damageAmount)
     {
         curHealthAmount -= damageAmount;
+        curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
+    }
+
+    private void Heal(float damageAmount)
+    {
+        curHealthAmount += damageAmount;
         curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
     }
 
@@ -63,6 +69,12 @@ public class HealthSystem : MonoBehaviour
 
             OnDied?.Invoke();
         }
+    }
+
+    public void HealHealth(float healAmount)
+    {
+        Heal(healAmount);
+        OnDamaged?.Invoke();
     }
 
     public void Disappear()

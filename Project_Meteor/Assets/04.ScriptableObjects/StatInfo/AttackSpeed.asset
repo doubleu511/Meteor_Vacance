@@ -15,12 +15,17 @@ MonoBehaviour:
   statType: 1
   statUpgradeInfos:
   - upgradeValue: 1.5
-    needCost: 0
-  - upgradeValue: 2
     needCost: 15
-  - upgradeValue: 2.5
+  - upgradeValue: 2
     needCost: 25
-  - upgradeValue: 3
+  - upgradeValue: 2.5
     needCost: 35
+  - upgradeValue: 3
+    needCost: 40
   - upgradeValue: 3.5
     needCost: 45
+  - upgradeValue: 4
+    needCost: 99
+  iconSpr: {fileID: 21300000, guid: cf878cb16d2b3c64cb5fba56431fc445, type: 3}
+  statTreeName: "\uACF5\uACA9 \uC18D\uB3C4 \uC99D\uAC00"
+  statTreeLore: "\uACF5\uACA9 \uC18D\uB3C4\uAC00 \uC99D\uAC00\uD569\uB2C8\uB2E4."

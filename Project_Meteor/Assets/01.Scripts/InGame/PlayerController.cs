@@ -250,6 +250,12 @@ public class PlayerController : MonoBehaviour
         damageTakeCoroutine = StartCoroutine(TakeDamageCo());
     }
 
+    public void HealHealth()
+    {
+        playerHealth.HealHealth(1);
+        Global.Sound.Play("SFX/Battle/b_char_healboost");
+    }
+
     private IEnumerator TakeDamageCo()
     {
         playerHitAnimator.gameObject.SetActive(true);
@@ -277,6 +283,11 @@ public class PlayerController : MonoBehaviour
     public Vector2Int GetDetectDirection()
     {
         return detectDir;
+    }
+
+    public bool GetIsFullHealth()
+    {
+        return playerHealth.IsFullHealth();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -9,6 +9,8 @@ public class InGameUI : MonoBehaviour
     public InfoUI Info;
     public CostUI Cost;
     public StatUI Stat;
+    public AbilityUI Ability;
+    public StatHoverUI StatHover;
 
     private void Awake()
     {

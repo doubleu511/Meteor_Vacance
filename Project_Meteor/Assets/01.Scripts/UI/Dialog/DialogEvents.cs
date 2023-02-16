@@ -118,7 +118,10 @@ public class DialogEvents : MonoBehaviour
                 int affectResult = affectResults[i];
                 selectButton.Init(choices[i], () =>
                 {
-                    dialogPanel.StartDialog(dialogPanel.dialogDic[affectResult]);
+                    if (affectResult != -1)
+                    {
+                        dialogPanel.StartDialog(dialogPanel.dialogDic[affectResult]);
+                    }
                     Global.UI.UIFade(choicePanelTrm, false);
                     dialogPanel.isClicked = true;
                     DialogPanel.eventWaitFlag = false;

@@ -21,6 +21,13 @@ public class PlayerStat : MonoBehaviour
         {StatType.HEAL, 1},
     };
 
+    private PlayerAbility ability;
+
+    private void Awake()
+    {
+        ability = GetComponent<PlayerAbility>();
+    }
+
     private void Start()
     {
         for (int i = 0; i < statTrees.Length; i++)
@@ -33,6 +40,34 @@ public class PlayerStat : MonoBehaviour
             statTreeUIDic[statTreeUIs[i].statType] = statTreeUIs[i];
             statTreeUIs[i].SetSkillTreeCost(statTreeDic[statTreeUIs[i].statType].statUpgradeInfos[0].needCost);
             statTreeUIs[i].SetBottomLine(1);
+
+            StatTreeSO statTree = statTreeDic[statTreeUIs[i].statType];
+            statTreeUIs[i].btnEnterAction += () =>
+            {
+                if (statTree.isDontNeedUpgradeValue)
+                {
+                    InGameUI.UI.StatHover.SetHoverUIWithoutUpgrade(
+                        statTree.iconSpr,
+                        statTree.statTreeName,
+                        statTree.statTreeLore
+                        );
+                }
+                else
+                {
+                    string afterStr = statTree.statUpgradeInfos.Length <= statLevelDic[statTree.statType]
+                    ? "MAX"
+                    : statTree.statUpgradeInfos[statLevelDic[statTree.statType]].upgradeValue.ToString();
+
+                    InGameUI.UI.StatHover.SetHoverUI(
+                        statTree.iconSpr,
+                        statLevelDic[statTree.statType],
+                        statTree.statTreeName,
+                        statTree.statTreeLore,
+                        statTree.statUpgradeInfos[statLevelDic[statTree.statType] - 1].upgradeValue.ToString(),
+                        afterStr
+                        );
+                }
+            };
         }
 
         playerDamage = statTreeDic[StatType.ATTACK].statUpgradeInfos[0].upgradeValue;
@@ -55,11 +90,17 @@ public class PlayerStat : MonoBehaviour
             GameManager.Player.SetAttackSpeedMultiplier(playerAttackSpeed);
         };
 
+        statTreeUIDic[StatType.SKILL_LEVEL].btnClickAction += () =>
+        {
+            TryStatUpgrade(StatType.SKILL_LEVEL);
+            ability.AddAbilityLevel();
+        };
+
         statTreeUIDic[StatType.HEAL].btnClickAction += () =>
         {
             if (TryStatUpgrade(StatType.HEAL))
             {
-                // »˙«ÿ¡÷±‚
+                GameManager.Player.HealHealth();
             }
         };
     }
@@ -85,14 +126,17 @@ public class PlayerStat : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E))
         {
-
+            if (TryStatUpgrade(StatType.SKILL_LEVEL))
+            {
+                ability.AddAbilityLevel();
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.R))
         {
             if(TryStatUpgrade(StatType.HEAL))
             {
-                // »˙«ÿ¡÷±‚
+                GameManager.Player.HealHealth();
             }
         }
     }
@@ -109,6 +153,7 @@ public class PlayerStat : MonoBehaviour
             statTreeUIDic[statType].SetSkillTreeCost(statTreeDic[statType].statUpgradeInfos[statLevelDic[statType]].needCost);
             statLevelDic[statType] += 1;
             statTreeUIDic[statType].SetBottomLine(statLevelDic[statType]);
+            statTreeUIDic[statType].PlayAnimation();
             return true;
         }
 
@@ -128,6 +173,7 @@ public class PlayerStat : MonoBehaviour
             statTreeUIDic[statType].SetSkillTreeCost(statTreeDic[statType].statUpgradeInfos[statLevelDic[statType]].needCost);
             statLevelDic[statType] += 1;
             statTreeUIDic[statType].SetBottomLine(statLevelDic[statType]);
+            statTreeUIDic[statType].PlayAnimation();
             return true;
         }
 

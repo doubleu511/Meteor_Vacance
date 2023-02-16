@@ -7,7 +7,8 @@ public enum eCharacter
     NONE,
     DOCTOR,
     METEOR,
-    KALTSIT
+    KALTSIT,
+    CLOSURE
 }
 
 [CreateAssetMenu(fileName = "Character Scriptable Object", menuName = "ScriptableObjects/Character Scriptable Object")]

@@ -5,19 +5,22 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class SkillTreeUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public StatType statType;
 
-    private Button skillTreeBtn;
-    private int currentCost;
+    protected Button skillTreeBtn;
+    protected int currentCost;
+    private int currentlevel;
 
-    [SerializeField] GameObject skillTreeDisabledPanel;
+    [SerializeField] protected GameObject skillTreeDisabledPanel;
     [SerializeField] Image bottomLine;
     [SerializeField] TextMeshProUGUI skillTreeCostText;
 
     public Action btnClickAction;
+    public Action btnEnterAction;
 
     private static Dictionary<int, Color32> colorDic = new Dictionary<int, Color32>()
     {
@@ -34,17 +37,19 @@ public class SkillTreeUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         skillTreeBtn = GetComponent<Button>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         skillTreeBtn.onClick.AddListener(() =>
         {
             btnClickAction?.Invoke();
+            btnEnterAction?.Invoke();
+            InGameUI.UI.StatHover.PlaySetHoverAnimation(colorDic[currentlevel]);
         });
 
         InGameUI.UI.Cost.onCostSet += CallCostOnSet;
     }
 
-    private void CallCostOnSet(int cost)
+    protected virtual void CallCostOnSet(int cost)
     {
         skillTreeBtn.interactable = cost >= currentCost;
         skillTreeDisabledPanel.SetActive(cost < currentCost);
@@ -66,16 +71,24 @@ public class SkillTreeUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void SetBottomLine(int level)
     {
+        currentlevel = level;
         bottomLine.color = colorDic[level];
+    }
+
+    public void PlayAnimation()
+    {
+        transform.localScale = new Vector3(1.1f, 1.1f, 1);
+        transform.DOScale(1, 0.25f);
+        Global.Sound.Play("SFX/Battle/b_char_addshield");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-
+        btnEnterAction?.Invoke();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-
+        InGameUI.UI.StatHover.ExitHoverUI();
     }
 }
