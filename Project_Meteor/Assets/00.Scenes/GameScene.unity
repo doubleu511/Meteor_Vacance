@@ -6052,7 +6052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 495f15816641c6b469a62f102d0f49a9, type: 2}
-  m_Color: {r: 0.9843138, g: 0.59607846, b: 0, a: 0}
+  m_Color: {r: 0.67058825, g: 0.101960786, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6068,7 +6068,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 2
+  m_PixelsPerUnitMultiplier: 1.35
 --- !u!222 &794280709
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19926,8 +19926,9 @@ GameObject:
   - component: {fileID: 1924011851}
   - component: {fileID: 1924011854}
   - component: {fileID: 1924011852}
+  - component: {fileID: 1924011853}
   m_Layer: 5
-  m_Name: TimerUI
+  m_Name: StopwatchUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19951,7 +19952,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 25}
+  m_AnchoredPosition: {x: -31, y: 24}
   m_SizeDelta: {x: 269.29, y: 46.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1924011852
@@ -19971,8 +19972,8 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
-  m_Spacing: 12
+  m_ChildAlignment: 3
+  m_Spacing: 35.4
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -19980,6 +19981,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1924011853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924011850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2e18ecf81988674ba3e086806d1a2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TotalSeconds: 0
+  m_Text: {fileID: 2087060547}
 --- !u!222 &1924011854
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21292,6 +21307,7 @@ GameObject:
   - component: {fileID: 2087060546}
   - component: {fileID: 2087060548}
   - component: {fileID: 2087060547}
+  - component: {fileID: 2087060549}
   m_Layer: 5
   m_Name: TimerText
   m_TagString: Untagged
@@ -21316,7 +21332,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 66.8, y: 83}
+  m_SizeDelta: {x: 0, y: 83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2087060547
 MonoBehaviour:
@@ -21338,7 +21354,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5:00
+  m_text: 05:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 08bed66aaecc89d488b495231e2e8a6f, type: 2}
   m_sharedMaterial: {fileID: 5454324342284328737, guid: 08bed66aaecc89d488b495231e2e8a6f, type: 2}
@@ -21372,7 +21388,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -21415,6 +21431,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087060545}
   m_CullTransparentMesh: 1
+--- !u!114 &2087060549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087060545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 1
+  m_VerticalFit: 0
 --- !u!1 &2091266172
 GameObject:
   m_ObjectHideFlags: 0
