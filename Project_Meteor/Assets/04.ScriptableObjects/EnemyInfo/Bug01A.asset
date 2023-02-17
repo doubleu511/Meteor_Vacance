@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd19dc8337ae134986d6ce5df732537, type: 3}
+  m_Name: Bug01A
+  m_EditorClassIdentifier: 
+  enemyType: 2
+  enemyName: "\uC6D0\uC11D\uCDA9\xB7\u03B1"
+  enemyLore: "\uC57C\uC0DD\uC758 \uAC10\uC5FC \uC0DD\uBB3C, \uC77C\uBC18 \uC6D0\uC11D\uCDA9\uBCF4\uB2E4
+    \uC704\uD5D8\uB3C4\uAC00 \uB192\uC740 \uC885\uC774\uB2E4. \uC774\uB7F0 \uC800\uC9C0\uB2A5
+    \uC0DD\uBB3C\uC740 \uC801\uC758 \uCE90\uC2A4\uD130\uC5D0\uAC8C \uC870\uC885\uB2F9\uD560
+    \uAC00\uB2A5\uC131\uC774 \uC788\uC73C\uBA70, \uC778\uACF5\uC124\uBE44\uC5D0 \uCE68\uC785\uD558\uC5EC
+    \uBB34\uB9AC\uC9C0\uC5B4 \uACF5\uACA9\uD55C\uB2E4."
+  enemyIcon: {fileID: 21300000, guid: b2b8e57dac06e0e43a39a64d2c3b9fec, type: 3}

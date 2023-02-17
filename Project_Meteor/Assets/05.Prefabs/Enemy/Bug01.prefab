@@ -189,7 +189,7 @@ MonoBehaviour:
   enemyScaler: {fileID: 7943200724605448934}
   enemyAnimator: {fileID: 7943200724182193508}
   shadowSprite: {fileID: 7943200723344517968}
-  moveSpeed: 1
+  moveSpeed: 0.75
   armorBreakEffect: {fileID: 1286666103}
   initArmor: 10
   dieParticle: {fileID: 7943200723297055410}
@@ -361,7 +361,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 6ded5a09107fe8242b03a738ad4b3cd2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d35a64b5bab0ac245850eb32ff6df7c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

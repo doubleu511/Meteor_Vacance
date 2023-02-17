@@ -11,6 +11,7 @@ public class InGameUI : MonoBehaviour
     public StatUI Stat;
     public AbilityUI Ability;
     public StatHoverUI StatHover;
+    public EnemyInfoUI EnemyInfo;
 
     private void Awake()
     {

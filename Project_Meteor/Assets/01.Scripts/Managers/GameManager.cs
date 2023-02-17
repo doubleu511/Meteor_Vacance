@@ -22,12 +22,14 @@ public class GameManager : MonoBehaviour
     }
 
     [HideInInspector] public int currentCost = 0;
-    private const float CostRefillTime = 0.1f;
+    private const float CostRefillTime = 1f;
     private float costTimer = 0.0f;
 
     private void Start()
     {
         InGameUI.UI.Cost.SetCost(currentCost);
+
+        Global.Sound.Play("BGM/Summer Wave", eSound.Bgm);
     }
 
     private void Update()

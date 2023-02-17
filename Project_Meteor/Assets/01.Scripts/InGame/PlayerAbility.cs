@@ -50,6 +50,8 @@ public class PlayerAbility : MonoBehaviour
     {
         Debug.LogFormat("{0}", 1.4f * 100);
         InGameUI.UI.Ability.SetAbilityUI(skillLevel, damageScaleDic[skillLevel] * 100, debuffAmountDic[skillLevel] * 100, false);
+
+        SetPointAmountMax(abilityMaxDic[skillLevel], false);
     }
 
     private void Update()

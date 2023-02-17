@@ -13,4 +13,19 @@ public class WaypointSO : ScriptableObject
     }
 
     public EnemyWayPoint[] enemyWayPoints;
+
+    public Vector2Int GetFlipedPos(Vector2Int wayPoint, bool flipX, bool flipY)
+    {
+        if(flipX)
+        {
+            wayPoint.x = 10 - wayPoint.x; 
+        }
+
+        if(flipY)
+        {
+            wayPoint.y = 4 - wayPoint.y;
+        }
+
+        return wayPoint;
+    }
 }

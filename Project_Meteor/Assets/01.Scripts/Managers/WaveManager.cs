@@ -9,18 +9,24 @@ public class WaveTime
     public float enemySpawnTime = 0f;
     public WaypointSO wayPointSO;
     public Vector2 wayPointOffset;
+    public bool flipX = false;
+    public bool flipY = false;
 }
 
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] EnemyWaypointTrailEffect trailEffectPrefab;
     [SerializeField] EnemyBase[] enemyPrefabs;
-    [SerializeField] List<WaveTime> waveTimes = new List<WaveTime>();
+    [SerializeField] EnemyInfoSO[] enemyInfo;
+    [SerializeField] List<WaveRushSO> waveRushes = new List<WaveRushSO>();
 
     private Dictionary<EnemyType, EnemyBase> enemyDic = new Dictionary<EnemyType, EnemyBase>();
+    private Dictionary<EnemyType, int> enemySpawnCountDic = new Dictionary<EnemyType, int>();
+    private Dictionary<EnemyType, EnemyInfoSO> enemyInfoDic = new Dictionary<EnemyType, EnemyInfoSO>();
 
     private bool isWaveStart = false;
     private float waveTimer = 0f;
+    private int waveRushIndex = 0;
     private int waveTimeIndex = 0;
 
     void Start()
@@ -29,6 +35,12 @@ public class WaveManager : MonoBehaviour
         {
             enemyDic[enemyPrefabs[i].enemyType] = enemyPrefabs[i];
             enemyPrefabs[i].CreatePool(enemyPrefabs[i]);
+            enemySpawnCountDic[enemyPrefabs[i].enemyType] = 0;
+        }
+
+        for (int i = 0; i < enemyInfo.Length; i++)
+        {
+            enemyInfoDic[enemyInfo[i].enemyType] = enemyInfo[i];
         }
 
         Global.Pool.CreatePool<EnemyWaypointTrailEffect>(trailEffectPrefab.gameObject, transform, 10);
@@ -40,24 +52,42 @@ public class WaveManager : MonoBehaviour
     {
         if (isWaveStart)
         {
-            if (waveTimeIndex < waveTimes.Count)
+            if (waveRushIndex < waveRushes.Count)
             {
                 waveTimer += Time.deltaTime;
 
-                if (waveTimes[waveTimeIndex].enemySpawnTime <= waveTimer)
+                if (waveTimeIndex < waveRushes[waveRushIndex].waveTimes.Length)
                 {
-                    StartCoroutine(SpawnDelayCo(waveTimes[waveTimeIndex], enemyDic[waveTimes[waveTimeIndex].enemyType]));
-                    waveTimeIndex++;
+                    if (waveRushes[waveRushIndex].waveTimes[waveTimeIndex].enemySpawnTime <= waveTimer)
+                    {
+                        StartCoroutine(SpawnDelayCo(
+                            waveRushes[waveRushIndex].waveTimes[waveTimeIndex],
+                            waveRushes[waveRushIndex].waveTimes[waveTimeIndex].enemyType,
+                            enemyDic[waveRushes[waveRushIndex].waveTimes[waveTimeIndex].enemyType]));
+                        waveTimeIndex++;
+                    }
+                }
+                else
+                {
+                    waveRushIndex++;
+                    waveTimeIndex = 0;
+                    waveTimer = 0;
                 }
             }
         }
     }
 
-    private IEnumerator SpawnDelayCo(WaveTime waveTime, EnemyBase prefab)
+    private IEnumerator SpawnDelayCo(WaveTime waveTime, EnemyType enemyType, EnemyBase enemyPrefab)
     {
         EnemyWaypointTrailEffect trailEffect = Global.Pool.GetItem<EnemyWaypointTrailEffect>();
-        trailEffect.Init(waveTime.wayPointSO.enemyWayPoints);
+        trailEffect.Init(waveTime);
         yield return new WaitForSeconds(3);
-        prefab.PoolInit(waveTime);
+        enemyPrefab.PoolInit(waveTime);
+
+        if (enemySpawnCountDic[enemyType] == 0)
+        {
+            InGameUI.UI.EnemyInfo.AddInfoQueue(enemyInfoDic[enemyType]);
+        }
+        enemySpawnCountDic[enemyType]++;
     }
 }

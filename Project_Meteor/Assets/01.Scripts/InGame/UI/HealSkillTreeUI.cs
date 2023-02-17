@@ -18,6 +18,6 @@ public class HealSkillTreeUI : SkillTreeUI
 
     private void CallPlayerOnDamaged()
     {
-        CallCostOnSet(currentCost);
+        CallCostOnSet(GameManager.Game.currentCost);
     }
 }

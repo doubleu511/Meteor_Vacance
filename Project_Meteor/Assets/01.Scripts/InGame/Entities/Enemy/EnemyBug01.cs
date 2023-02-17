@@ -14,7 +14,7 @@ public class EnemyBug01 : EnemyBase
     public override EnemyBase PoolInit(WaveTime waveTime)
     {
         EnemyBug01 enemy = Global.Pool.GetItem<EnemyBug01>();
-        enemy.Init(waveTime.wayPointSO, waveTime.wayPointOffset);
+        enemy.Init(waveTime.wayPointSO, waveTime.wayPointOffset, waveTime.flipX, waveTime.flipY);
 
         return enemy;
     }

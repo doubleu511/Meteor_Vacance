@@ -1,4 +1,5 @@
 using DG.Tweening.Core.Easing;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,7 @@ public class EnemyWaypointTrailEffect : MonoBehaviour
     private TrailRenderer[] trailRenderers;
     private ParticleSystem particle;
 
-    private WaypointSO.EnemyWayPoint[] savedWaypoints;
     private int currentPlayIndex = 0;
-    private bool isPlaying = false;
 
     [SerializeField] float moveSpeed = 5f;
 
@@ -20,12 +19,12 @@ public class EnemyWaypointTrailEffect : MonoBehaviour
         particle = GetComponent<ParticleSystem>();
     }
 
-    public void Init(WaypointSO.EnemyWayPoint[] wayPoints)
+    public void Init(WaveTime waveTime)
     {
         gameObject.SetActive(true);
 
-        savedWaypoints = wayPoints;
-        Vector3 targetPinPos = GameManager.MapData.Position3D[savedWaypoints[currentPlayIndex].enemyWayPoint.y, savedWaypoints[currentPlayIndex].enemyWayPoint.x].position;
+        Vector2Int flipPin = waveTime.wayPointSO.GetFlipedPos(waveTime.wayPointSO.enemyWayPoints[currentPlayIndex].enemyWayPoint, waveTime.flipX, waveTime.flipY);
+        Vector3 targetPinPos = GameManager.MapData.Position3D[flipPin.y, flipPin.x].position;
         transform.position = targetPinPos;
 
         foreach (TrailRenderer trail in trailRenderers)
@@ -34,16 +33,17 @@ public class EnemyWaypointTrailEffect : MonoBehaviour
         }
 
         particle.Play();
-        isPlaying = true;
+        StartCoroutine(MoveCoroutine(waveTime.wayPointSO, waveTime.flipX, waveTime.flipY));
     }
 
-    private void Update()
+    private IEnumerator MoveCoroutine(WaypointSO wayPoint, bool flipX, bool flipY)
     {
-        if (isPlaying)
+        while (true)
         {
-            if (savedWaypoints.Length > currentPlayIndex)
+            if (wayPoint.enemyWayPoints.Length > currentPlayIndex)
             {
-                Vector3 targetPinPos = GameManager.MapData.Position3D[savedWaypoints[currentPlayIndex].enemyWayPoint.y, savedWaypoints[currentPlayIndex].enemyWayPoint.x].position;
+                Vector2Int flipPin = wayPoint.GetFlipedPos(wayPoint.enemyWayPoints[currentPlayIndex].enemyWayPoint, flipX, flipY);
+                Vector3 targetPinPos = GameManager.MapData.Position3D[flipPin.y, flipPin.x].position;
                 Vector3 dir = targetPinPos - transform.position;
 
                 if (dir.sqrMagnitude >= 0.01f)
@@ -57,15 +57,17 @@ public class EnemyWaypointTrailEffect : MonoBehaviour
             }
             else
             {
-                isPlaying = false;
                 particle.Stop();
                 Invoke("SetDisable", trailRenderers[0].time);
+                break;
             }
+            yield return null;
         }
     }
 
     private void SetDisable()
     {
+        currentPlayIndex = 0;
         gameObject.SetActive(false);
     }
 }

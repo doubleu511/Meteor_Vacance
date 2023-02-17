@@ -1,37 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public enum eSound
 {
     Bgm,
     Effect,
+    Voice,
     MaxCount,  // 아무것도 아님. 그냥 Sound enum의 개수 세기 위해 추가. (0, 1, '2' 이렇게 2개) 
 }
 
 public class SoundManager
 {
+    private AudioMixer _masterAudioMixer;
     AudioSource[] _audioSources = new AudioSource[(int)eSound.MaxCount];
     Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
 
     public void Init()
     {
-        GameObject root = GameObject.Find("@Sound");
-        if (root == null)
+        GameObject root = GameObject.Find("@Sound") ?? CreateNewSoundManager();
+    }
+
+    private GameObject CreateNewSoundManager()
+    {
+        GameObject root = new GameObject { name = "@Sound" };
+        Object.DontDestroyOnLoad(root);
+
+        string[] soundNames = System.Enum.GetNames(typeof(eSound)); // "Bgm", "Effect"
+
+        for (int i = 0; i < soundNames.Length - 1; i++)
         {
-            root = new GameObject { name = "@Sound" };
-            Object.DontDestroyOnLoad(root);
-
-            string[] soundNames = System.Enum.GetNames(typeof(eSound)); // "Bgm", "Effect"
-            for (int i = 0; i < soundNames.Length - 1; i++)
-            {
-                GameObject go = new GameObject { name = soundNames[i] };
-                _audioSources[i] = go.AddComponent<AudioSource>();
-                go.transform.parent = root.transform;
-            }
-
-            _audioSources[(int)eSound.Bgm].loop = true; // bgm 재생기는 무한 반복 재생
+            GameObject go = new GameObject { name = soundNames[i] };
+            _audioSources[i] = go.AddComponent<AudioSource>();
+            go.transform.parent = root.transform;
         }
+
+        _masterAudioMixer = Global.Resource.Load<AudioMixer>("AudioMixer/Master");
+
+        _audioSources[(int)eSound.Bgm].outputAudioMixerGroup
+            = _masterAudioMixer.FindMatchingGroups("BGM")[0];
+
+        _audioSources[(int)eSound.Effect].outputAudioMixerGroup
+            = _masterAudioMixer.FindMatchingGroups("SFX")[0];
+
+        _audioSources[(int)eSound.Voice].outputAudioMixerGroup
+            = _masterAudioMixer.FindMatchingGroups("VOICE")[0];
+
+        _audioSources[(int)eSound.Bgm].loop
+            = true; // bgm 재생기는 무한 반복 재생
+
+        return root;
     }
 
     public void Clear()
@@ -63,7 +82,7 @@ public class SoundManager
         }
         else // Effect 효과음 재생
         {
-            AudioSource audioSource = _audioSources[(int)eSound.Effect];
+            AudioSource audioSource = _audioSources[(int)type];
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
         }
@@ -80,6 +99,11 @@ public class SoundManager
         int randomIndex = Random.Range(0, path.Length);
         AudioClip audioClip = GetOrAddAudioClip(path[randomIndex], type);
         Play(audioClip, type, pitch);
+    }
+
+    public void SetVolume(eSound type, float value)
+    {
+        _audioSources[(int)type].volume = value;
     }
 
     public AudioClip GetOrAddAudioClip(string path, eSound type = eSound.Effect)

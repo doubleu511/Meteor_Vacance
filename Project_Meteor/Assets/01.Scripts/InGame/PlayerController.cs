@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        Global.Sound.PlayRandom(eSound.Effect, 1, "SFX/Voice/deploy1", "SFX/Voice/deploy2");
+        Global.Sound.PlayRandom(eSound.Voice, 1, "SFX/Voice/deploy1", "SFX/Voice/deploy2");
         Global.Sound.Play("SFX/Battle/b_char_set");
 
         directRot = playerDirectArrow.transform.localRotation;
@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (playerHealth.IsDead()) return;
+
         if (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Meteor_Appear"))
         {
             if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
@@ -258,11 +260,23 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator TakeDamageCo()
     {
+        if (playerHealth.IsDead())
+        {
+            Time.timeScale = 0;
+            playerHitAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+            playerHitAnimator.SetBool("Dead", true);
+            Global.Sound.Play("SFX/Battle/b_char_dead");
+            Global.Sound.SetVolume(eSound.Bgm, 0);
+        }
+
         playerHitAnimator.gameObject.SetActive(true);
         playerAnimator.GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(0.6f);
-        playerHitAnimator.gameObject.SetActive(false);
-        playerAnimator.GetComponent<SpriteRenderer>().enabled = true;
+        if (!playerHealth.IsDead())
+        {
+            playerHitAnimator.gameObject.SetActive(false);
+            playerAnimator.GetComponent<SpriteRenderer>().enabled = true;
+        }
     }
 
     private IEnumerator AttackVoiceCooldownCo()
@@ -303,7 +317,7 @@ public class PlayerController : MonoBehaviour
             {
                 if(isAttackVoiceReady)
                 {
-                    Global.Sound.PlayRandom(eSound.Effect, 1, "SFX/Voice/fight1", "SFX/Voice/fight2", "SFX/Voice/fight3", "SFX/Voice/fight4");
+                    Global.Sound.PlayRandom(eSound.Voice, 1, "SFX/Voice/fight1", "SFX/Voice/fight2", "SFX/Voice/fight3", "SFX/Voice/fight4");
                     isAttackVoiceReady = false;
                 }
             }

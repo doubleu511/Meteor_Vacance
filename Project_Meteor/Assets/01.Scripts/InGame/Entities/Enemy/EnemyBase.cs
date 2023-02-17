@@ -6,6 +6,10 @@ using DG.Tweening;
 public enum EnemyType
 {
     BUG01 = 1,
+    BUG01A = 2,
+    BUG02 = 3,
+    BUG02A = 4,
+    BUG03 = 5,
 }
 
 public abstract class EnemyBase : MonoBehaviour
@@ -21,7 +25,9 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] Animator enemyAnimator;
     [SerializeField] SpriteRenderer shadowSprite;
 
-    [SerializeField] float moveSpeed = 5f;
+    [SerializeField] protected float moveSpeed = 5f;
+    private float speedScale = 1f;
+
     [SerializeField] GameObject armorBreakEffect;
     [SerializeField] float initArmor = 10f;
     private float currentArmor = 10f;
@@ -30,7 +36,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] ParticleSystem dieParticle;
     [SerializeField] Transform hitTransform;
 
-    private HealthSystem healthSystem;
+    protected HealthSystem healthSystem;
 
     private void Awake()
     {
@@ -39,7 +45,7 @@ public abstract class EnemyBase : MonoBehaviour
         enemySpriteRenderer = enemyAnimator.GetComponent<SpriteRenderer>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         healthSystem.OnDamaged += () =>
         {
@@ -56,7 +62,7 @@ public abstract class EnemyBase : MonoBehaviour
     public abstract void CreatePool(EnemyBase enemyPrefab);
     public abstract EnemyBase PoolInit(WaveTime waveTime);
 
-    public virtual void Init(WaypointSO wayPoint, Vector2 wayPointOffset)
+    public virtual void Init(WaypointSO wayPoint, Vector2 wayPointOffset, bool flipX, bool flipY)
     {
         coll.enabled = true;
         enemyAnimator.transform.localScale = Vector3.one;
@@ -68,15 +74,16 @@ public abstract class EnemyBase : MonoBehaviour
         enemySpriteRenderer.DOColor(Color.white, 0.25f).SetDelay(0.1f);
         currentArmor = initArmor;
 
-        Vector3 targetPinPos = GameManager.MapData.Position2D[wayPoint.enemyWayPoints[0].enemyWayPoint.y, wayPoint.enemyWayPoints[0].enemyWayPoint.x].position;
+        Vector2Int flipPin = wayPoint.GetFlipedPos(wayPoint.enemyWayPoints[0].enemyWayPoint, flipX, flipY);
+        Vector3 targetPinPos = GameManager.MapData.Position2D[flipPin.y, flipPin.x].position;
         targetPinPos.x += wayPointOffset.x;
         targetPinPos.y += wayPointOffset.y;
         transform.position = targetPinPos;
 
-        moveCoroutine = StartCoroutine(MoveCoroutine(wayPoint, wayPointOffset));
+        moveCoroutine = StartCoroutine(MoveCoroutine(wayPoint, wayPointOffset, flipX, flipY));
     }
 
-    private IEnumerator MoveCoroutine(WaypointSO wayPoint, Vector2 wayPointOffset)
+    private IEnumerator MoveCoroutine(WaypointSO wayPoint, Vector2 wayPointOffset, bool flipX, bool flipY)
     {
         int currentPlayIndex = 0;
 
@@ -84,7 +91,8 @@ public abstract class EnemyBase : MonoBehaviour
         {
             if (wayPoint.enemyWayPoints.Length <= currentPlayIndex) break;
 
-            Vector3 targetPinPos = GameManager.MapData.Position2D[wayPoint.enemyWayPoints[currentPlayIndex].enemyWayPoint.y, wayPoint.enemyWayPoints[currentPlayIndex].enemyWayPoint.x].position;
+            Vector2Int flipPin = wayPoint.GetFlipedPos(wayPoint.enemyWayPoints[currentPlayIndex].enemyWayPoint, flipX, flipY);
+            Vector3 targetPinPos = GameManager.MapData.Position2D[flipPin.y, flipPin.x].position;
             targetPinPos.x += wayPointOffset.x;
             targetPinPos.y += wayPointOffset.y;
             Vector3 dir = targetPinPos - transform.position;
@@ -96,9 +104,9 @@ public abstract class EnemyBase : MonoBehaviour
                 continue;
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, targetPinPos, moveSpeed * Time.deltaTime);
-            float scale = -0.084f * transform.position.y + 1;
-            enemyScaler.transform.localScale = new Vector3(scale, scale, 1);
+            transform.position = Vector3.MoveTowards(transform.position, targetPinPos, moveSpeed * speedScale * Time.deltaTime);
+            speedScale = -0.084f * transform.position.y + 1;
+            enemyScaler.transform.localScale = new Vector3(speedScale, speedScale, 1);
 
             if (dir.x > 1f)
             {
