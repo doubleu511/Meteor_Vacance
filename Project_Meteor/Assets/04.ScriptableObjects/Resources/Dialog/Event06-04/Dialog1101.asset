@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4452a61955949243ab46ae03440cf01, type: 3}
+  m_Name: Dialog1101
+  m_EditorClassIdentifier: 
+  dialogID: 1101
+  dialogInfos:
+  - text: "\uADF8\uB798\uB3C4\xB7\xB7\xB7"
+    speakingDir: 2
+    chracter_1:
+      characterType: 2
+      characterSpriteName: ehe
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uBA54\uD14C\uC624\uB791 \uB2E8 \uB458\uC774, \uC774\uBC88 \uC784\uBB34\uB97C
+      \uC131\uACF5\uD574\uC11C \uB2E4\uD589\uC774\uB2E4."
+    speakingDir: 2
+    chracter_1:
+      characterType: 2
+      characterSpriteName: ehe
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uBC15\uC0AC, \uB2E4\uC74C\uC5D0\uB294,"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: ehe
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uC784\uBB34 \uB9D0\uACE0 \uB2E4\uB978 \uC6A9\uBB34\uB85C \uC2DC\uC5D0\uC2A4\uD0C0\uC5D0
+      \uB2E4\uB140\uC624\uC790."
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: ehe
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\xB7\xB7\xB7\uB370\uC774\uD2B8 \uD558\uC790\uAD6C. \uBC15\uC0AC."
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: ehe
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4452a61955949243ab46ae03440cf01, type: 3}
+  m_Name: Dialog1004
+  m_EditorClassIdentifier: 
+  dialogID: 1004
+  dialogInfos:
+  - text: "\uC77C\uBD80\uB7EC \uCC59\uACA8\uC628\uAC70\uB2C8? \uCC98\uC74C\uBD80\uD130
+      \uC774\uB7F4 \uC0DD\uAC01\uC73C\uB85C \uB098\uB9CC \uC784\uBB34\uC5D0 \uBD80\uB978\uAC70\uC57C?"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: idle_s
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uD6C4\uD6C4. \uC544\uB0D0, \uB18D\uB2F4\uC774\uC57C!"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: happy_s
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uBC15\uC0AC\uB294 \uB298 \uB9C8\uC2A4\uD06C \uC4F0\uB294\uB370\uB3C4,
+      \uD45C\uC815\uC73C\uB85C \uB2E4 \uB4DC\uB7EC\uB098\uB294 \uAC83 \uAC19\uC544\uC11C
+      \uC7AC\uBC0C\uC5B4."
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: idle_s
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uBC15\uC0AC\xB7\xB7\xB7"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: idle_s
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\xB7\xB7\xB7"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: idle_s
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []

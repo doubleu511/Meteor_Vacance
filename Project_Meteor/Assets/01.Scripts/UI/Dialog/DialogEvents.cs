@@ -10,6 +10,7 @@ public class DialogEvents : MonoBehaviour
     [Header("Choice")]
     [SerializeField] DialogSelectButtonUI dialogSelectButtonPrefab;
     [SerializeField] CanvasGroup choicePanelTrm;
+    [SerializeField] CanvasGroup dialogLayout;
 
     private Action onTextEndAction;
     private Action onClickedAction;
@@ -98,6 +99,7 @@ public class DialogEvents : MonoBehaviour
         void ChooseEvent()
         {
             dialogPanel.SetSpeakingDir(2);
+            dialogLayout.alpha = 0;
 
             if (choices.Length != affectResults.Length)
             {
@@ -123,6 +125,7 @@ public class DialogEvents : MonoBehaviour
                         dialogPanel.StartDialog(dialogPanel.dialogDic[affectResult]);
                     }
                     Global.UI.UIFade(choicePanelTrm, false);
+                    dialogLayout.alpha = 1;
                     dialogPanel.isClicked = true;
                     DialogPanel.eventWaitFlag = false;
                 });

@@ -23,3 +23,43 @@ MonoBehaviour:
     sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
   - spriteName: uee
     sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: fight
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: shy
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: ahaha
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: surprise
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: hmm
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: close
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: ehe
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: nolam_h
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: idle_h
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: haha_h
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: nolam_b
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: haa_b
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: fight_b
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: ehe_b
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: happy_b
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: shy_s
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: happy_s
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: doki_s
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: hoe_s
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}
+  - spriteName: idle_s
+    sprite: {fileID: -1970974142891096215, guid: c8165720f82c53344ab63c38b60ad279, type: 3}

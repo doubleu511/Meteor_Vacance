@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogID: 201
   dialogInfos:
-  - text: "\uB2E8 \uB458\uC774\uC11C \uC784\uBB34\uB97C \uB098\uAC00\uB294 \uAC74...
+  - text: "\uB2E8 \uB458\uC774\uC11C \uC784\uBB34\uB97C \uB098\uAC00\uB294 \uAC74\xB7\xB7\xB7
       \uAC71\uC815\uB418\uAE34 \uD558\uB124."
-    background: 0
     speakingDir: 0
     chracter_1:
       characterType: 2
@@ -25,10 +24,8 @@ MonoBehaviour:
       characterType: 0
       characterSpriteName: idle
     eventMethod: []
-    isStopAtSkip: 0
   - text: "\uB098\uB294 \uB300\uACF5 \uC800\uACA9 \uC804\uBB38 \uC624\uD37C\uB808\uC774\uD130\uAE30\uB3C4
       \uD558\uACE0,"
-    background: 0
     speakingDir: 0
     chracter_1:
       characterType: 2
@@ -37,9 +34,7 @@ MonoBehaviour:
       characterType: 0
       characterSpriteName: idle
     eventMethod: []
-    isStopAtSkip: 0
-  - text: "\uADF8\uB798\uB3C4... \uAE30\uC058\uAC8C \uC0DD\uAC01\uD574\uBCFC\uAE4C?"
-    background: 0
+  - text: "\uADF8\uB798\uB3C4\xB7\xB7\xB7 \uAE30\uC058\uAC8C \uC0DD\uAC01\uD574\uBCFC\uAE4C?"
     speakingDir: 0
     chracter_1:
       characterType: 2
@@ -48,10 +43,8 @@ MonoBehaviour:
       characterType: 0
       characterSpriteName: idle
     eventMethod: []
-    isStopAtSkip: 0
   - text: "\uB09C \uAC04\uB9CC\uC5D0 \uBC15\uC0AC\uB791 \uB2E8 \uB458\uC774 \uC788\uC744
-      \uC218 \uC788\uC5B4\uC11C \uAE30\uBED0. \uD6C4\uD6C4..."
-    background: 0
+      \uC218 \uC788\uC5B4\uC11C \uAE30\uBED0. \uD6C4\uD6C4\xB7\xB7\xB7"
     speakingDir: 0
     chracter_1:
       characterType: 2
@@ -62,4 +55,3 @@ MonoBehaviour:
     eventMethod:
     - "CHOOSE\n\uB208\uBB3C\uC744 \uB2E6\uACE0 \uBC14\uB85C \uCD9C\uBC1C\uD558\uC790\uACE0
       \uB9D0\uD55C\uB2E4\n202"
-    isStopAtSkip: 1

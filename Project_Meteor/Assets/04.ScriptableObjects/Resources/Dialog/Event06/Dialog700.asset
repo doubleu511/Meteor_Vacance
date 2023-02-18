@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4452a61955949243ab46ae03440cf01, type: 3}
+  m_Name: Dialog700
+  m_EditorClassIdentifier: 
+  dialogID: 700
+  dialogInfos:
+  - text: "\uCD5C\uACE0\uC57C. \uBC15\uC0AC\xB7\xB7\xB7!"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: happy
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uC774\uB807\uAC8C\uB098 \uC644\uBCBD\uD558\uAC8C \uB05D\uB0BC \uC218
+      \uC788\uC744 \uC904\uC740 \uBAB0\uB790\uC5B4!"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: happy
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uBC14\uB78C\uB3C4 \uC870\uC6A9\uD574\uC84C\uC5B4. \uC784\uBB34 \uC131\uACF5\uC774\uB124?"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: idle
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod:
+    - "CHOOSE\n\uADF8\uB7FC\xB7\xB7\xB7\n701"

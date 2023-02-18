@@ -26,7 +26,6 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
     [Space(10)]
     [SerializeField] CanvasGroup topUICanvasGroup;
-    [SerializeField] Button logButton;
     [SerializeField] Button skipButton;
 
     private bool isPlayingDialog = false; // 현재 하나의 문단 다이얼로그가 재생중인가?
@@ -87,7 +86,6 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     {
         currentAct = act;
         Global.UI.UIFade(blackScreen, true);
-        Global.Sound.StopAudio(eSound.Bgm, true);
         SetBackground(act.actBackground);
         StartCoroutine(StartActCoroutine(act));
     }
@@ -95,10 +93,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     private IEnumerator StartActCoroutine(ActEvent act)
     {
         yield return new WaitForSeconds(0.5f);
-        if (currentBGM != act.actBGM)
-        {
-            Global.Sound.Play(act.actBGM, eSound.Bgm);
-        }
+        Global.Sound.Play(act.actBGM, eSound.Bgm);
         Global.UI.UIFade(blackScreen, UIFadeType.OUT, 1, true);
         StartDialog(act.startDialog);
     }
@@ -168,6 +163,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     private IEnumerator BlackScreenFade()
     {
         Global.UI.UIFade(blackScreen, UIFadeType.IN, 1, true);
+        Global.Sound.StopAudio(eSound.Bgm, true);
         yield return new WaitForSeconds(1.5f);
         currentAct.onActEnded?.Invoke();
     }

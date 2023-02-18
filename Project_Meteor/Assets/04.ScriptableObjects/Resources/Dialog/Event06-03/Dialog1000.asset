@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4452a61955949243ab46ae03440cf01, type: 3}
+  m_Name: Dialog1000
+  m_EditorClassIdentifier: 
+  dialogID: 1000
+  dialogInfos:
+  - text: "\xB7\xB7\xB7\uC774\uC0C1\uD558\uB824\uB098?"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: shy_s
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod:
+    - "CHOOSE\n\uADC0\uC5EC\uC6CC,\uC608\uBED0,\uACB0 \uD63C \uD558 \uC790\n1001,1002,1003"

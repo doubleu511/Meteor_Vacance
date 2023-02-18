@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4452a61955949243ab46ae03440cf01, type: 3}
+  m_Name: Dialog1001
+  m_EditorClassIdentifier: 
+  dialogID: 1001
+  dialogInfos:
+  - text: "\uADC0, \uADC0\uC5FD\uB2E4\uB2C8\xB7\xB7\xB7 \uBCC4\uB85C \uB098\uB791
+      \uC5B4\uC6B8\uB9AC\uB294 \uB9D0\uC740 \uC544\uB2C8\uB77C\uACE0 \uC0DD\uAC01\uD558\uB294
+      \uAC78\xB7\xB7\xB7"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: shy_s
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod:
+    - 'ADDDIALOG
+
+      1004'
+  - text: "\uADF8\uB798\uB3C4, \uC74C\xB7\xB7\xB7 \uC5B4\uC6B8\uB824 \uBCF4\uC5EC?"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: happy_s
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []

@@ -106,17 +106,20 @@ public class SoundManager
 
     public void StopAudio(eSound type, bool animation)
     {
-        if(animation)
+        if (animation)
         {
             _audioSources[(int)type].DOComplete();
             int saveVolume = GetVolume(type);
-            _audioSources[(int)type].DOFade(0, 0.45f).OnComplete(() =>
+            _audioSources[(int)type].DOFade(0, 1f).OnComplete(() =>
             {
                 _audioSources[(int)type].Stop();
                 SetVolume(type, saveVolume, false);
             });
         }
-        _audioSources[(int)type].Stop();
+        else
+        {
+            _audioSources[(int)type].Stop();
+        }
     }
 
     public void SetVolume(eSound type, int value, bool save)
