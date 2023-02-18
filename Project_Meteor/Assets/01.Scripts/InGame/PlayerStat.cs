@@ -107,7 +107,9 @@ public class PlayerStat : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (!PlayerController.Interactable) return;
+
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             if(TryStatUpgrade(StatType.ATTACK, ref playerDamage))
             {

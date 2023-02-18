@@ -22,6 +22,7 @@ public class EnemyInfoUI : MonoBehaviour
     [SerializeField] Sprite resumeSprite;
 
     private Queue<EnemyInfoSO> enemyInfoQueue = new Queue<EnemyInfoSO>();
+    private bool isPauseAble = false;
     private bool isPause = false;
     private Sequence currentSeq;
 
@@ -38,6 +39,8 @@ public class EnemyInfoUI : MonoBehaviour
 
     private void Update()
     {
+        if (!PlayerController.Interactable) return;
+
         if (Input.GetKeyDown(KeyCode.P))
         {
             if (currentSeq.IsActive())
@@ -81,7 +84,9 @@ public class EnemyInfoUI : MonoBehaviour
 
             currentSeq = DOTween.Sequence();
             currentSeq.Append(rectTransform.DOAnchorPosX(0, 0.3f));
+            currentSeq.AppendCallback(() => isPauseAble = true);
             currentSeq.Append(pauseWaitFillAmount.DOFillAmount(0, 5).SetEase(Ease.Linear));
+            currentSeq.AppendCallback(() => isPauseAble = false);
             currentSeq.Append(rectTransform.DOAnchorPosX(anchor.x, 0.3f));
             currentSeq.AppendInterval(1);
             currentSeq.AppendCallback(() =>
@@ -94,6 +99,8 @@ public class EnemyInfoUI : MonoBehaviour
 
     private void ButtonInteraction()
     {
+        if (!isPauseAble) return;
+
         isPause = !isPause;
 
         if (isPause)

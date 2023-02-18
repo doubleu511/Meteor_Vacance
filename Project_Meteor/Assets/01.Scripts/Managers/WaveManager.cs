@@ -28,6 +28,7 @@ public class WaveManager : MonoBehaviour
     private float waveTimer = 0f;
     private int waveRushIndex = 0;
     private int waveTimeIndex = 0;
+    public int TotalEnemyCount { get; private set; } = 0;
 
     void Start()
     {
@@ -43,6 +44,11 @@ public class WaveManager : MonoBehaviour
             enemyInfoDic[enemyInfo[i].enemyType] = enemyInfo[i];
         }
 
+        for (int i = 0; i < waveRushes.Count; i++)
+        {
+            TotalEnemyCount += waveRushes[i].waveTimes.Length;
+        }
+
         Global.Pool.CreatePool<EnemyWaypointTrailEffect>(trailEffectPrefab.gameObject, transform, 10);
 
         isWaveStart = true;
@@ -52,9 +58,9 @@ public class WaveManager : MonoBehaviour
     {
         if (isWaveStart)
         {
+            waveTimer += Time.deltaTime;
             if (waveRushIndex < waveRushes.Count)
             {
-                waveTimer += Time.deltaTime;
 
                 if (waveTimeIndex < waveRushes[waveRushIndex].waveTimes.Length)
                 {
@@ -73,6 +79,10 @@ public class WaveManager : MonoBehaviour
                     waveTimeIndex = 0;
                     waveTimer = 0;
                 }
+            }
+            else
+            {
+                isWaveStart = false;
             }
         }
     }

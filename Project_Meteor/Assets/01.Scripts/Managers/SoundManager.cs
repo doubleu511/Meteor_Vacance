@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using DG.Tweening;
 
 public enum eSound
 {
@@ -16,10 +17,12 @@ public class SoundManager
     private AudioMixer _masterAudioMixer;
     AudioSource[] _audioSources = new AudioSource[(int)eSound.MaxCount];
     Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
+    Dictionary<eSound, float> _audioVolumeSave = new Dictionary<eSound, float>();
 
     public void Init()
     {
         GameObject root = GameObject.Find("@Sound") ?? CreateNewSoundManager();
+        AudioAdjust();
     }
 
     private GameObject CreateNewSoundManager()
@@ -101,12 +104,44 @@ public class SoundManager
         Play(audioClip, type, pitch);
     }
 
-    public void SetVolume(eSound type, float value)
+    public void StopAudio(eSound type, bool animation)
     {
-        _audioSources[(int)type].volume = value;
+        if(animation)
+        {
+            _audioSources[(int)type].DOComplete();
+            int saveVolume = GetVolume(type);
+            _audioSources[(int)type].DOFade(0, 0.45f).OnComplete(() =>
+            {
+                _audioSources[(int)type].Stop();
+                SetVolume(type, saveVolume, false);
+            });
+        }
+        _audioSources[(int)type].Stop();
     }
 
-    public AudioClip GetOrAddAudioClip(string path, eSound type = eSound.Effect)
+    public void SetVolume(eSound type, int value, bool save)
+    {
+        _audioSources[(int)type].DOKill();
+        _audioSources[(int)type].volume = value / 100f;
+
+        if (save) SecurityPlayerPrefs.SetFloat($"Volume{type}", value);
+    }
+
+    public int GetVolume(eSound type)
+    {
+        return (int)(_audioSources[(int)type].volume * 100);
+    }
+
+    private void AudioAdjust()
+    {
+        for (int i = 0; i < (int)eSound.MaxCount; i++)
+        {
+            int volume = SecurityPlayerPrefs.GetInt($"Volume{(eSound)i}", 100);
+            SetVolume((eSound)i, volume, false);
+        }
+    }
+
+    private AudioClip GetOrAddAudioClip(string path, eSound type = eSound.Effect)
     {
         if (path.Contains("Sounds/") == false)
             path = $"Sounds/{path}";

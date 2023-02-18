@@ -16,13 +16,13 @@ public class SecurityPlayerPrefs
     static SecurityPlayerPrefs()
     {
         // 8 바이트로 하고, 변경해서 쓸것
-        byte[] saltBytes = new byte[] { 25, 12, 16, 28, 11, 8, 27, 22 };
+        byte[] saltBytes = new byte[] { 76, 39, 92, 174, 48, 8, 58, 66 };
 
         // 길이 상관 없고, 키를 만들기 위한 용도로 씀
-        string randomSeedForKey = "17e9087a8e9b9c6779108e";
+        string randomSeedForKey = "19070ef9820acb920";
 
         // 길이 상관 없고, aes에 쓸 key 와 iv 를 만들 용도
-        string randomSeedForValue = "19e89a098c9b79edcbe8a789189";
+        string randomSeedForValue = "18e9f9819a8b893640e19d9a9c";
 
         {
             Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(randomSeedForKey, saltBytes, 1000);

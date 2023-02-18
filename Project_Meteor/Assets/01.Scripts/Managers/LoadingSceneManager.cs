@@ -7,7 +7,7 @@ using DG.Tweening;
 
 public class LoadingSceneManager
 {
-    private int delayTime = 1;
+    private float delayTime = 0.75f;
     private AsyncOperation operation;
 
     private string nextScene;
@@ -28,13 +28,16 @@ public class LoadingSceneManager
     {
         nextScene = sceneName;
 
-        cg.gameObject.SetActive(true);
-        cg.gameObject.GetComponent<MonoBehaviour>().StartCoroutine(LoadAsynSceneCoroutine());
-        isIntroLoading = false;
+        isIntroLoading = true;
+        DOTween.KillAll();
 
-        cg.alpha = 1;
+        cg.DOFade(1, 1f).OnComplete(() => isIntroLoading = false).SetUpdate(true);
         cg.interactable = true;
         cg.blocksRaycasts = true;
+        Global.Pool.Clear();
+
+        cg.gameObject.SetActive(true);
+        cg.gameObject.GetComponent<MonoBehaviour>().StartCoroutine(LoadAsynSceneCoroutine());
     }
 
     IEnumerator LoadAsynSceneCoroutine()
@@ -43,7 +46,7 @@ public class LoadingSceneManager
         operation.allowSceneActivation = false;
 
         yield return new WaitUntil(() => !isIntroLoading);
-
+        Time.timeScale = 1;
         while (!operation.isDone)
         {
             float time = Time.timeSinceLevelLoad;
@@ -56,6 +59,7 @@ public class LoadingSceneManager
             yield return null;
         }
 
+        PlayerController.Interactable = true;
         cg.DOFade(0, 1f).OnComplete(() => cg.gameObject.SetActive(false)).SetUpdate(true);
         cg.interactable = false;
         cg.blocksRaycasts = false;

@@ -191,7 +191,7 @@ MonoBehaviour:
   shadowSprite: {fileID: 7943200723344517968}
   moveSpeed: 0.75
   armorBreakEffect: {fileID: 1286666103}
-  initArmor: 10
+  initArmor: 15
   dieParticle: {fileID: 7943200723297055410}
   hitTransform: {fileID: 3421216496623576733}
 --- !u!114 &7943200723244818380

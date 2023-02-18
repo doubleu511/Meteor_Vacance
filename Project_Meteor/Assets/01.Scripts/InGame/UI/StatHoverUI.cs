@@ -65,6 +65,6 @@ public class StatHoverUI : MonoBehaviour
 
     public void ExitHoverUI()
     {
-        canvasGroup.DOFade(0, 0.5f);
+        canvasGroup.DOFade(0, 0.5f).SetUpdate(true);
     }
 }

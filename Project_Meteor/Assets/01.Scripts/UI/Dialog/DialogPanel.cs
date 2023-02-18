@@ -43,10 +43,10 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] ActEvent testAct;
     private ActEvent currentAct;
+    private AudioClip currentBGM;
     #endregion
 
     [Header("Backgrounds")]
-    [SerializeField] Sprite[] backgroundSprites;
     [SerializeField] CanvasGroup blackScreen;
 
     #region 다이얼로그 리소스 저장
@@ -87,12 +87,18 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     {
         currentAct = act;
         Global.UI.UIFade(blackScreen, true);
+        Global.Sound.StopAudio(eSound.Bgm, true);
+        SetBackground(act.actBackground);
         StartCoroutine(StartActCoroutine(act));
     }
 
     private IEnumerator StartActCoroutine(ActEvent act)
     {
         yield return new WaitForSeconds(0.5f);
+        if (currentBGM != act.actBGM)
+        {
+            Global.Sound.Play(act.actBGM, eSound.Bgm);
+        }
         Global.UI.UIFade(blackScreen, UIFadeType.OUT, 1, true);
         StartDialog(act.startDialog);
     }
@@ -122,7 +128,6 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
             DialogInfo dialog = dialogQueue.Dequeue();
             currentDialogInfo = dialog;
 
-            SetBackground(dialog.background);
             ShowText(dialog.text);
             SetCharacter(dialog);
             SetSpeakingDir(dialog.speakingDir);
@@ -163,7 +168,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     private IEnumerator BlackScreenFade()
     {
         Global.UI.UIFade(blackScreen, UIFadeType.IN, 1, true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
         currentAct.onActEnded?.Invoke();
     }
 
@@ -216,10 +221,10 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void SetBackground(int backgroundIndex)
+    public void SetBackground(Sprite background)
     {
-        if (backgroundImg.sprite != backgroundSprites[backgroundIndex])
-            backgroundImg.sprite = backgroundSprites[backgroundIndex];
+        if (backgroundImg.sprite != background)
+            backgroundImg.sprite = background;
     }
 
     private void ShowText(string text)
@@ -270,33 +275,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
     public void DialogSkip()
     {
-        if (!isPlayingDialog) return;
-        if (eventWaitFlag) return;
 
-        StopCoroutine(textCoroutine);
-        textTween.Kill();
-
-        while (dialogQueue.Count > 0)
-        {
-            DialogInfo dialog = dialogQueue.Peek();
-            if (dialog.isStopAtSkip)
-            {
-                textCoroutine = StartCoroutine(TextCoroutine());
-                isTextEnd = true;
-                textTween.Complete();
-                print("?");
-                isText = false;
-                isClicked = true;
-                return;
-            }
-            else
-            {
-                dialogQueue.Dequeue();
-            }
-        }
-
-        isPlayingDialog = false;
-        StartCoroutine(BlackScreenFade());
     }
 
     public void OnPointerClick(PointerEventData eventData)

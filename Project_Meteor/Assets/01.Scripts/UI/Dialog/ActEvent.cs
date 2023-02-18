@@ -7,4 +7,6 @@ public class ActEvent : MonoBehaviour
 {
     public DialogSO startDialog;
     public UnityEvent onActEnded;
+    public Sprite actBackground;
+    public AudioClip actBGM;
 }

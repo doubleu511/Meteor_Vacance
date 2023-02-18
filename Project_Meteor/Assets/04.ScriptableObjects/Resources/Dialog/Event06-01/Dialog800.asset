@@ -15,14 +15,12 @@ MonoBehaviour:
   dialogID: 800
   dialogInfos:
   - text: "\uC5B4\uC774, \uC911\uB529 \uBC15\uC0AC~"
-    background: 0
     speakingDir: 0
     chracter_1:
       characterType: 4
       characterSpriteName: acjil
     chracter_2:
-      characterType: 3
-      characterSpriteName: angry
+      characterType: 0
+      characterSpriteName: 
     eventMethod:
     - "CHOOSE\n\uC911\uB529?\n801"
-    isStopAtSkip: 1

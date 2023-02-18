@@ -56,7 +56,9 @@ public class PlayerAbility : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (!PlayerController.Interactable) return;
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if(IsFullPoint())
             {

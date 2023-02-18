@@ -137,6 +137,7 @@ public abstract class EnemyBase : MonoBehaviour
     private void Die()
     {
         dieParticle.Play();
+        Global.Sound.Play("SFX/Battle/b_enemy_dead_n", eSound.Effect);
         Disappear(true);
     }
 

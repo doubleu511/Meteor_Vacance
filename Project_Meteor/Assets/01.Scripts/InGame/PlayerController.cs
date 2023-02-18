@@ -31,7 +31,10 @@ public class PlayerController : MonoBehaviour
     private EnemyBase targetEnemy = null;
 
     private int enemyKillCount = 0;
+    private int enemyDisappearCount = 0;
     private bool isAttackVoiceReady = true;
+
+    public static bool Interactable = true;
 
 
     private void Awake()
@@ -64,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (playerHealth.IsDead()) return;
+        if (!Interactable) return;
 
         if (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Meteor_Appear"))
         {
@@ -125,7 +128,9 @@ public class PlayerController : MonoBehaviour
 
     public void KillTargetHandle(EnemyBase target, bool disappear)
     {
-        if(targetEnemy == target)
+        enemyDisappearCount++;
+
+        if (targetEnemy == target)
         {
             targetEnemy = null;
         }
@@ -134,6 +139,13 @@ public class PlayerController : MonoBehaviour
         {
             enemyKillCount++;
             InGameUI.UI.Info.SetEnemyKilledText(enemyKillCount);
+        }
+
+        if (GameManager.Wave.TotalEnemyCount == enemyDisappearCount && !playerHealth.IsDead())
+        {
+            Interactable = false;
+            Global.Sound.StopAudio(eSound.Bgm, false);
+            InGameUI.UI.GameResult.GameComplete(GameManager.Wave.TotalEnemyCount == enemyKillCount ? 4 : 3);
         }
     }
 
@@ -260,17 +272,23 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator TakeDamageCo()
     {
+        playerHitAnimator.gameObject.SetActive(true);
+        playerAnimator.GetComponent<SpriteRenderer>().enabled = false;
+
         if (playerHealth.IsDead())
         {
+            Interactable = false;
             Time.timeScale = 0;
             playerHitAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
             playerHitAnimator.SetBool("Dead", true);
             Global.Sound.Play("SFX/Battle/b_char_dead");
-            Global.Sound.SetVolume(eSound.Bgm, 0);
+            Global.Sound.StopAudio(eSound.Bgm, false);
+
+            yield return new WaitForSecondsRealtime(1.5f);
+            InGameUI.UI.GameResult.GameOver();
+            yield break;
         }
 
-        playerHitAnimator.gameObject.SetActive(true);
-        playerAnimator.GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(0.6f);
         if (!playerHealth.IsDead())
         {
