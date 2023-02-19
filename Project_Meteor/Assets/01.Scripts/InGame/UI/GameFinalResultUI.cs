@@ -15,6 +15,8 @@ public class GameFinalResultUI : MonoBehaviour
     private CanvasGroup canvasGroup;
 
     [SerializeField] Image charaImg;
+    [SerializeField] CanvasGroup friendCanvasGroup;
+    [SerializeField] TextMeshProUGUI friendText;
     [SerializeField] Image[] starImgs;
     [SerializeField] TextMeshProUGUI voiceText;
     [SerializeField] RectTransform voiceSizeFitter;
@@ -57,6 +59,7 @@ public class GameFinalResultUI : MonoBehaviour
 
     private IEnumerator PlayResult(int star)
     {
+        friendText.text = "호감도 상승";
         switch (star)
         {
             case 0:
@@ -73,6 +76,7 @@ public class GameFinalResultUI : MonoBehaviour
                 break;
             case 4:
                 voiceText.text = star4Dialog;
+                friendText.text = "호감도 MAX";
                 Global.Sound.Play("SFX/Voice/4star", eSound.Voice);
                 Global.Sound.Play("BGM/victory", eSound.Bgm);
                 break;
@@ -96,6 +100,11 @@ public class GameFinalResultUI : MonoBehaviour
             Global.Sound.Play("SFX/Battle/b_ui_star", eSound.Effect);
             yield return new WaitForSecondsRealtime(0.5f);
         }
+
+        yield return new WaitForSecondsRealtime(0.25f);
+        friendCanvasGroup.alpha = 0;
+        friendCanvasGroup.DOFade(1, 0.5f);
+        yield return new WaitForSecondsRealtime(0.75f);
 
         if(star > 0)
         {
