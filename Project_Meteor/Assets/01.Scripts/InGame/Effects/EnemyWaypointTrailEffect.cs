@@ -22,7 +22,6 @@ public class EnemyWaypointTrailEffect : MonoBehaviour
     public void Init(WaveTime waveTime)
     {
         gameObject.SetActive(true);
-
         Vector2Int flipPin = waveTime.wayPointSO.GetFlipedPos(waveTime.wayPointSO.enemyWayPoints[currentPlayIndex].enemyWayPoint, waveTime.flipX, waveTime.flipY);
         Vector3 targetPinPos = GameManager.MapData.Position3D[flipPin.y, flipPin.x].position;
         transform.position = targetPinPos;
