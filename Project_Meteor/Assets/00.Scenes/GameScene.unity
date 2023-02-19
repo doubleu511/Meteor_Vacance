@@ -346,7 +346,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC0AC\uC6A9 \uC989\uC2DC <color=#FB9800>140%</color>\uC758 \uACF5\uACA9\uB825\uC73C\uB85C
     \uBC94\uC704 \uB0B4 \uCD5C\uB300 5\uBA85\uC758 \uC801\uC5D0\uAC8C \uACF5\uACA9\uD558\uBA70,
-    5\uCD08 \uB3D9\uC548 \uBAA9\uD45C\uC758 \uBC29\uC5B4\uB825\uC744 <color=#FB9800>25%</color>
+    10\uCD08 \uB3D9\uC548 \uBAA9\uD45C\uC758 \uBC29\uC5B4\uB825\uC744 <color=#FB9800>25%</color>
     \uAC10\uC18C\uC2DC\uD0A8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a70e52c38083cb84a900bb433e16b632, type: 2}
@@ -13958,7 +13958,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -557, y: 0}
-  m_SizeDelta: {x: 1300, y: 1300}
+  m_SizeDelta: {x: 600, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1056687796
 MonoBehaviour:
@@ -13980,7 +13980,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3275baea9a452164ba1e8591f9491bd5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3b67b8fd9dabcb44da970eead7d0fd26, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15858,11 +15858,23 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 7943200723244818381, guid: 1ffcb659a94b3964e98f0faf371b59af, type: 3}
   - {fileID: 6564807355874188912, guid: 48d69b212d77043498afb3f0916d6a48, type: 3}
+  - {fileID: 8751408379654258100, guid: cda4399485d47a0458d4da8f4d448d50, type: 3}
+  - {fileID: 1508839569216585067, guid: 942a78babc720ba49812f370a7618c45, type: 3}
+  - {fileID: 3218839368727884731, guid: a1644192bed4d61418f4ed08cb175700, type: 3}
+  - {fileID: 5315745392124989491, guid: 462b89a139172484586f2b8d8a49be9c, type: 3}
+  - {fileID: 9004321613806579372, guid: d177f391c7b46d7409555d0faec7426f, type: 3}
+  - {fileID: 3976196473932824221, guid: 576e4871f13f5c34cbfac9cfb1ea8300, type: 3}
   enemyInfo:
   - {fileID: 11400000, guid: 72c807da9d7db5448bc4bd8bf4f91dcc, type: 2}
   - {fileID: 11400000, guid: 5e3c77d882134f6409aab7ae5fa8d787, type: 2}
+  - {fileID: 11400000, guid: a4ad741051475fc419773373bb2e598b, type: 2}
+  - {fileID: 11400000, guid: 0089534ea9094b54a9ede81497a6d29a, type: 2}
+  - {fileID: 11400000, guid: 521afee5b9f45884eb093c317949ee67, type: 2}
+  - {fileID: 11400000, guid: 1ca53a70121c11f41a378455862e6e88, type: 2}
+  - {fileID: 11400000, guid: a5895d3cd5c0ff04f94542a7012d398c, type: 2}
+  - {fileID: 11400000, guid: 2aa5e44d66156ba4c835e82a8529d9e8, type: 2}
   waveRushes:
-  - {fileID: 11400000, guid: 8cd5594d3da0ac54087a10137a3e8b1c, type: 2}
+  - {fileID: 11400000, guid: feaca21ff01f35640aff987dc14a1549, type: 2}
 --- !u!1 &1160985067
 GameObject:
   m_ObjectHideFlags: 0

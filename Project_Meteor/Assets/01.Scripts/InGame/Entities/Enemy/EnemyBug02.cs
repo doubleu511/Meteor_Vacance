@@ -18,7 +18,14 @@ public class EnemyBug02 : EnemyBase
         return enemy;
     }
 
+    [Header("Each Enemy Properties")]
+    [SerializeField] float healingScale = 0.5f;
+    [SerializeField] float waitHealingMin = 5;
+    [SerializeField] float waitHealingMax = 10;
+    [SerializeField] float healingDuration = 4;
     private float initSpeed;
+    private Coroutine healingCycleCo;
+    private bool isTryHeal = false;
 
     protected override void Start()
     {
@@ -26,11 +33,51 @@ public class EnemyBug02 : EnemyBase
         initSpeed = moveSpeed;
     }
 
+    public override void Init(WaypointSO wayPoint, Vector2 wayPointOffset, bool flipX, bool flipY)
+    {
+        base.Init(wayPoint, wayPointOffset, flipX, flipY);
+        healingCycleCo = StartCoroutine(HealCycle());
+        isTryHeal = false;
+    }
+
+    protected override void Disappear(bool kill)
+    {
+        base.Disappear(kill);
+
+        if (healingCycleCo != null)
+        {
+            StopCoroutine(healingCycleCo);
+        }
+    }
+
     private IEnumerator HealCycle()
     {
         while(true)
         {
+            float randomWaitTime = Random.Range(waitHealingMin, waitHealingMax);
+            yield return new WaitForSeconds(randomWaitTime);
 
+            enemyAnimator.SetBool("isHeal", true);
+            isTryHeal = true;
+            moveSpeed = 0;
+
+            yield return new WaitForSeconds(healingDuration);
+
+            enemyAnimator.SetBool("isHeal", false);
+            isTryHeal = false;
+            moveSpeed = initSpeed;
+        }
+    }
+
+    public override void TakeDamage(float amount)
+    {
+        if (!isTryHeal)
+        {
+            base.TakeDamage(amount);
+        }
+        else
+        {
+            healthSystem.HealHealth(amount * healingScale);
         }
     }
 }

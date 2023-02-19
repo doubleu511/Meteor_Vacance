@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
             effect.transform.localPosition = Vector3.zero;
             effect.transform.localScale = Vector3.one;
 
-            target.GainDebuff(5, debuffAmount);
+            target.GainDebuff(10, debuffAmount);
             Global.Sound.Play("SFX/Battle/b_enemy_specialhit");
         });
         arrow.SetArrowDamage(playerStat.playerDamage * damageScale);

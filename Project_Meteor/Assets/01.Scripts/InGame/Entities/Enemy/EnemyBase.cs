@@ -10,6 +10,11 @@ public enum EnemyType
     BUG02 = 3,
     BUG02A = 4,
     BUG03 = 5,
+    BUG03A = 6,
+    BUG04 = 7,
+    BUG04A = 8,
+    BUG05 = 9,
+    BUGBOSS = 10,
 }
 
 public abstract class EnemyBase : MonoBehaviour
@@ -22,21 +27,25 @@ public abstract class EnemyBase : MonoBehaviour
 
     [Header("Enemy Components")]
     [SerializeField] Transform enemyScaler;
-    [SerializeField] Animator enemyAnimator;
+    [SerializeField] protected Animator enemyAnimator;
     [SerializeField] SpriteRenderer shadowSprite;
 
     [SerializeField] protected float moveSpeed = 5f;
     private float speedScale = 1f;
 
-    [SerializeField] GameObject armorBreakEffect;
     [SerializeField] float initArmor = 10f;
-    private float currentArmor = 10f;
+    private float debuffArmorScale = 1f;
+    private float Armor { get { return initArmor + armorBonusAmount; } }
 
     [Header("Particles")]
+    [SerializeField] GameObject armorBreakEffect;
+    [SerializeField] protected SpriteRenderer armorEffect;
     [SerializeField] ParticleSystem dieParticle;
     [SerializeField] Transform hitTransform;
 
     protected HealthSystem healthSystem;
+    protected List<EnemyBug03> armorBuffList = new List<EnemyBug03>();
+    protected float armorBonusAmount = 0f;
 
     private void Awake()
     {
@@ -65,6 +74,7 @@ public abstract class EnemyBase : MonoBehaviour
     public virtual void Init(WaypointSO wayPoint, Vector2 wayPointOffset, bool flipX, bool flipY)
     {
         coll.enabled = true;
+        enemyAnimator.enabled = true;
         enemyAnimator.transform.localScale = Vector3.one;
         shadowSprite.color = new Color(1, 1, 1, 0);
         shadowSprite.DOFade(1, 0.5f);
@@ -72,7 +82,8 @@ public abstract class EnemyBase : MonoBehaviour
         enemySpriteRenderer.color = new Color(0, 0, 0, 0);
         enemySpriteRenderer.DOFade(1, 0.5f);
         enemySpriteRenderer.DOColor(Color.white, 0.25f).SetDelay(0.1f);
-        currentArmor = initArmor;
+        armorEffect.color = new Color(armorEffect.color.r, armorEffect.color.g, armorEffect.color.b, 0);
+        debuffArmorScale = 1f;
 
         Vector2Int flipPin = wayPoint.GetFlipedPos(wayPoint.enemyWayPoints[0].enemyWayPoint, flipX, flipY);
         Vector3 targetPinPos = GameManager.MapData.Position2D[flipPin.y, flipPin.x].position;
@@ -129,9 +140,9 @@ public abstract class EnemyBase : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float amount)
+    public virtual void TakeDamage(float amount)
     {
-        healthSystem.TakeDamage(amount - currentArmor);
+        healthSystem.TakeDamage(amount - Armor * debuffArmorScale);
     }
 
     private void Die()
@@ -141,9 +152,10 @@ public abstract class EnemyBase : MonoBehaviour
         Disappear(true);
     }
 
-    private void Disappear(bool kill)
+    protected virtual void Disappear(bool kill)
     {
         coll.enabled = false;
+        enemyAnimator.enabled = false;
         GameManager.Player.KillTargetHandle(this, !kill);
 
         if (moveCoroutine != null)
@@ -151,6 +163,10 @@ public abstract class EnemyBase : MonoBehaviour
             StopCoroutine(moveCoroutine);
         }
         healthSystem.Disappear();
+        debuffDuration = 0f;
+        if(armorBuffList.Count > 0) armorEffect.DOFade(0, 0.5f);
+        armorBuffList.Clear();
+        armorBonusAmount = 0f;
 
         Sequence seq = DOTween.Sequence();
 
@@ -188,7 +204,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     private IEnumerator DebuffCo(float amount)
     {
-        currentArmor = Mathf.Clamp(currentArmor - currentArmor * amount, 0, float.MaxValue);
+        debuffArmorScale = 1 - amount;
         armorBreakEffect.SetActive(true);
 
         while (debuffDuration > 0f)
@@ -198,7 +214,43 @@ public abstract class EnemyBase : MonoBehaviour
             yield return null;
         }
 
-        currentArmor = initArmor;
+        debuffArmorScale = 1f;
         armorBreakEffect.SetActive(false);
+    }
+
+    protected internal void AddArmorBuffWard(EnemyBug03 wardBug)
+    {
+        armorBuffList.Add(wardBug);
+        SetArmorBuffLevel();
+    }
+
+    protected internal void RemoveArmorBuffWard(EnemyBug03 wardBug)
+    {
+        armorBuffList.Remove(wardBug);
+        SetArmorBuffLevel();
+    }
+
+    private void SetArmorBuffLevel()
+    {
+        float maxArmorBonus = 0f;
+        for (int i = 0; i < armorBuffList.Count; i++)
+        {
+            if(armorBuffList[i].gainArmorBonus > maxArmorBonus)
+            {
+                maxArmorBonus = armorBuffList[i].gainArmorBonus;
+            }
+        }
+
+        armorEffect.DOComplete();
+        if (armorBuffList.Count == 0)
+        {
+            armorEffect.DOFade(0, 0.5f);
+        }
+        else
+        {
+            armorEffect.DOFade(1, 0.5f);
+        }
+
+        armorBonusAmount = maxArmorBonus;
     }
 }
