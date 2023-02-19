@@ -103,7 +103,7 @@ public class GameFinalResultUI : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.25f);
         friendCanvasGroup.alpha = 0;
-        friendCanvasGroup.DOFade(1, 0.5f);
+        friendCanvasGroup.DOFade(1, 0.5f).SetUpdate(true);
         yield return new WaitForSecondsRealtime(0.75f);
 
         if(star > 0)
