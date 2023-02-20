@@ -23,3 +23,136 @@ MonoBehaviour:
       characterType: 0
       characterSpriteName: 
     eventMethod: []
+  - text: "\uB0B4\uAC00 \uB2E4\uCE58\uAC8C \uD558\uC9C0 \uC54A\uC73C\uB824\uACE0,
+      \uC5C4\uCCAD \uB178\uB825\uD574\uC92C\uC796\uC544."
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uB355\uBD84\uC5D0 \uC6B0\uB9AC \uB458\uB9CC \uCC38\uC5EC\uD55C \uC784\uBB34\uC778\uB370\uB3C4
+      \uC644\uBCBD\uD558\uAC8C \uB05D\uB0C8\uC5B4."
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\xB7\xB7\xB7"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uBC15\uC0AC\uB791 \uC788\uC73C\uBA74, \uCE74\uC2DC\uBBF8\uC5B4\uC758
+      \uC232\uC5D0\uC11C \uC9C0\uB0B4\uB358 \uB54C\uAC00 \uB5A0\uC62C\uB77C."
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uB3D9\uB8CC\uB4E4\uACFC \uD568\uAED8 \uC232\uC744 \uB204\uBE44\uBA74\uC11C\xB7\xB7\xB7
+      \uD65C\uC2DC\uC704\uB97C \uB2F9\uAE30\uACE0\xB7\xB7\xB7"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uC11C\uB85C \uD638\uD761\uC744 \uB9DE\uCDB0\uC11C, \uD55C \uBAB8\uC778\uB4EF
+      \uC11C\uB85C\uB97C \uB9E1\uAE30\uACE0 \uC2F8\uC6E0\uB294\uB370."
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uAD11\uC11D\uBCD1\uC5D0 \uAC78\uB824 \uACE0\uD5A5\uC744 \uB5A0\uB098\uAC8C
+      \uB410\uC744 \uB54C."
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uB098\uB294 \uB5A0\uB3CC\uBA70 \uAC8C\uC18D, \uACC4\uC18D \uADF8 \uC232\uC744
+      \uADF8\uB9AC\uC6CC\uD588\uC5B4."
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uADF8\uB798\uB3C4 \uC0DD\uAC01\uD588\uC5B4. \uB3CC\uC544\uAC08 \uC218
+      \uC5C6\uB294 \uACF3\uC744 \uADF8\uB9AC\uC6CC\uD558\uB294 \uAC74 \uADF8\uB9CC\uB450\uC790\uACE0."
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\xB7\xB7\xB7\uBC15\uC0AC\uB791 \uAC19\uC774 \uC788\uC73C\uBA74, \uD568\uAED8
+      \uC2DC\uAC04\uC744 \uBCF4\uB0B4\uBA74."
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uBD04 \uD587\uC0B4\uCC98\uB7FC \uB530\uB4EF\uD574\uC11C, \uC232\uC5D0
+      \uC788\uB358 \uC2DC\uC808\uC774 \uC0DD\uAC01\uB098."
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uC232\uC5D0 \uC788\uB358 \uC2DC\uC808\uCC98\uB7FC\xB7\xB7\xB7 \uAE30\uBD84
+      \uC88B\uACE0\xB7\xB7\xB7 \uD589\uBCF5\uD574\uC11C\xB7\xB7\xB7"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\xB7\xB7\xB7 \uC5D0\uC787!"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod:
+    - 'CHOOSE
+
+      ????
+
+      1051'

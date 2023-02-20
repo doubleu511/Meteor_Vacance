@@ -30,6 +30,7 @@ public class GameFinalResultUI : MonoBehaviour
     [SerializeField] Button titleBtn;
     [SerializeField] Button nextBtn;
     private bool buttonReady = false;
+    private int nextIndex = 0;
 
     private void Awake()
     {
@@ -38,7 +39,13 @@ public class GameFinalResultUI : MonoBehaviour
 
     private void Start()
     {
+        nextIndex = 0;
         restartBtn.onClick.AddListener(() => Global.LoadScene.LoadScene(SceneManager.GetActiveScene().name));
+        nextBtn.onClick.AddListener(() =>
+        {
+            DialogPanel.startActIndex = nextIndex;
+            Global.LoadScene.LoadScene("DialogScene");
+        });
     }
 
     private void Update()
@@ -71,12 +78,14 @@ public class GameFinalResultUI : MonoBehaviour
             case 2:
             case 3:
                 voiceText.text = star3Dialog;
+                nextIndex = 1;
                 Global.Sound.Play("SFX/Voice/3star", eSound.Voice);
                 Global.Sound.Play("BGM/victory", eSound.Bgm);
                 break;
             case 4:
                 voiceText.text = star4Dialog;
                 friendText.text = "È£°¨µµ MAX";
+                nextIndex = 2;
                 Global.Sound.Play("SFX/Voice/4star", eSound.Voice);
                 Global.Sound.Play("BGM/victory", eSound.Bgm);
                 break;

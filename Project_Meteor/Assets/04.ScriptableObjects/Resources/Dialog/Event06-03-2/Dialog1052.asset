@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4452a61955949243ab46ae03440cf01, type: 3}
+  m_Name: Dialog1052
+  m_EditorClassIdentifier: 
+  dialogID: 1052
+  dialogInfos:
+  - text: "\uC544\uD558\uD558. \uD6C4\uD6C4\uD6C4\uD6C4\xB7\xB7\xB7"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uB0A8\uC740 \uC2DC\uAC04 \uB3D9\uC548\uC740, \uAC19\uC774 \uB180\uB2E4\uAC00
+      \uAC08\uAE4C?"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []
+  - text: "\uB098\uB294 \uC816\uC5B4\uB3C4 \uAD1C\uCC2E\uC9C0\uB9CC, \uC6B0\uB9AC
+      \uD0C0\uC62C\uC740 \uC548 \uAC00\uC838\uC628 \uAC83 \uAC19\uC740\uB370~"
+    speakingDir: 0
+    chracter_1:
+      characterType: 2
+      characterSpriteName: null
+    chracter_2:
+      characterType: 0
+      characterSpriteName: 
+    eventMethod: []

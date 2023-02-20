@@ -20,8 +20,7 @@ public class EnemyBug02 : EnemyBase
 
     [Header("Each Enemy Properties")]
     [SerializeField] float healingScale = 0.5f;
-    [SerializeField] float waitHealingMin = 5;
-    [SerializeField] float waitHealingMax = 10;
+    [SerializeField] float waitHealingTime = 5;
     [SerializeField] float healingDuration = 4;
     private float initSpeed;
     private Coroutine healingCycleCo;
@@ -54,8 +53,7 @@ public class EnemyBug02 : EnemyBase
     {
         while(true)
         {
-            float randomWaitTime = Random.Range(waitHealingMin, waitHealingMax);
-            yield return new WaitForSeconds(randomWaitTime);
+            yield return new WaitForSeconds(waitHealingTime);
 
             enemyAnimator.SetBool("isHeal", true);
             isTryHeal = true;

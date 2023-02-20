@@ -89,8 +89,11 @@ public class WaveManager : MonoBehaviour
 
     public IEnumerator SpawnDelayCo(WaveTime waveTime, EnemyType enemyType, EnemyBase enemyPrefab)
     {
-        EnemyWaypointTrailEffect trailEffect = Global.Pool.GetItem<EnemyWaypointTrailEffect>();
-        trailEffect.Init(waveTime);
+        if (enemyType != EnemyType.BUGBOSS)
+        {
+            EnemyWaypointTrailEffect trailEffect = Global.Pool.GetItem<EnemyWaypointTrailEffect>();
+            trailEffect.Init(waveTime);
+        }
         yield return new WaitForSeconds(3);
         enemyPrefab.PoolInit(waveTime);
 

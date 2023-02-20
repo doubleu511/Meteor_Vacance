@@ -37,7 +37,7 @@ MonoBehaviour:
     speakingDir: 0
     chracter_1:
       characterType: 2
-      characterSpriteName: close
+      characterSpriteName: happy
     chracter_2:
       characterType: 0
       characterSpriteName: 

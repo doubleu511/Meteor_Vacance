@@ -12,6 +12,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     private DialogEvents dialogEvents;
     public static bool useWaitFlag = false;
     public static bool eventWaitFlag = false;
+    public static int startActIndex = 0;
 
     #region 다이얼로그 변수
     [Header("Dialog")]
@@ -40,7 +41,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     private Coroutine textCoroutine = null;
     private Tweener textTween = null;
 
-    [SerializeField] ActEvent testAct;
+    [SerializeField] ActEvent[] startActs;
     private ActEvent currentAct;
     private AudioClip currentBGM;
     #endregion
@@ -79,7 +80,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
             dialogDic.Add(item.dialogID, item);
         }
 
-        StartAct(testAct);
+        StartAct(startActs[startActIndex]);
     }
 
     public void StartAct(ActEvent act)
@@ -87,6 +88,11 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         currentAct = act;
         Global.UI.UIFade(blackScreen, true);
         SetBackground(act.actBackground);
+        for (int i = 0; i < characterHandlers.Length; i++)
+        {
+            characterHandlers[i].SetOverlayColor(act.characterOverlayColor);
+        }
+
         StartCoroutine(StartActCoroutine(act));
     }
 
@@ -162,9 +168,10 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
     private IEnumerator BlackScreenFade()
     {
-        Global.UI.UIFade(blackScreen, UIFadeType.IN, 1, true);
+        Global.UI.UIFade(blackScreen, UIFadeType.IN, 2, true);
         Global.Sound.StopAudio(eSound.Bgm, true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
+        characterHandlers[currentHandlerIndex].SetFade(false);
         currentAct.onActEnded?.Invoke();
     }
 

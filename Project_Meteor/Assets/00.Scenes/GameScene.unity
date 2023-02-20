@@ -16350,6 +16350,7 @@ MonoBehaviour:
   - {fileID: 9004321613806579372, guid: d177f391c7b46d7409555d0faec7426f, type: 3}
   - {fileID: 3976196473932824221, guid: 576e4871f13f5c34cbfac9cfb1ea8300, type: 3}
   - {fileID: 7617006677254011173, guid: 365c90c52997a3c4581f44bbe5670257, type: 3}
+  - {fileID: 8746714094416545307, guid: f1df00ebf39032840b869e14c3559915, type: 3}
   enemyInfo:
   - {fileID: 11400000, guid: 72c807da9d7db5448bc4bd8bf4f91dcc, type: 2}
   - {fileID: 11400000, guid: 5e3c77d882134f6409aab7ae5fa8d787, type: 2}
@@ -16360,6 +16361,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a5895d3cd5c0ff04f94542a7012d398c, type: 2}
   - {fileID: 11400000, guid: 50d67a396e929f34993a652c029f9085, type: 2}
   - {fileID: 11400000, guid: b2f963dccd87472469b5c73b471bf659, type: 2}
+  - {fileID: 11400000, guid: 2aa5e44d66156ba4c835e82a8529d9e8, type: 2}
   waveRushes:
   - {fileID: 11400000, guid: feaca21ff01f35640aff987dc14a1549, type: 2}
 --- !u!1 &1160985067

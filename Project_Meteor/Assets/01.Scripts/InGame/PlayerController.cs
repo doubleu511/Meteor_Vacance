@@ -126,6 +126,14 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetInteger("dirY", animationLookDir.y);
     }
 
+    public void KillTargetHandle(EnemyBase target)
+    {
+        if (targetEnemy == target)
+        {
+            targetEnemy = null;
+        }
+    }
+
     public void KillTargetHandle(EnemyBase target, bool disappear)
     {
         enemyDisappearCount++;
@@ -251,10 +259,10 @@ public class PlayerController : MonoBehaviour
     }
 
     private Coroutine damageTakeCoroutine = null;
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
         InGameUI.UI.Info.ShowRedBlur();
-        playerHealth.TakeDamage(1);
+        playerHealth.TakeDamage(damage);
         Global.Sound.Play("SFX/Battle/b_ui_alarmenter");
 
         if (damageTakeCoroutine != null)

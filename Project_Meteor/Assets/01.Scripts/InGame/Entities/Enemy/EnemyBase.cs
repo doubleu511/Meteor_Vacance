@@ -21,30 +21,31 @@ public abstract class EnemyBase : MonoBehaviour
 {
     public virtual EnemyType enemyType => EnemyType.BUG01;
 
-    private Collider2D coll;
-    private SpriteRenderer enemySpriteRenderer;
-    private Coroutine moveCoroutine;
+    protected Collider2D coll;
+    protected SpriteRenderer enemySpriteRenderer;
+    protected Coroutine moveCoroutine;
 
     [Header("Enemy Components")]
-    [SerializeField] Transform enemyScaler;
+    [SerializeField] protected Transform enemyScaler;
     [SerializeField] protected Animator enemyAnimator;
-    [SerializeField] SpriteRenderer shadowSprite;
+    [SerializeField] protected SpriteRenderer shadowSprite;
 
     [SerializeField] protected float moveSpeed = 5f;
-    private float speedScale = 1f;
+    protected float speedScale = 1f;
 
     [SerializeField] float initArmor = 10f;
-    private float debuffArmorScale = 1f;
-    private float Armor { get { return initArmor + armorBonusAmount; } }
+    protected float debuffArmorScale = 1f;
+    protected float Armor { get { return initArmor + armorBonusAmount; } }
 
     [Header("Particles")]
-    [SerializeField] GameObject armorBreakEffect;
+    [SerializeField] protected GameObject armorBreakEffect;
     [SerializeField] protected SpriteRenderer armorEffect;
     [SerializeField] ParticleSystem dieParticle;
     [SerializeField] Transform hitTransform;
 
     protected HealthSystem healthSystem;
     protected List<EnemyBug03> armorBuffList = new List<EnemyBug03>();
+    protected EnemyBugBoss protectedBoss;
     protected float armorBonusAmount = 0f;
 
     private void Awake()
@@ -92,6 +93,7 @@ public abstract class EnemyBase : MonoBehaviour
         transform.position = targetPinPos;
 
         moveCoroutine = StartCoroutine(MoveCoroutine(wayPoint, wayPointOffset, flipX, flipY));
+        healthSystem.SetHealthAmountMax();
     }
 
     private IEnumerator MoveCoroutine(WaypointSO wayPoint, Vector2 wayPointOffset, bool flipX, bool flipY)
@@ -135,17 +137,24 @@ public abstract class EnemyBase : MonoBehaviour
         if (playerDir.sqrMagnitude <= 0.4f)
         {
             // 플레이어에게 도착
-            GameManager.Player.TakeDamage();
+            GameManager.Player.TakeDamage(1);
             Disappear(false);
         }
     }
 
     public virtual void TakeDamage(float amount)
     {
-        healthSystem.TakeDamage(amount - Armor * debuffArmorScale);
+        if (protectedBoss != null)
+        {
+            protectedBoss.HitInstead(amount - Armor * debuffArmorScale);
+        }
+        else
+        {
+            healthSystem.TakeDamage(amount - Armor * debuffArmorScale);
+        }
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         dieParticle.Play();
         Global.Sound.Play("SFX/Battle/b_enemy_dead_n", eSound.Effect);
@@ -188,7 +197,7 @@ public abstract class EnemyBase : MonoBehaviour
         return hitTransform;
     }
 
-    private float debuffDuration = 0f;
+    protected float debuffDuration = 0f;
     public void GainDebuff(float duration, float amount)
     {
         if (debuffDuration > 0f)
@@ -228,6 +237,16 @@ public abstract class EnemyBase : MonoBehaviour
     {
         armorBuffList.Remove(wardBug);
         SetArmorBuffLevel();
+    }
+
+    protected internal void AddBossGift(EnemyBugBoss boss)
+    {
+        protectedBoss = boss;
+    }
+
+    protected internal void RemoveBossGift()
+    {
+        protectedBoss = null;
     }
 
     private void SetArmorBuffLevel()

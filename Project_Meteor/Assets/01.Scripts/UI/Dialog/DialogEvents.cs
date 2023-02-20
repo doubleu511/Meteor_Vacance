@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,9 @@ public class DialogEvents : MonoBehaviour
     [SerializeField] DialogSelectButtonUI dialogSelectButtonPrefab;
     [SerializeField] CanvasGroup choicePanelTrm;
     [SerializeField] CanvasGroup dialogLayout;
+
+    [Header("Effect")]
+    [SerializeField] CanvasGroup oldFlimGroup;
 
     private Action onTextEndAction;
     private Action onClickedAction;
@@ -49,6 +53,9 @@ public class DialogEvents : MonoBehaviour
                         break;
                     case "CHOOSE":
                         ExtractCHOOSEParameters(methodParameters[1], methodParameters[2]);
+                        break;
+                    case "OLDFLIM":
+                        ExtractOLDFLIMParameters(methodParameters[1]);
                         break;
                 }
             }
@@ -131,6 +138,21 @@ public class DialogEvents : MonoBehaviour
                 });
             }
         }
+    }
+
+    private void ExtractOLDFLIMParameters(string param1)
+    {
+        OLDFLIM(bool.Parse(param1));
+    }
+
+    public void OLDFLIM(bool fade)
+    {
+        oldFlimGroup.DOFade(fade ? 1 : 0, 0.25f);
+    }
+
+    public void LoadScene(string name)
+    {
+        Global.LoadScene.LoadScene(name);
     }
 
     public void OnTextEnd()

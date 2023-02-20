@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class EnemyBug05 : EnemyBase
 {
@@ -15,12 +16,12 @@ public class EnemyBug05 : EnemyBase
     {
         EnemyBug05 enemy = Global.Pool.GetItem<EnemyBug05>();
         enemy.Init(waveTime.wayPointSO, waveTime.wayPointOffset, waveTime.flipX, waveTime.flipY);
-
+        enemy.respawnWaveTime = waveTime;
         return enemy;
     }
 
 
-    [SerializeField] EnemyBase respawnPrefab;
+    [SerializeField] int respawnCount = 5;
     private WaveTime respawnWaveTime;
 
     protected override void Start()
@@ -31,17 +32,61 @@ public class EnemyBug05 : EnemyBase
     public override void Init(WaypointSO wayPoint, Vector2 wayPointOffset, bool flipX, bool flipY)
     {
         base.Init(wayPoint, wayPointOffset, flipX, flipY);
+    }
 
-        respawnWaveTime = new WaveTime();
-        respawnWaveTime.enemySpawnTime = 0;
-        respawnWaveTime.enemyType = EnemyType.BUG05;
-        respawnWaveTime.wayPointOffset = Vector2.zero;
-        respawnWaveTime.wayPointSO = wayPoint;
+    protected override void Die()
+    {
+        respawnCount--;
+        if (respawnCount > 0)
+        {
+            Disappear(false);
+        }
+        else
+        {
+            base.Die();
+        }
     }
 
     protected override void Disappear(bool kill)
     {
-        base.Disappear(kill);
-        GameManager.Wave.StartCoroutine(GameManager.Wave.SpawnDelayCo(respawnWaveTime, EnemyType.BUG05, respawnPrefab));
+        if (respawnCount > 0)
+        {
+            coll.enabled = false;
+            enemyAnimator.enabled = false;
+            GameManager.Player.KillTargetHandle(this);
+
+            if (moveCoroutine != null)
+            {
+                StopCoroutine(moveCoroutine);
+            }
+            healthSystem.Disappear();
+            debuffDuration = 0f;
+            if (armorBuffList.Count > 0) armorEffect.DOFade(0, 0.5f);
+            armorBuffList.Clear();
+            armorBonusAmount = 0f;
+
+            Sequence seq = DOTween.Sequence();
+
+            seq.AppendInterval(0.1f);
+            seq.AppendCallback(() => armorBreakEffect.SetActive(false));
+            seq.Append(enemyAnimator.transform.DOScaleX(0f, 0.4f));
+            seq.Join(enemySpriteRenderer.DOColor(Color.black, 0.3f));
+            seq.Join(shadowSprite.DOColor(new Color(1, 1, 1, 0), 0.3f));
+            seq.AppendInterval(2f);
+            seq.AppendCallback(() =>
+            {
+                EnemyWaypointTrailEffect trailEffect = Global.Pool.GetItem<EnemyWaypointTrailEffect>();
+                trailEffect.Init(respawnWaveTime);
+            });
+            seq.AppendInterval(3f);
+            seq.AppendCallback(() =>
+            {
+                Init(respawnWaveTime.wayPointSO, respawnWaveTime.wayPointOffset, respawnWaveTime.flipX, respawnWaveTime.flipY);
+            });
+        }
+        else
+        {
+            base.Disappear(kill);
+        }
     }
 }

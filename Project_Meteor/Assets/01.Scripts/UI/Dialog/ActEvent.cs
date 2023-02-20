@@ -9,4 +9,5 @@ public class ActEvent : MonoBehaviour
     public UnityEvent onActEnded;
     public Sprite actBackground;
     public AudioClip actBGM;
+    public Color characterOverlayColor;
 }

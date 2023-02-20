@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestWaveRush
   m_EditorClassIdentifier: 
   waveTimes:
-  - enemyType: 9
+  - enemyType: 10
     enemySpawnTime: 0
     wayPointSO: {fileID: 11400000, guid: 195b47f5efabf0a4a9d26abcad340280, type: 2}
     wayPointOffset: {x: 0, y: 0}

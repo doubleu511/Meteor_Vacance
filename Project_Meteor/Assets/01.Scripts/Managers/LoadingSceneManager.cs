@@ -7,7 +7,7 @@ using DG.Tweening;
 
 public class LoadingSceneManager
 {
-    private float delayTime = 0.75f;
+    private float delayTime = 2f;
     private AsyncOperation operation;
 
     private string nextScene;

@@ -23,4 +23,7 @@ MonoBehaviour:
       characterType: 0
       characterSpriteName: 
     eventMethod:
+    - '$OLDFLIM
+
+      true'
     - "CHOOSE\n\uC911\uB529?\n801"

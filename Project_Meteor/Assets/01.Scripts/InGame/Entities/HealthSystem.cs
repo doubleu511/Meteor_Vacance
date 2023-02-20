@@ -50,14 +50,12 @@ public class HealthSystem : MonoBehaviour
         return curHealthAmount / healthAmountMax;
     }
 
-    public void SetHealthAmountMax(int hpAmountMax, bool updateHpAmount)
+    public void SetHealthAmountMax()
     {
-        healthAmountMax = hpAmountMax;
-        if (updateHpAmount)
-        {
-            curHealthAmount = hpAmountMax;
-        }
+        curHealthAmount = healthAmountMax;
+        OnDamaged?.Invoke();
     }
+
 
     public void TakeDamage(float damageAmount)
     {
