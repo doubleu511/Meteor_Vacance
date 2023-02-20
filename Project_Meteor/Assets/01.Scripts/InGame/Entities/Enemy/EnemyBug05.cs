@@ -72,7 +72,7 @@ public class EnemyBug05 : EnemyBase
             seq.Append(enemyAnimator.transform.DOScaleX(0f, 0.4f));
             seq.Join(enemySpriteRenderer.DOColor(Color.black, 0.3f));
             seq.Join(shadowSprite.DOColor(new Color(1, 1, 1, 0), 0.3f));
-            seq.AppendInterval(2f);
+            seq.AppendInterval(0.5f);
             seq.AppendCallback(() =>
             {
                 EnemyWaypointTrailEffect trailEffect = Global.Pool.GetItem<EnemyWaypointTrailEffect>();
@@ -81,7 +81,7 @@ public class EnemyBug05 : EnemyBase
             seq.AppendInterval(3f);
             seq.AppendCallback(() =>
             {
-                Init(respawnWaveTime.wayPointSO, respawnWaveTime.wayPointOffset, respawnWaveTime.flipX, respawnWaveTime.flipY);
+                Init(respawnWaveTime.wayPointSO, respawnWaveTime.wayPointOffset, UnityEngine.Random.value > 0.5f, UnityEngine.Random.value > 0.5f);
             });
         }
         else

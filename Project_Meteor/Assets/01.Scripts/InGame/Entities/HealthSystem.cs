@@ -59,6 +59,8 @@ public class HealthSystem : MonoBehaviour
 
     public void TakeDamage(float damageAmount)
     {
+        if (IsDead()) return;
+
         Damage(damageAmount);
         OnDamaged?.Invoke();
 

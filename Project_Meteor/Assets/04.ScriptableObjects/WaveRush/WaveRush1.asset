@@ -13,51 +13,51 @@ MonoBehaviour:
   m_Name: WaveRush1
   m_EditorClassIdentifier: 
   waveTimes:
-  - enemyType: 3
+  - enemyType: 1
     enemySpawnTime: 1
     wayPointSO: {fileID: 11400000, guid: 195b47f5efabf0a4a9d26abcad340280, type: 2}
     wayPointOffset: {x: 0, y: 0}
     flipX: 0
     flipY: 0
   - enemyType: 1
-    enemySpawnTime: 1
+    enemySpawnTime: 3
     wayPointSO: {fileID: 11400000, guid: 195b47f5efabf0a4a9d26abcad340280, type: 2}
     wayPointOffset: {x: 0, y: 0}
+    flipX: 1
+    flipY: 1
+  - enemyType: 1
+    enemySpawnTime: 10
+    wayPointSO: {fileID: 11400000, guid: 195b47f5efabf0a4a9d26abcad340280, type: 2}
+    wayPointOffset: {x: 0, y: 0.25}
     flipX: 1
     flipY: 0
   - enemyType: 1
-    enemySpawnTime: 1
+    enemySpawnTime: 11
     wayPointSO: {fileID: 11400000, guid: 195b47f5efabf0a4a9d26abcad340280, type: 2}
-    wayPointOffset: {x: 0, y: 0}
+    wayPointOffset: {x: 0, y: -0.25}
+    flipX: 1
+    flipY: 0
+  - enemyType: 1
+    enemySpawnTime: 12
+    wayPointSO: {fileID: 11400000, guid: 195b47f5efabf0a4a9d26abcad340280, type: 2}
+    wayPointOffset: {x: -0.25, y: 0.25}
+    flipX: 1
+    flipY: 0
+  - enemyType: 1
+    enemySpawnTime: 15
+    wayPointSO: {fileID: 11400000, guid: 195b47f5efabf0a4a9d26abcad340280, type: 2}
+    wayPointOffset: {x: 0, y: 0.25}
     flipX: 0
     flipY: 1
   - enemyType: 1
-    enemySpawnTime: 1
+    enemySpawnTime: 16
     wayPointSO: {fileID: 11400000, guid: 195b47f5efabf0a4a9d26abcad340280, type: 2}
-    wayPointOffset: {x: 0, y: 0}
-    flipX: 1
-    flipY: 1
-  - enemyType: 2
-    enemySpawnTime: 5
-    wayPointSO: {fileID: 11400000, guid: 195b47f5efabf0a4a9d26abcad340280, type: 2}
-    wayPointOffset: {x: 0, y: 0}
-    flipX: 0
-    flipY: 0
-  - enemyType: 2
-    enemySpawnTime: 5
-    wayPointSO: {fileID: 11400000, guid: 195b47f5efabf0a4a9d26abcad340280, type: 2}
-    wayPointOffset: {x: 0, y: 0}
-    flipX: 1
-    flipY: 0
-  - enemyType: 2
-    enemySpawnTime: 5
-    wayPointSO: {fileID: 11400000, guid: 195b47f5efabf0a4a9d26abcad340280, type: 2}
-    wayPointOffset: {x: 0, y: 0}
+    wayPointOffset: {x: 0, y: -0.25}
     flipX: 0
     flipY: 1
-  - enemyType: 2
-    enemySpawnTime: 5
+  - enemyType: 1
+    enemySpawnTime: 17
     wayPointSO: {fileID: 11400000, guid: 195b47f5efabf0a4a9d26abcad340280, type: 2}
-    wayPointOffset: {x: 0, y: 0}
-    flipX: 1
+    wayPointOffset: {x: -0.25, y: 0.25}
+    flipX: 0
     flipY: 1

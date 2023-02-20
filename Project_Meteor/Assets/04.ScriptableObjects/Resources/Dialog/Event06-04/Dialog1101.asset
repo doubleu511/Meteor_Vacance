@@ -60,4 +60,6 @@ MonoBehaviour:
     chracter_2:
       characterType: 0
       characterSpriteName: 
-    eventMethod: []
+    eventMethod:
+    - "CHOOSE\nHappy End - \uC784\uBB34 \uC131\uACF5! \uADF8\uB9AC\uACE0\xB7\xB7\xB7
+      \uB300\uC131\uACF5!\n-1"

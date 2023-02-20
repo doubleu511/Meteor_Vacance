@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a241af42f34dc884487882586ccf8207, type: 3}
+  m_Name: WaveRush8
+  m_EditorClassIdentifier: 
+  waveTimes:
+  - enemyType: 7
+    enemySpawnTime: 10
+    wayPointSO: {fileID: 11400000, guid: 165bd6ac434021f4bac92d0e7b0f4543, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 0
+    flipY: 0
+  - enemyType: 7
+    enemySpawnTime: 11
+    wayPointSO: {fileID: 11400000, guid: 165bd6ac434021f4bac92d0e7b0f4543, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 0
+    flipY: 1
+  - enemyType: 7
+    enemySpawnTime: 12
+    wayPointSO: {fileID: 11400000, guid: 165bd6ac434021f4bac92d0e7b0f4543, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 1
+    flipY: 0
+  - enemyType: 7
+    enemySpawnTime: 13
+    wayPointSO: {fileID: 11400000, guid: 165bd6ac434021f4bac92d0e7b0f4543, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 1
+    flipY: 1
+  - enemyType: 8
+    enemySpawnTime: 15
+    wayPointSO: {fileID: 11400000, guid: 4ac5add2512a5764ab19112fee55e55c, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 0
+    flipY: 0
+  - enemyType: 8
+    enemySpawnTime: 17
+    wayPointSO: {fileID: 11400000, guid: 4ac5add2512a5764ab19112fee55e55c, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 0
+    flipY: 1
+  - enemyType: 8
+    enemySpawnTime: 19
+    wayPointSO: {fileID: 11400000, guid: 4ac5add2512a5764ab19112fee55e55c, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 1
+    flipY: 0
+  - enemyType: 8
+    enemySpawnTime: 21
+    wayPointSO: {fileID: 11400000, guid: 4ac5add2512a5764ab19112fee55e55c, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 1
+    flipY: 1
+  - enemyType: 7
+    enemySpawnTime: 25
+    wayPointSO: {fileID: 11400000, guid: 9704dc2618670cc418589d23019228ae, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 0
+    flipY: 0
+  - enemyType: 7
+    enemySpawnTime: 25.5
+    wayPointSO: {fileID: 11400000, guid: 9704dc2618670cc418589d23019228ae, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 1
+    flipY: 0
+  - enemyType: 7
+    enemySpawnTime: 26
+    wayPointSO: {fileID: 11400000, guid: 9704dc2618670cc418589d23019228ae, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 0
+    flipY: 1
+  - enemyType: 7
+    enemySpawnTime: 26.5
+    wayPointSO: {fileID: 11400000, guid: 9704dc2618670cc418589d23019228ae, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 1
+    flipY: 1
+  - enemyType: 7
+    enemySpawnTime: 27
+    wayPointSO: {fileID: 11400000, guid: 9704dc2618670cc418589d23019228ae, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 0
+    flipY: 0
+  - enemyType: 7
+    enemySpawnTime: 27.5
+    wayPointSO: {fileID: 11400000, guid: 9704dc2618670cc418589d23019228ae, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 1
+    flipY: 0
+  - enemyType: 6
+    enemySpawnTime: 27.5
+    wayPointSO: {fileID: 11400000, guid: a1c0f91a8581da94493ff0d8b103fdfb, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 0
+    flipY: 0
+  - enemyType: 7
+    enemySpawnTime: 28
+    wayPointSO: {fileID: 11400000, guid: 9704dc2618670cc418589d23019228ae, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 0
+    flipY: 1
+  - enemyType: 7
+    enemySpawnTime: 28.5
+    wayPointSO: {fileID: 11400000, guid: 9704dc2618670cc418589d23019228ae, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 1
+    flipY: 1
+  - enemyType: 8
+    enemySpawnTime: 30
+    wayPointSO: {fileID: 11400000, guid: 91c8866fda4840e4bb8c49ee1e60d235, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 1
+    flipY: 1
+  - enemyType: 8
+    enemySpawnTime: 34
+    wayPointSO: {fileID: 11400000, guid: 14df45283c985c54db5ff2ef66c98935, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 0
+    flipY: 0

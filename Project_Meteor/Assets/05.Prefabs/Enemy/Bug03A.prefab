@@ -100,13 +100,12 @@ MonoBehaviour:
   enemyScaler: {fileID: 3218839370623147664}
   enemyAnimator: {fileID: 3218839369937991954}
   shadowSprite: {fileID: 3218839368762394406}
-  moveSpeed: 0.4
-  initArmor: 10
+  moveSpeed: 0.45
+  initArmor: 50
   armorBreakEffect: {fileID: 4796465146556029697}
   armorEffect: {fileID: 967955524291929515}
   dieParticle: {fileID: 3218839368710774468}
   hitTransform: {fileID: 7920404466351147755}
-  armorBonusAmount: 0
   gainArmorBonus: 35
   wardParticle: {fileID: 7935917342208211286}
   wardColl: {fileID: 4796465145235311028}

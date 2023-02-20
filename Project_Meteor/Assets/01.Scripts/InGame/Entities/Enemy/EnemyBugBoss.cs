@@ -114,6 +114,7 @@ public class EnemyBugBoss : EnemyBase
     private void Teleport(Transform waypoint)
     {
         coll.enabled = false;
+        enemyAnimator.enabled = false;
         GameManager.Player.KillTargetHandle(this);
         Sequence seq = DOTween.Sequence();
 
@@ -132,6 +133,7 @@ public class EnemyBugBoss : EnemyBase
         seq.AppendCallback(() =>
         {
             coll.enabled = true;
+            enemyAnimator.enabled = true;
         });
     }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] SpecialArrowEffect specialArrowHitParticlePrefab;
     [SerializeField] Transform arrowStartPos;
 
+    [Header("Others")]
+    [SerializeField] Button whatIsButton;
+    [SerializeField] GameObject blushObj;
+    private int clickCount = 0;
+
     private PlayerAbility playerAbility;
     private PlayerStat playerStat;
     private HealthSystem playerHealth;
@@ -27,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private Vector2Int animationLookDir = Vector2Int.right; // 애니메이션 바라보는 방향
     private Quaternion directRot;
 
-    [SerializeField] List<EnemyBase> detectTargets = new List<EnemyBase>();
+    private List<EnemyBase> detectTargets = new List<EnemyBase>();
     private EnemyBase targetEnemy = null;
 
     private int enemyKillCount = 0;
@@ -63,6 +69,17 @@ public class PlayerController : MonoBehaviour
         Global.Pool.CreatePool<SpecialArrowEffect>(specialArrowHitParticlePrefab.gameObject, arrowStartPos, 5);
 
         StartCoroutine(AttackVoiceCooldownCo());
+
+        whatIsButton.onClick.AddListener(() =>
+        {
+            clickCount++;
+            Global.Sound.Play("SFX/Battle/b_ui_popup", eSound.Effect);
+            if(clickCount >= 10)
+            {
+                clickCount = 0;
+                StartCoroutine(BlushEffect());
+            }
+        });
     }
 
     private void Update()
@@ -95,6 +112,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
+                blushObj.SetActive(false);
                 ChangeLookingDir(Vector2Int.up);
             }
 
@@ -149,7 +167,7 @@ public class PlayerController : MonoBehaviour
             InGameUI.UI.Info.SetEnemyKilledText(enemyKillCount);
         }
 
-        if (GameManager.Wave.TotalEnemyCount == enemyDisappearCount && !playerHealth.IsDead())
+        if (GameManager.Wave.TotalEnemyCount <= enemyDisappearCount && !playerHealth.IsDead())
         {
             Interactable = false;
             Global.Sound.StopAudio(eSound.Bgm, false);
@@ -362,6 +380,16 @@ public class PlayerController : MonoBehaviour
             {
                 playerAnimator.SetBool("EnemyDetected", false);
             }
+        }
+    }
+
+    private IEnumerator BlushEffect()
+    {
+        if (detectDir != Vector2.up)
+        {
+            blushObj.SetActive(true);
+            yield return new WaitForSeconds(3);
+            blushObj.SetActive(false);
         }
     }
 }

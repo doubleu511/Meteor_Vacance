@@ -26,8 +26,11 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     private DialogInfo currentDialogInfo;
 
     [Space(10)]
-    [SerializeField] CanvasGroup topUICanvasGroup;
+    [SerializeField] CanvasGroup UICanvasGroup;
     [SerializeField] Button skipButton;
+    [SerializeField] Button uioffButton;
+
+    private bool isUIOff = false;
 
     private bool isPlayingDialog = false; // 현재 하나의 문단 다이얼로그가 재생중인가?
     private bool isText = false;
@@ -62,6 +65,11 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         skipButton.onClick.AddListener(() =>
         {
             DialogSkip();
+        });
+
+        uioffButton.onClick.AddListener(() =>
+        {
+            UIOff(true);
         });
     }
 
@@ -278,11 +286,38 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
     public void DialogSkip()
     {
+        StopCoroutine(textCoroutine);
+        dialogQueue.Clear();
+        isPlayingDialog = false;
+        dialogEvents.DisableChoosePanel();
+        StartCoroutine(BlackScreenFade());
+    }
 
+    private void UIOff(bool value)
+    {
+        isUIOff = value;
+        UICanvasGroup.DOKill();
+
+        UICanvasGroup.interactable = !value;
+
+        if (value)
+        {
+            UICanvasGroup.DOFade(0, 0.5f);
+        }
+        else
+        {
+            UICanvasGroup.alpha = 1;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if(isUIOff)
+        {
+            UIOff(false);
+            return;
+        }
+
         if (!isText) return;
 
         if (!isTextEnd)

@@ -42,4 +42,5 @@ MonoBehaviour:
     chracter_2:
       characterType: 0
       characterSpriteName: 
-    eventMethod: []
+    eventMethod:
+    - "CHOOSE\nNormal End - \uC784\uBB34 \uC644\uB8CC, \uADF8\uCE58\uB9CC \uC2E4\uD328\n-1"

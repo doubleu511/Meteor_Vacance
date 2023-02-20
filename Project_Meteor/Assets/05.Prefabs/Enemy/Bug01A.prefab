@@ -190,12 +190,11 @@ MonoBehaviour:
   enemyAnimator: {fileID: 7943200724182193508}
   shadowSprite: {fileID: 7943200723344517968}
   moveSpeed: 0.75
-  initArmor: 15
+  initArmor: 20
   armorBreakEffect: {fileID: 1286666103}
   armorEffect: {fileID: 266156113184284270}
   dieParticle: {fileID: 7943200723297055410}
   hitTransform: {fileID: 3421216496623576733}
-  armorBonusAmount: 0
 --- !u!114 &7943200723244818380
 MonoBehaviour:
   m_ObjectHideFlags: 0

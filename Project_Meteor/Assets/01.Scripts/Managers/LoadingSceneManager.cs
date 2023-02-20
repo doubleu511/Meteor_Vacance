@@ -42,10 +42,9 @@ public class LoadingSceneManager
 
     IEnumerator LoadAsynSceneCoroutine()
     {
+        yield return new WaitUntil(() => !isIntroLoading);
         operation = SceneManager.LoadSceneAsync(nextScene);
         operation.allowSceneActivation = false;
-
-        yield return new WaitUntil(() => !isIntroLoading);
         Time.timeScale = 1;
         while (!operation.isDone)
         {

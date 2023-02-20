@@ -408,7 +408,7 @@ MonoBehaviour:
   enemyScaler: {fileID: 3976196473099836481}
   enemyAnimator: {fileID: 3976196472699958893}
   shadowSprite: {fileID: 3976196472934373299}
-  moveSpeed: 0.75
+  moveSpeed: 2
   initArmor: 10
   armorBreakEffect: {fileID: 3976196473747642314}
   armorEffect: {fileID: 8705704820520499624}
@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a661c0f0eacdbb4a9e68ea0fcc08229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthAmountMax: 100
+  healthAmountMax: 300
 --- !u!1001 &3976196473293097768
 PrefabInstance:
   m_ObjectHideFlags: 0

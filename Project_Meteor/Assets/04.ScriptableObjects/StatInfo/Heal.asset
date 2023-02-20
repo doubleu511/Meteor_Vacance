@@ -17,13 +17,13 @@ MonoBehaviour:
   - upgradeValue: 0
     needCost: 25
   - upgradeValue: 0
+    needCost: 30
+  - upgradeValue: 0
     needCost: 35
   - upgradeValue: 0
+    needCost: 40
+  - upgradeValue: 0
     needCost: 45
-  - upgradeValue: 0
-    needCost: 55
-  - upgradeValue: 0
-    needCost: 60
   - upgradeValue: 0
     needCost: 99
   iconSpr: {fileID: 21300000, guid: da37c342bdb11e341956b65c0f173dda, type: 3}

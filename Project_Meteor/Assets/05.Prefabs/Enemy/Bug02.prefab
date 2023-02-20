@@ -327,16 +327,14 @@ MonoBehaviour:
   enemyAnimator: {fileID: 8751408378712455023}
   shadowSprite: {fileID: 8751408379753810267}
   moveSpeed: 0.5
-  initArmor: 15
+  initArmor: 25
   armorBreakEffect: {fileID: 1677825558437287292}
   armorEffect: {fileID: 4724592682312587270}
   dieParticle: {fileID: 8751408379671744697}
   hitTransform: {fileID: 4049386091226940566}
-  armorBonusAmount: 0
   healingScale: 0.5
-  waitHealingMin: 5
-  waitHealingMax: 10
-  healingDuration: 4
+  waitHealingTime: 7.5
+  healingDuration: 3
 --- !u!114 &8751408379654258119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,7 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a661c0f0eacdbb4a9e68ea0fcc08229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthAmountMax: 300
+  healthAmountMax: 500
 --- !u!1 &8751408379753810269
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a241af42f34dc884487882586ccf8207, type: 3}
+  m_Name: WaveRush2
+  m_EditorClassIdentifier: 
+  waveTimes:
+  - enemyType: 2
+    enemySpawnTime: 5
+    wayPointSO: {fileID: 11400000, guid: 91c8866fda4840e4bb8c49ee1e60d235, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 0
+    flipY: 0
+  - enemyType: 1
+    enemySpawnTime: 6
+    wayPointSO: {fileID: 11400000, guid: 91c8866fda4840e4bb8c49ee1e60d235, type: 2}
+    wayPointOffset: {x: 0, y: 0.25}
+    flipX: 0
+    flipY: 0
+  - enemyType: 1
+    enemySpawnTime: 7
+    wayPointSO: {fileID: 11400000, guid: 91c8866fda4840e4bb8c49ee1e60d235, type: 2}
+    wayPointOffset: {x: 0, y: -0.25}
+    flipX: 0
+    flipY: 0
+  - enemyType: 2
+    enemySpawnTime: 10
+    wayPointSO: {fileID: 11400000, guid: 91c8866fda4840e4bb8c49ee1e60d235, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 1
+    flipY: 0
+  - enemyType: 1
+    enemySpawnTime: 11
+    wayPointSO: {fileID: 11400000, guid: 91c8866fda4840e4bb8c49ee1e60d235, type: 2}
+    wayPointOffset: {x: 0, y: 0.25}
+    flipX: 1
+    flipY: 0
+  - enemyType: 1
+    enemySpawnTime: 12
+    wayPointSO: {fileID: 11400000, guid: 91c8866fda4840e4bb8c49ee1e60d235, type: 2}
+    wayPointOffset: {x: 0, y: -0.25}
+    flipX: 1
+    flipY: 0

@@ -140,6 +140,17 @@ public class DialogEvents : MonoBehaviour
         }
     }
 
+    public void DisableChoosePanel()
+    {
+        Global.UI.UIFade(choicePanelTrm, false);
+        dialogLayout.alpha = 1;
+        dialogPanel.isClicked = true;
+        DialogPanel.eventWaitFlag = false;
+
+        onTextEndAction = null;
+        onClickedAction = null;
+    }
+
     private void ExtractOLDFLIMParameters(string param1)
     {
         OLDFLIM(bool.Parse(param1));

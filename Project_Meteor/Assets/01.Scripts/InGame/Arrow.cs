@@ -46,7 +46,7 @@ public class Arrow : MonoBehaviour
         else
         {
             m_ArcDirScale = dirVec.x < 0 ? 1 : -1;
-            m_UpArrowSpeedScale = 0.65f;
+            m_UpArrowSpeedScale = 0.8f;
         }
     }
 

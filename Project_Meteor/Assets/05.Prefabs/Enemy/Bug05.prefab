@@ -326,13 +326,13 @@ MonoBehaviour:
   enemyScaler: {fileID: 7617006675896652918}
   enemyAnimator: {fileID: 7617006676585198580}
   shadowSprite: {fileID: 7617006677357858240}
-  moveSpeed: 0.75
-  initArmor: 10
+  moveSpeed: 1
+  initArmor: 35
   armorBreakEffect: {fileID: 544620880870904295}
   armorEffect: {fileID: 6465355189842526027}
   dieParticle: {fileID: 7617006677272679458}
   hitTransform: {fileID: 2951119482259931149}
-  respawnPrefab: {fileID: 7617006677254011173}
+  respawnCount: 3
 --- !u!114 &7617006677254011228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a661c0f0eacdbb4a9e68ea0fcc08229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthAmountMax: 100
+  healthAmountMax: 500
 --- !u!1 &7617006677357858246
 GameObject:
   m_ObjectHideFlags: 0
