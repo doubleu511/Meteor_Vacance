@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogEvents : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class DialogEvents : MonoBehaviour
 
     [Header("Effect")]
     [SerializeField] CanvasGroup oldFlimGroup;
+
+    [Header("Background")]
+    [SerializeField] Sprite[] backgrounds;
 
     private Action onTextEndAction;
     private Action onClickedAction;
@@ -57,6 +61,9 @@ public class DialogEvents : MonoBehaviour
                     case "OLDFLIM":
                         ExtractOLDFLIMParameters(methodParameters[1]);
                         break;
+                    case "BACKGROUND":
+                        ExtractBACKGROUNDParameters(methodParameters[1]);
+                        break;
                 }
             }
             instantInvoke = false;
@@ -76,8 +83,8 @@ public class DialogEvents : MonoBehaviour
 
     private void ExtractCHOOSEParameters(string param1, string param2)
     {
-        string[] choicesSplit = param1.Split(',');
-        string[] affectResultSplit = param2.Split(',');
+        string[] choicesSplit = param1.Split(';');
+        string[] affectResultSplit = param2.Split(';');
 
         int[] affectResults = Array.ConvertAll(affectResultSplit, (e) => int.Parse(e));
 
@@ -159,6 +166,24 @@ public class DialogEvents : MonoBehaviour
     public void OLDFLIM(bool fade)
     {
         oldFlimGroup.DOFade(fade ? 1 : 0, 0.25f);
+    }
+
+    private void ExtractBACKGROUNDParameters(string param1)
+    {
+        BACKGROUND(param1);
+    }
+
+    private void BACKGROUND(string name)
+    {
+        for (int i = 0; i < backgrounds.Length; i++)
+        {
+            if (backgrounds[i].name == name)
+            {
+                dialogPanel.SetBackground(backgrounds[i]);
+            }
+        }
+
+        return;
     }
 
     public void LoadScene(string name)

@@ -19836,13 +19836,8 @@ MonoBehaviour:
   armorEffect: {fileID: 6388304470618706033}
   dieParticle: {fileID: 8746714094431955742}
   hitTransform: {fileID: 4045326065417043761}
-  healingScale: 0.5
-  waitHealingTime: 10
-  healingDuration: 8
-  teleportConditionCount: 5
-  teleportWaypoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  teleportConditionCount: 10
+  newWayPoint: {fileID: 0}
 --- !u!114 &8746714094416545376
 MonoBehaviour:
   m_ObjectHideFlags: 0

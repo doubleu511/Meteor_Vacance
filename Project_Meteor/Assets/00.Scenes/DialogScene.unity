@@ -2327,6 +2327,9 @@ MonoBehaviour:
   choicePanelTrm: {fileID: 298306920}
   dialogLayout: {fileID: 1660473561}
   oldFlimGroup: {fileID: 576556004}
+  backgrounds:
+  - {fileID: 21300000, guid: 30c71e10646855645bfe08362a998509, type: 3}
+  - {fileID: 21300000, guid: 7cd8be4b34d31c7449f703d70b72f864, type: 3}
 --- !u!225 &997767641
 CanvasGroup:
   m_ObjectHideFlags: 0

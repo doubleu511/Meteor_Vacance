@@ -15,7 +15,6 @@ MonoBehaviour:
   dialogID: 101
   dialogInfos:
   - text: "\uBD88\uB9CC \uC788\uB098?"
-    background: 0
     speakingDir: 0
     chracter_1:
       characterType: 3
@@ -24,6 +23,5 @@ MonoBehaviour:
       characterType: 0
       characterSpriteName: idle
     eventMethod:
-    - "CHOOSE\n\uC6D0\uB9DD\uC2A4\uB7FD\uAC8C \uCCD0\uB2E4\uBCF8\uB2E4,\uBD88\uC30D\uD55C
-      \uB208\uC73C\uB85C \uCCD0\uB2E4\uBCF8\uB2E4,\uB208\uC73C\uB85C \uC695\uD55C\uB2E4\n102,102,103"
-    isStopAtSkip: 1
+    - "CHOOSE\n\uC6D0\uB9DD\uC2A4\uB7FD\uAC8C \uCCD0\uB2E4\uBCF8\uB2E4;\uBD88\uC30D\uD55C
+      \uB208\uC73C\uB85C \uCCD0\uB2E4\uBCF8\uB2E4;\uB208\uC73C\uB85C \uC695\uD55C\uB2E4\n102;102;103"

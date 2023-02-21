@@ -23,4 +23,4 @@ MonoBehaviour:
       characterType: 0
       characterSpriteName: 
     eventMethod:
-    - "CHOOSE\n\uADC0\uC5EC\uC6CC,\uC608\uBED0,\uACB0 \uD63C \uD558 \uC790\n1001,1002,1003"
+    - "CHOOSE\n\uADC0\uC5EC\uC6CC;\uC608\uBED0;\uACB0 \uD63C \uD558 \uC790\n1001;1002;1003"

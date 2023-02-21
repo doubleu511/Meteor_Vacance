@@ -408,7 +408,7 @@ MonoBehaviour:
   enemyScaler: {fileID: 3976196473099836481}
   enemyAnimator: {fileID: 3976196472699958893}
   shadowSprite: {fileID: 3976196472934373299}
-  moveSpeed: 2
+  moveSpeed: 2.5
   initArmor: 10
   armorBreakEffect: {fileID: 3976196473747642314}
   armorEffect: {fileID: 8705704820520499624}

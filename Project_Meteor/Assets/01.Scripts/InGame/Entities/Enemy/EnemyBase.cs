@@ -96,7 +96,7 @@ public abstract class EnemyBase : MonoBehaviour
         healthSystem.SetHealthAmountMax();
     }
 
-    private IEnumerator MoveCoroutine(WaypointSO wayPoint, Vector2 wayPointOffset, bool flipX, bool flipY)
+    protected IEnumerator MoveCoroutine(WaypointSO wayPoint, Vector2 wayPointOffset, bool flipX, bool flipY)
     {
         int currentPlayIndex = 0;
 
@@ -146,7 +146,8 @@ public abstract class EnemyBase : MonoBehaviour
     {
         if (protectedBoss != null)
         {
-            protectedBoss.HitInstead(amount - Armor * debuffArmorScale);
+            protectedBoss.HitInstead(amount - Armor * debuffArmorScale * 0.8f);
+            healthSystem.TakeDamage(amount - Armor * debuffArmorScale * 0.2f);
         }
         else
         {

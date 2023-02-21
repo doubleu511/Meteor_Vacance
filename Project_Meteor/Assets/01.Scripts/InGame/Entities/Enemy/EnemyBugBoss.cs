@@ -23,16 +23,11 @@ public class EnemyBugBoss : EnemyBase
     }
 
     [Header("Each Enemy Properties")]
-    [SerializeField] float healingScale = 0.5f;
-    [SerializeField] float waitHealingTime = 10;
-    [SerializeField] float healingDuration = 4;
-    [SerializeField] int teleportConditionCount = 5;
-    [SerializeField] Transform[] teleportWaypoints;
-    private int teleportWaypointIndex = 0;
+    [SerializeField] int teleportConditionCount = 10;
+    [SerializeField] WaypointSO newWayPoint;
     private int directHitCount = 0;
+    private bool isTeleported = false;
     private float initSpeed;
-    private Coroutine healingCycleCo;
-    private bool isTryHeal = false;
 
     protected override void Start()
     {
@@ -43,17 +38,6 @@ public class EnemyBugBoss : EnemyBase
     public override void Init(WaypointSO wayPoint, Vector2 wayPointOffset, bool flipX, bool flipY)
     {
         base.Init(wayPoint, wayPointOffset, flipX, flipY);
-        teleportWaypoints = new Transform[]
-{
-            GameManager.MapData.Position2D[2, 2],
-            GameManager.MapData.Position2D[2, 8],
-};
-
-        StopCoroutine(moveCoroutine);
-        StartCoroutine(MoveWaypoint(teleportWaypoints[teleportWaypointIndex]));
-
-        healingCycleCo = StartCoroutine(HealCycle());
-        isTryHeal = false;
     }
 
     public void HitInstead(float damage)
@@ -70,12 +54,15 @@ public class EnemyBugBoss : EnemyBase
 
         if(directHitCount >= teleportConditionCount)
         {
-            directHitCount = 0;
-            teleportWaypointIndex = (teleportWaypointIndex + 1) % teleportWaypoints.Length;
-            Teleport(teleportWaypoints[teleportWaypointIndex]);
+            if (!isTeleported)
+            {
+                isTeleported = true;
+                StopCoroutine(moveCoroutine);
+                Teleport();
+            }
         }
 
-        HealOrDamage(damage);
+        base.TakeDamage(damage);
     }
 
     public override void TakeDamage(float amount)
@@ -83,35 +70,7 @@ public class EnemyBugBoss : EnemyBase
         BossHitSystem(amount , true);
     }
 
-    private void HealOrDamage(float amount)
-    {
-        if (!isTryHeal)
-        {
-            base.TakeDamage(amount);
-        }
-        else
-        {
-            healthSystem.HealHealth(amount * healingScale);
-        }
-    }
-
-    private IEnumerator HealCycle()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(waitHealingTime);
-
-            enemyAnimator.SetBool("isHeal", true);
-            isTryHeal = true;
-
-            yield return new WaitForSeconds(healingDuration);
-
-            enemyAnimator.SetBool("isHeal", false);
-            isTryHeal = false;
-        }
-    }
-
-    private void Teleport(Transform waypoint)
+    private void Teleport()
     {
         coll.enabled = false;
         enemyAnimator.enabled = false;
@@ -125,7 +84,8 @@ public class EnemyBugBoss : EnemyBase
         seq.AppendInterval(2f);
         seq.AppendCallback(() =>
         {
-            transform.position = waypoint.position;
+            transform.position = GameManager.MapData.Position2D[newWayPoint.enemyWayPoints[0].enemyWayPoint.y, newWayPoint.enemyWayPoints[0].enemyWayPoint.x].position;
+            moveCoroutine = StartCoroutine(MoveCoroutine(newWayPoint, Vector2.zero, false, false));
         });
         seq.Append(enemyAnimator.transform.DOScaleX(1, 0.4f));
         seq.Join(enemySpriteRenderer.DOColor(Color.white, 0.3f));
@@ -135,42 +95,6 @@ public class EnemyBugBoss : EnemyBase
             coll.enabled = true;
             enemyAnimator.enabled = true;
         });
-    }
-
-    private IEnumerator MoveWaypoint(Transform wayPoint)
-    {
-        while (true)
-        {
-            Vector3 dir = wayPoint.position - transform.position;
-
-            if(dir.sqrMagnitude < 0.01f)
-            {
-                break;
-            }
-
-            transform.position = Vector3.MoveTowards(transform.position, wayPoint.position, moveSpeed * Time.deltaTime);
-            speedScale = -0.084f * transform.position.y + 1;
-            enemyScaler.transform.localScale = new Vector3(speedScale, speedScale, 1);
-
-            if (dir.x > 1f)
-            {
-                enemySpriteRenderer.flipX = false;
-            }
-            else if (dir.x < -1f)
-            {
-                enemySpriteRenderer.flipX = true;
-            }
-
-            yield return null;
-        }
-
-        Vector3 playerDir = GameManager.Player.transform.position - transform.position;
-        if (playerDir.sqrMagnitude <= 0.4f)
-        {
-            // 플레이어에게 도착
-            GameManager.Player.TakeDamage(5);
-            Disappear(false);
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -98,26 +98,8 @@ MonoBehaviour:
     flipX: 0
     flipY: 1
   - enemyType: 9
-    enemySpawnTime: 30
-    wayPointSO: {fileID: 11400000, guid: 4ac5add2512a5764ab19112fee55e55c, type: 2}
+    enemySpawnTime: 40
+    wayPointSO: {fileID: 11400000, guid: 195b47f5efabf0a4a9d26abcad340280, type: 2}
     wayPointOffset: {x: 0, y: 0}
     flipX: 0
     flipY: 0
-  - enemyType: 9
-    enemySpawnTime: 30
-    wayPointSO: {fileID: 11400000, guid: 4ac5add2512a5764ab19112fee55e55c, type: 2}
-    wayPointOffset: {x: 0, y: 0}
-    flipX: 1
-    flipY: 0
-  - enemyType: 9
-    enemySpawnTime: 30
-    wayPointSO: {fileID: 11400000, guid: 4ac5add2512a5764ab19112fee55e55c, type: 2}
-    wayPointOffset: {x: 0, y: 0}
-    flipX: 0
-    flipY: 1
-  - enemyType: 9
-    enemySpawnTime: 30
-    wayPointSO: {fileID: 11400000, guid: 4ac5add2512a5764ab19112fee55e55c, type: 2}
-    wayPointOffset: {x: 0, y: 0}
-    flipX: 1
-    flipY: 1

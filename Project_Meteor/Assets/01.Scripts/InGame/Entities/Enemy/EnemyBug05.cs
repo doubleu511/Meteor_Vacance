@@ -23,6 +23,7 @@ public class EnemyBug05 : EnemyBase
 
     [SerializeField] int respawnCount = 5;
     private WaveTime respawnWaveTime;
+    private int teleportIndex = 0;
 
     protected override void Start()
     {
@@ -44,6 +45,7 @@ public class EnemyBug05 : EnemyBase
         else
         {
             base.Die();
+            teleportIndex = 0;
         }
     }
 
@@ -81,7 +83,9 @@ public class EnemyBug05 : EnemyBase
             seq.AppendInterval(3f);
             seq.AppendCallback(() =>
             {
-                Init(respawnWaveTime.wayPointSO, respawnWaveTime.wayPointOffset, UnityEngine.Random.value > 0.5f, UnityEngine.Random.value > 0.5f);
+                teleportIndex++;
+                if (teleportIndex > 4) teleportIndex = 1;
+                Init(respawnWaveTime.wayPointSO, respawnWaveTime.wayPointOffset, teleportIndex % 2 == 1, teleportIndex > 2);
             });
         }
         else
