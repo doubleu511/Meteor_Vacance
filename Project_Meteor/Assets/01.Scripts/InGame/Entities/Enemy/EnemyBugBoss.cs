@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
-using UnityEditor.PackageManager;
 using UnityEngine.UI;
-using UnityEditor.Experimental.GraphView;
 
 public class EnemyBugBoss : EnemyBase
 {
@@ -103,6 +101,7 @@ public class EnemyBugBoss : EnemyBase
 
         if (enemy != null && enemy != this)
         {
+            print("asd");
             enemy.AddBossGift(this);
         }
     }

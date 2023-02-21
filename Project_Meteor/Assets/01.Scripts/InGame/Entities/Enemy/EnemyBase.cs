@@ -146,8 +146,8 @@ public abstract class EnemyBase : MonoBehaviour
     {
         if (protectedBoss != null)
         {
-            protectedBoss.HitInstead(amount - Armor * debuffArmorScale * 0.8f);
-            healthSystem.TakeDamage(amount - Armor * debuffArmorScale * 0.2f);
+            protectedBoss.HitInstead((amount - Armor * debuffArmorScale) * 0.8f);
+            healthSystem.TakeDamage((amount - Armor * debuffArmorScale) * 0.2f);
         }
         else
         {

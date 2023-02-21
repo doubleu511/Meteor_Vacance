@@ -2307,9 +2307,9 @@ MonoBehaviour:
   uioffButton: {fileID: 809784854}
   isClicked: 0
   startActs:
-  - {fileID: 498188248}
+  - {fileID: 368159525}
   - {fileID: 271051494}
-  - {fileID: 498188248}
+  - {fileID: 271051494}
   blackScreen: {fileID: 1656620361}
 --- !u!114 &997767640
 MonoBehaviour:

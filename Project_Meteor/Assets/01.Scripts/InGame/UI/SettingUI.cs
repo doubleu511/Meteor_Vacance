@@ -84,6 +84,7 @@ public class SettingUI : MonoBehaviour
     private void ContinueCycle(Button button, ref int count, Action nextAction)
     {
         count++;
+        Global.Sound.Play("SFX/Battle/b_ui_popup", eSound.Effect);
         if(count == 1)
         {
             continueText.gameObject.SetActive(true);

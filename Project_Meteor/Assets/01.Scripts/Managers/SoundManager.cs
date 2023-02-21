@@ -139,7 +139,7 @@ public class SoundManager
     {
         for (int i = 0; i < (int)eSound.MaxCount; i++)
         {
-            int volume = SecurityPlayerPrefs.GetInt($"Volume{(eSound)i}", 100);
+            int volume = SecurityPlayerPrefs.GetInt($"Volume{(eSound)i}", 50);
             SetVolume((eSound)i, volume, false);
         }
     }

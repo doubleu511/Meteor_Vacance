@@ -19831,13 +19831,13 @@ MonoBehaviour:
   enemyAnimator: {fileID: 8746714093210733768}
   shadowSprite: {fileID: 8746714094383969020}
   moveSpeed: 0.4
-  initArmor: 90
+  initArmor: 200
   armorBreakEffect: {fileID: 1682508809899814619}
   armorEffect: {fileID: 6388304470618706033}
   dieParticle: {fileID: 8746714094431955742}
   hitTransform: {fileID: 4045326065417043761}
   teleportConditionCount: 10
-  newWayPoint: {fileID: 0}
+  newWayPoint: {fileID: 11400000, guid: 5057a2168a75d2a45960b476c6d2864f, type: 2}
 --- !u!114 &8746714094416545376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19850,7 +19850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a661c0f0eacdbb4a9e68ea0fcc08229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthAmountMax: 1000
+  healthAmountMax: 2000
 --- !u!1001 &1682508810159710961
 PrefabInstance:
   m_ObjectHideFlags: 0

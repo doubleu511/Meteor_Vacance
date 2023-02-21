@@ -65,8 +65,9 @@ public class TopButtonPanel : MonoBehaviour
     private void SkipBtnEvent()
     {
         isSkipping = !isSkipping;
+        Global.Sound.Play("SFX/Battle/b_ui_popup", eSound.Effect);
 
-        if(isSkipping)
+        if (isSkipping)
         {
             if(!isPause) Time.timeScale = 2;
             savedTimeScale = 2;
@@ -92,6 +93,7 @@ public class TopButtonPanel : MonoBehaviour
     {
         isPause = !isPause;
         PlayerController.Interactable = !isPause;
+        Global.Sound.Play("SFX/Battle/b_ui_popup", eSound.Effect);
 
         if (isPause)
         {
