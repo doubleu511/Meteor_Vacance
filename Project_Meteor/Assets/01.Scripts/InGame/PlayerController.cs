@@ -263,14 +263,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(animationLookDir != lookDir)
+        playerScaler.DOKill();
+        playerScaler.DOScaleY(0.8f, 0.1f).OnComplete(() =>
         {
-            playerScaler.DOKill();
-            playerScaler.DOScaleY(0.8f, 0.1f).OnComplete(() =>
-            {
-                playerScaler.DOScaleY(1f, 0.1f);
-            });
-        }
+            playerScaler.DOScaleY(1f, 0.1f);
+        });
 
         if (lookDir != Vector2Int.down)
         {

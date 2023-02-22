@@ -27,7 +27,6 @@ public class TitleResoultionUI : MonoBehaviour
     {
         Screen.fullScreen = (value == 0) ? true : false;
         SecurityPlayerPrefs.SetInt("FULL_SCREEN", value);
-        Debug.Log($"FullScreen {((value == 0) ? true : false)}");
     }
 
     private void Resolution(int value)

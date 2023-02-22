@@ -25,7 +25,7 @@ public class TitleActBtn : MonoBehaviour
     {
         actDialogBtn.onClick.AddListener(() =>
         {
-            TitleGameRequestUI.Request.SetRequestText("해당 다이얼로그를 재생하시겠습니까?", "돌아가기", "재생");
+            TitleGameRequestUI.Request.SetRequestText("해당 다이얼로그를 재생하시겠습니까? \n(재생 후 되돌아오려면 끝까지 봐야 합니다.)", "돌아가기", "재생");
             TitleGameRequestUI.Request.SetRequestAction(() =>
             {
                 TitleGameRequestUI.Request.RequestPopup(false);
