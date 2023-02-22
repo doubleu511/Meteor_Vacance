@@ -1641,7 +1641,19 @@ MonoBehaviour:
   startDialog: {fileID: 11400000, guid: b39f9e5000ab56f48ab549f7dd1fc97b, type: 2}
   onActEnded:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 997767640}
+        m_TargetAssemblyTypeName: DialogEvents, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: TitleScene
+          m_BoolArgument: 0
+        m_CallState: 2
   actBackground: {fileID: 21300000, guid: ae3f1c94a5eb6914fa5f563dc0cd0a2e, type: 3}
   actBGM: {fileID: 8300000, guid: 2ba48103deecfde4b9e7b877bb2b9c06, type: 3}
   characterOverlayColor: {r: 0.34117648, g: 0.34117648, b: 0.34117648, a: 0.3137255}
@@ -1960,7 +1972,19 @@ MonoBehaviour:
   startDialog: {fileID: 11400000, guid: 096e5dfc75f0f6e43ae18fcc3016c393, type: 2}
   onActEnded:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 997767640}
+        m_TargetAssemblyTypeName: DialogEvents, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: TitleScene
+          m_BoolArgument: 0
+        m_CallState: 2
   actBackground: {fileID: 21300000, guid: 4a8ee537c685e3240869a6a1a12ee231, type: 3}
   actBGM: {fileID: 8300000, guid: 2ba48103deecfde4b9e7b877bb2b9c06, type: 3}
   characterOverlayColor: {r: 0.09803922, g: 0.27450982, b: 0.38039216, a: 0.49019608}
@@ -2307,9 +2331,9 @@ MonoBehaviour:
   uioffButton: {fileID: 809784854}
   isClicked: 0
   startActs:
-  - {fileID: 368159525}
+  - {fileID: 498188248}
   - {fileID: 271051494}
-  - {fileID: 271051494}
+  - {fileID: 498188248}
   blackScreen: {fileID: 1656620361}
 --- !u!114 &997767640
 MonoBehaviour:
@@ -2328,8 +2352,12 @@ MonoBehaviour:
   dialogLayout: {fileID: 1660473561}
   oldFlimGroup: {fileID: 576556004}
   backgrounds:
-  - {fileID: 21300000, guid: 30c71e10646855645bfe08362a998509, type: 3}
-  - {fileID: 21300000, guid: 7cd8be4b34d31c7449f703d70b72f864, type: 3}
+  - {fileID: 21300000, guid: 3e6e6cc411812434eb7648b6fb578274, type: 3}
+  - {fileID: 21300000, guid: 7ac106a8a92d91f4b8779308923222a6, type: 3}
+  - {fileID: 21300000, guid: eab8b76601ef8fe41be9e66f5fb911d6, type: 3}
+  - {fileID: 21300000, guid: 677e323823ad816429ad2b7018abd2bd, type: 3}
+  - {fileID: 21300000, guid: 0aa3eb6e4cfaa57418c5cfc07d723e62, type: 3}
+  - {fileID: 21300000, guid: a87f7d2517a6f224da5a87df2ced40da, type: 3}
 --- !u!225 &997767641
 CanvasGroup:
   m_ObjectHideFlags: 0

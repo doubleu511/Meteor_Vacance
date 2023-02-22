@@ -112,7 +112,13 @@ public class TitleDetailImagePanel : MonoBehaviour
     public void SetCanvasGroup(CanvasGroup canvasGroup)
     {
         currentShowGroup = canvasGroup;
+
         canvasGroup.alpha = 1;
+        topBtnGroup.SetFade(true);
+
+        prevBtn.gameObject.SetActive(false);
+        nextBtn.gameObject.SetActive(false);
+
         isOpen = true;
         SetDetailPanel(true);
     }

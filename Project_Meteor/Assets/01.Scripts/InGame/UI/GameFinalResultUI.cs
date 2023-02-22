@@ -81,6 +81,7 @@ public class GameFinalResultUI : MonoBehaviour
                 nextIndex = 1;
                 Global.Sound.Play("SFX/Voice/3star", eSound.Voice);
                 Global.Sound.Play("BGM/victory", eSound.Bgm);
+                SecurityPlayerPrefs.SetBool("NormalEndingClear", true);
                 break;
             case 4:
                 voiceText.text = star4Dialog;
@@ -88,6 +89,7 @@ public class GameFinalResultUI : MonoBehaviour
                 nextIndex = 2;
                 Global.Sound.Play("SFX/Voice/4star", eSound.Voice);
                 Global.Sound.Play("BGM/victory", eSound.Bgm);
+                SecurityPlayerPrefs.SetBool("HappyEndingClear", true);
                 break;
         }
         UtilClass.ForceRefreshSize(voiceSizeFitter.transform);

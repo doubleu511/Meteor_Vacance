@@ -74,9 +74,13 @@ namespace Krivodeling.UI.Effects
             StartCoroutine(EndBlurCoroutine(speed));
         }
 
-        private void Start()
+        private void Awake()
         {
             SetComponents();
+        }
+
+        private void Start()
+        {
             SetBlur(Color, Intensity, _multiplier);
         }
 

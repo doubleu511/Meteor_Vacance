@@ -52,9 +52,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        Global.Sound.PlayRandom(eSound.Voice, 1, "SFX/Voice/deploy1", "SFX/Voice/deploy2");
-        Global.Sound.Play("SFX/Battle/b_char_set");
-
+        StartCoroutine(StartSoundCo());
         directRot = playerDirectArrow.transform.localRotation;
 
         InGameUI.UI.Info.SetPlayerHeathText((int)playerHealth.GetHealthAmount());
@@ -80,6 +78,13 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(BlushEffect());
             }
         });
+    }
+
+    private IEnumerator StartSoundCo()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Global.Sound.PlayRandom(eSound.Voice, 1, "SFX/Voice/deploy1", "SFX/Voice/deploy2");
+        Global.Sound.Play("SFX/Battle/b_char_set");
     }
 
     private void Update()

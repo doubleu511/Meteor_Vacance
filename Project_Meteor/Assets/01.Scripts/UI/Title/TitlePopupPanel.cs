@@ -12,8 +12,11 @@ public class TitlePopupPanel : MonoBehaviour
     [SerializeField] UIBlur uiblur;
     [SerializeField] Button prevBtn;
 
-    [SerializeField] CanvasGroup albumPanel;
+    [SerializeField] TitlePopupTabPanel albumPanel;
     [SerializeField] GameObject albumObject;
+    [SerializeField] TitlePopupTabPanel settingPanel;
+    [SerializeField] GameObject settingObject;
+
     private GameObject currentObject;
 
     private void Awake()
@@ -26,6 +29,8 @@ public class TitlePopupPanel : MonoBehaviour
         prevBtn.onClick.AddListener(() =>
         {
             OpenPopup(false, false);
+            albumPanel.SetPanel(false);
+            settingPanel.SetPanel(false);
         });
     }
 
@@ -39,9 +44,22 @@ public class TitlePopupPanel : MonoBehaviour
         albumObject.SetActive(true);
         currentObject = albumObject;
 
-        Global.UI.UIFade(albumPanel, true);
-
+        albumPanel.SetPanel(true);
         OpenPopup(true, instant);
+    }
+
+    public void OpenSetting()
+    {
+        if (currentObject != null)
+        {
+            currentObject.SetActive(false);
+        }
+
+        settingObject.SetActive(true);
+        currentObject = settingObject;
+
+        settingPanel.SetPanel(true);
+        OpenPopup(true, false);
     }
 
     private void OpenPopup(bool fade, bool instant)
@@ -50,7 +68,16 @@ public class TitlePopupPanel : MonoBehaviour
         uiblur.DOKill();
         if (!instant)
         {
-            Global.UI.UIFade(popupGroup, fade ? UIFadeType.IN : UIFadeType.OUT, 0.25f, true);
+            if (fade)
+            {
+                popupGroup.interactable = true;
+                popupGroup.blocksRaycasts = true;
+                popupGroup.DOFade(1, 0.25f);
+            }
+            else
+            {
+                Global.UI.UIFade(popupGroup, UIFadeType.OUT, 0.25f, true);
+            }
             DOTween.To(() => uiblur.Intensity, value => uiblur.Intensity = value, fade ? 1 : 0, 0.25f).SetUpdate(true);
         }
         else

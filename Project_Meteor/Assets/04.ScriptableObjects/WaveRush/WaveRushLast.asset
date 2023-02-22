@@ -73,3 +73,15 @@ MonoBehaviour:
     wayPointOffset: {x: 0, y: 0}
     flipX: 1
     flipY: 0
+  - enemyType: 6
+    enemySpawnTime: 50
+    wayPointSO: {fileID: 11400000, guid: a1c0f91a8581da94493ff0d8b103fdfb, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 1
+    flipY: 0
+  - enemyType: 6
+    enemySpawnTime: 55
+    wayPointSO: {fileID: 11400000, guid: a1c0f91a8581da94493ff0d8b103fdfb, type: 2}
+    wayPointOffset: {x: 0, y: 0}
+    flipX: 0
+    flipY: 1

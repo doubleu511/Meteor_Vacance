@@ -13,37 +13,93 @@ public class TitleSystem : MonoBehaviour
 
     [Header("Loading")]
     [SerializeField] TextMeshProUGUI loadingText;
-    [SerializeField] CanvasGroup startBtn;
+    [SerializeField] Image iconEffect;
+    [SerializeField] CanvasGroup startBtnGroup;
 
     [Header("Title")]
     [SerializeField] ParticleSystem lobbyParticle;
     [SerializeField] TitlePopupPanel popupPanel;
+    [SerializeField] Button startBtn;
     [SerializeField] Button albumBtn;
+    [SerializeField] Button settingBtn;
+
+    [SerializeField] Button titleExitBtn;
 
     private void Start()
     {
-        StartCoroutine(StartCo());
         Global.Sound.Play("BGM/systitle2022", eSound.Bgm);
+
+        startBtn.onClick.AddListener(() =>
+        {
+            DialogPanel.startActIndex = 0;
+            Global.LoadScene.LoadScene("DialogScene");
+        });
 
         albumBtn.onClick.AddListener(() =>
         {
-            popupPanel.OpenAlbum();
+            popupPanel.OpenAlbum(false);
         });
+
+        settingBtn.onClick.AddListener(() =>
+        {
+            popupPanel.OpenSetting();
+        });
+
+        titleExitBtn.onClick.AddListener(() =>
+        {
+            TitleGameRequestUI.Request.SetRequestText("게임을 종료하시겠습니까?", "돌아가기", "게임 종료");
+            TitleGameRequestUI.Request.SetRequestAction(() =>
+                {
+                    TitleGameRequestUI.Request.RequestPopup(false);
+                },
+                () =>
+                {
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+            });
+            TitleGameRequestUI.Request.RequestPopup(true);
+        });
+
+        if (TitleActBtn.isSimulateAct)
+        {
+            TitleActBtn.isSimulateAct = false;
+            SkipLoadingEndOpenAlbum();
+        }
+        else
+        {
+            StartCoroutine(StartCo());
+        }
     }
 
     private IEnumerator StartCo()
     {
         loadingPanelGroup.alpha = 1;
         Global.UI.UIFade(titlePanelGroup, false);
-        Global.UI.UIFade(startBtn, false);
+        Global.UI.UIFade(startBtnGroup, false);
         yield return new WaitForSeconds(4);
         loadingText.gameObject.SetActive(false);
-        Global.UI.UIFade(startBtn, UIFadeType.IN, 0.75f, true);
+        Global.UI.UIFade(startBtnGroup, UIFadeType.IN, 0.75f, true);
+        AbilityEffectAnimation();
+    }
+
+    private void AbilityEffectAnimation()
+    {
+        iconEffect.DOKill();
+        iconEffect.transform.DOKill();
+
+        iconEffect.color = Color.white;
+        iconEffect.transform.localScale = Vector3.one;
+
+        iconEffect.DOFade(0, 1f).SetLoops(-1);
+        iconEffect.transform.DOScale(2.25f, 1f).SetLoops(-1);
     }
 
     public void LobbyStart()
     {
-        startBtn.interactable = false;
+        startBtnGroup.interactable = false;
         StartCoroutine(BlackLoading());
     }
 
@@ -60,6 +116,23 @@ public class TitleSystem : MonoBehaviour
 
     private void SkipLoadingEndOpenAlbum()
     {
+        Global.UI.UIFade(loadingPanelGroup, false);
+        Global.UI.UIFade(titlePanelGroup, true);
+        popupPanel.OpenAlbum(true);
+        lobbyParticle.Play();
+    }
 
+    [ContextMenu("ClearSave")]
+    private void ClearSave()
+    {
+        SecurityPlayerPrefs.SetBool("NormalEndingClear", true);
+        SecurityPlayerPrefs.SetBool("HappyEndingClear", true);
+    }
+
+    [ContextMenu("ResetSave")]
+    private void ResetSave()
+    {
+        SecurityPlayerPrefs.DeleteKey("NormalEndingClear");
+        SecurityPlayerPrefs.DeleteKey("HappyEndingClear");
     }
 }

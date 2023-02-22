@@ -36,8 +36,6 @@ public class TopButtonPanel : MonoBehaviour
 
     void Update()
     {
-        if (!PlayerController.Interactable) return;
-
         if(Input.GetKeyDown(KeyCode.F2))
         {
             SkipBtnEvent();

@@ -22,6 +22,7 @@ public class EnemyBug05 : EnemyBase
 
 
     [SerializeField] int respawnCount = 5;
+    private int curRespawnCount = 5;
     private WaveTime respawnWaveTime;
     private int teleportIndex = 0;
 
@@ -37,8 +38,8 @@ public class EnemyBug05 : EnemyBase
 
     protected override void Die()
     {
-        respawnCount--;
-        if (respawnCount > 0)
+        curRespawnCount--;
+        if (curRespawnCount > 0)
         {
             Disappear(false);
         }
@@ -46,12 +47,13 @@ public class EnemyBug05 : EnemyBase
         {
             base.Die();
             teleportIndex = 0;
+            curRespawnCount = respawnCount;
         }
     }
 
     protected override void Disappear(bool kill)
     {
-        if (respawnCount > 0)
+        if (curRespawnCount > 0)
         {
             coll.enabled = false;
             enemyAnimator.enabled = false;
@@ -92,5 +94,12 @@ public class EnemyBug05 : EnemyBase
         {
             base.Disappear(kill);
         }
+    }
+
+    protected override void AttackPlayer()
+    {
+        GameManager.Player.TakeDamage(1);
+        curRespawnCount = 0;
+        base.Disappear(false);
     }
 }

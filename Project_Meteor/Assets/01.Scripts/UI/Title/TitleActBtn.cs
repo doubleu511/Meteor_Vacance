@@ -25,9 +25,18 @@ public class TitleActBtn : MonoBehaviour
     {
         actDialogBtn.onClick.AddListener(() =>
         {
-            isSimulateAct = true;
-            DialogPanel.startActIndex = targetActIndex;
-            Global.LoadScene.LoadScene("DialogScene");
+            TitleGameRequestUI.Request.SetRequestText("해당 다이얼로그를 재생하시겠습니까?", "돌아가기", "재생");
+            TitleGameRequestUI.Request.SetRequestAction(() =>
+            {
+                TitleGameRequestUI.Request.RequestPopup(false);
+            },
+                () =>
+                {
+                    isSimulateAct = true;
+                    DialogPanel.startActIndex = targetActIndex;
+                    Global.LoadScene.LoadScene("DialogScene");
+                });
+            TitleGameRequestUI.Request.RequestPopup(true);
         });
 
         Refresh();

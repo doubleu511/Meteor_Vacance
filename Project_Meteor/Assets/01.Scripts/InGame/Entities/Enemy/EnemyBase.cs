@@ -137,16 +137,21 @@ public abstract class EnemyBase : MonoBehaviour
         if (playerDir.sqrMagnitude <= 0.4f)
         {
             // 플레이어에게 도착
-            GameManager.Player.TakeDamage(1);
-            Disappear(false);
+            AttackPlayer();
         }
+    }
+
+    protected virtual void AttackPlayer()
+    {
+        GameManager.Player.TakeDamage(1);
+        Disappear(false);
     }
 
     public virtual void TakeDamage(float amount)
     {
         if (protectedBoss != null)
         {
-            protectedBoss.HitInstead((amount - Armor * debuffArmorScale) * 0.8f);
+            protectedBoss.TakeDamage((amount - Armor * debuffArmorScale) * 0.8f);
             healthSystem.TakeDamage((amount - Armor * debuffArmorScale) * 0.2f);
         }
         else

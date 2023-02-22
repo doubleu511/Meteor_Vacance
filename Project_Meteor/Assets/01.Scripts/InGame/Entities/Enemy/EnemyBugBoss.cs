@@ -21,9 +21,7 @@ public class EnemyBugBoss : EnemyBase
     }
 
     [Header("Each Enemy Properties")]
-    [SerializeField] int teleportConditionCount = 10;
     [SerializeField] WaypointSO newWayPoint;
-    private int directHitCount = 0;
     private bool isTeleported = false;
     private float initSpeed;
 
@@ -38,19 +36,9 @@ public class EnemyBugBoss : EnemyBase
         base.Init(wayPoint, wayPointOffset, flipX, flipY);
     }
 
-    public void HitInstead(float damage)
+    public override void TakeDamage(float amount)
     {
-        BossHitSystem(damage, false);
-    }
-
-    private void BossHitSystem(float damage, bool isDirectHit)
-    {
-        if(isDirectHit)
-        {
-            directHitCount++;
-        }
-
-        if(directHitCount >= teleportConditionCount)
+        if (healthSystem.GetHealthAmountNormalized() <= 0.5f)
         {
             if (!isTeleported)
             {
@@ -60,12 +48,7 @@ public class EnemyBugBoss : EnemyBase
             }
         }
 
-        base.TakeDamage(damage);
-    }
-
-    public override void TakeDamage(float amount)
-    {
-        BossHitSystem(amount , true);
+        base.TakeDamage(amount);
     }
 
     private void Teleport()

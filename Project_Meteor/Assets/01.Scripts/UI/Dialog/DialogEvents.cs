@@ -64,6 +64,9 @@ public class DialogEvents : MonoBehaviour
                     case "BACKGROUND":
                         ExtractBACKGROUNDParameters(methodParameters[1]);
                         break;
+                    case "PLAYSFX":
+                        ExtractPLAYSFXParameters(methodParameters[1]);
+                        break;
                 }
             }
             instantInvoke = false;
@@ -182,8 +185,16 @@ public class DialogEvents : MonoBehaviour
                 dialogPanel.SetBackground(backgrounds[i]);
             }
         }
+    }
 
-        return;
+    private void ExtractPLAYSFXParameters(string param1)
+    {
+        PLAYSFX(param1);
+    }
+
+    private void PLAYSFX(string name)
+    {
+        Global.Sound.Play(name, eSound.Effect);
     }
 
     public void LoadScene(string name)

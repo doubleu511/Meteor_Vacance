@@ -12,6 +12,7 @@ public class HealthSystem : MonoBehaviour
     [SerializeField]
     private int healthAmountMax = 100;
     private float curHealthAmount;
+    private bool isDisappear = false;
 
     private void Awake()
     {
@@ -53,6 +54,7 @@ public class HealthSystem : MonoBehaviour
     public void SetHealthAmountMax()
     {
         curHealthAmount = healthAmountMax;
+        isDisappear = false;
         OnDamaged?.Invoke();
     }
 
@@ -60,6 +62,7 @@ public class HealthSystem : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         if (IsDead()) return;
+        if (isDisappear) return;
 
         Damage(damageAmount);
         OnDamaged?.Invoke();
@@ -79,6 +82,7 @@ public class HealthSystem : MonoBehaviour
 
     public void Disappear()
     {
+        isDisappear = true;
         OnDisappeared?.Invoke();
     }
 }

@@ -9,10 +9,17 @@ public class TutorialPanel : MonoBehaviour
     private CanvasGroup canvasGroup;
 
     [SerializeField] GameObject[] tutorialGroups;
+
+    [SerializeField] TextMeshProUGUI dialogText;
+    [SerializeField] Transform dialogBox;
     [TextArea(2, 3)]
     [SerializeField] string[] tutorialTexts;
-    [SerializeField] TextMeshProUGUI dialogText;
+
+    [SerializeField] Image tutorialHead;
+    [SerializeField] Sprite[] tutorialHeadSprs;
+
     private int tutorialIndex = 0;
+    [SerializeField] bool isTitleScene = false;
 
     [SerializeField] Button prevBtn;
     [SerializeField] Button nextBtn;
@@ -25,11 +32,14 @@ public class TutorialPanel : MonoBehaviour
 
     private void Start()
     {
-        bool isSeenTutorial = SecurityPlayerPrefs.GetBool("SeenTutorial", false);
-        if(!isSeenTutorial)
+        if (!isTitleScene)
         {
-            SetTutorialPanel(true);
-            SecurityPlayerPrefs.SetBool("SeenTutorial", true);
+            bool isSeenTutorial = SecurityPlayerPrefs.GetBool("SeenTutorial", false);
+            if (!isSeenTutorial)
+            {
+                SetTutorialPanel(true);
+                SecurityPlayerPrefs.SetBool("SeenTutorial", true);
+            }
         }
 
         prevBtn.onClick.AddListener(() =>
@@ -74,9 +84,16 @@ public class TutorialPanel : MonoBehaviour
         nextBtn.gameObject.SetActive(tutorialIndex < tutorialGroups.Length - 1);
 
         dialogText.text = tutorialTexts[tutorialIndex];
+        UtilClass.ForceRefreshSize(dialogBox);
+
+        tutorialHead.sprite = tutorialHeadSprs[tutorialIndex];
         for (int i = 0; i < tutorialGroups.Length; i++)
         {
-            tutorialGroups[i].SetActive(i == tutorialIndex);
+            if (tutorialGroups[i] != null)
+            {
+                print(i);
+                tutorialGroups[i].SetActive(i == tutorialIndex);
+            }
         }
     }
 }
