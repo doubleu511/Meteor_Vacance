@@ -41,17 +41,20 @@ public class SettingUI : MonoBehaviour
 
         titleBtn.onClick.AddListener(() =>
         {
-            ContinueCycle(titleBtn, ref titleCount, null);
+            ContinueCycle(titleBtn, ref titleCount, () => Global.LoadScene.LoadScene("TitleScene"));
             restartCount = 0;
         });
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!GameResultUI.isGameEnd)
         {
-            isFade = !isFade;
-            Setting(isFade);
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                isFade = !isFade;
+                Setting(isFade);
+            }
         }
     }
 

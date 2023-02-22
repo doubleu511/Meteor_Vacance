@@ -35,6 +35,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     private bool isPlayingDialog = false; // 현재 하나의 문단 다이얼로그가 재생중인가?
     private bool isText = false;
     private bool isTextEnd = false;
+    private bool isSkipping = false;
 
     [HideInInspector]
     public bool isClicked = false;
@@ -107,6 +108,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     private IEnumerator StartActCoroutine(ActEvent act)
     {
         yield return new WaitForSeconds(0.5f);
+        isSkipping = false;
         Global.Sound.Play(act.actBGM, eSound.Bgm);
         Global.UI.UIFade(blackScreen, UIFadeType.OUT, 1, true);
         StartDialog(act.startDialog);
@@ -180,6 +182,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         Global.Sound.StopAudio(eSound.Bgm, true);
         yield return new WaitForSeconds(2.5f);
         characterHandlers[currentHandlerIndex].SetFade(false);
+
         currentAct.onActEnded?.Invoke();
     }
 
@@ -286,11 +289,15 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
     public void DialogSkip()
     {
-        StopCoroutine(textCoroutine);
-        dialogQueue.Clear();
-        isPlayingDialog = false;
-        dialogEvents.DisableChoosePanel();
-        StartCoroutine(BlackScreenFade());
+        if (!isSkipping)
+        {
+            isSkipping = true;
+            StopCoroutine(textCoroutine);
+            dialogQueue.Clear();
+            isPlayingDialog = false;
+            dialogEvents.DisableChoosePanel();
+            StartCoroutine(BlackScreenFade());
+        }
     }
 
     private void UIOff(bool value)

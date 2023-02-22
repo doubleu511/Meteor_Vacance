@@ -188,7 +188,14 @@ public class DialogEvents : MonoBehaviour
 
     public void LoadScene(string name)
     {
-        Global.LoadScene.LoadScene(name);
+        if (TitleActBtn.isSimulateAct)
+        {
+            Global.LoadScene.LoadScene("TitleScene");
+        }
+        else
+        {
+            Global.LoadScene.LoadScene(name);
+        }
     }
 
     public void OnTextEnd()

@@ -52,6 +52,7 @@ public class WaveManager : MonoBehaviour
         Global.Pool.CreatePool<EnemyWaypointTrailEffect>(trailEffectPrefab.gameObject, transform, 10);
 
         isWaveStart = true;
+        print(TotalEnemyCount);
     }
 
     void Update()

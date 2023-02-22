@@ -11,7 +11,13 @@ public class GameResultUI : MonoBehaviour
 
     [SerializeField] GameFinalResultUI finalResultUI;
 
+    public static bool isGameEnd = false;
     private bool isDead = false;
+
+    private void Start()
+    {
+        isGameEnd = false;
+    }
 
     private void Update()
     {
@@ -32,10 +38,13 @@ public class GameResultUI : MonoBehaviour
         Global.Sound.Play("SFX/Battle/b_ui_lose", eSound.Effect);
         Global.UI.UIFade(gameOverPanel, UIFadeType.IN, 0.5f, true);
         isDead = true;
+        isGameEnd = true;
     }
 
     public void GameComplete(int star)
     {
+        isGameEnd = true;
+
         Time.timeScale = 1;
         Global.Sound.Play("SFX/Battle/b_ui_win", eSound.Effect);
         Global.UI.UIFade(gameCompletePanel, true);
