@@ -11,11 +11,10 @@ public class TitlePopupPanel : MonoBehaviour
     private CanvasGroup popupGroup;
     [SerializeField] UIBlur uiblur;
     [SerializeField] Button prevBtn;
-    [SerializeField] TextMeshProUGUI titleText;
-    [SerializeField] Image titleIcon;
 
     [SerializeField] CanvasGroup albumPanel;
-    [SerializeField] Sprite albumIcon;
+    [SerializeField] GameObject albumObject;
+    private GameObject currentObject;
 
     private void Awake()
     {
@@ -30,13 +29,19 @@ public class TitlePopupPanel : MonoBehaviour
         });
     }
 
-    public void OpenAlbum()
+    public void OpenAlbum(bool instant)
     {
-        titleText.text = "기록 열람실";
-        titleIcon.sprite = albumIcon;
+        if(currentObject != null)
+        {
+            currentObject.SetActive(false);
+        }
+
+        albumObject.SetActive(true);
+        currentObject = albumObject;
+
         Global.UI.UIFade(albumPanel, true);
 
-        OpenPopup(true, false);
+        OpenPopup(true, instant);
     }
 
     private void OpenPopup(bool fade, bool instant)
