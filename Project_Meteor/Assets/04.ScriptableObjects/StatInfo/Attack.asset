@@ -24,7 +24,7 @@ MonoBehaviour:
     needCost: 48
   - upgradeValue: 200
     needCost: 65
-  - upgradeValue: 250
+  - upgradeValue: 240
     needCost: 99
   iconSpr: {fileID: 21300000, guid: df00dc7c224ebb74fa2127fd50a2d459, type: 3}
   statTreeName: "\uACF5\uACA9\uB825 \uC99D\uAC00"

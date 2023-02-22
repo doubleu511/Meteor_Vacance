@@ -102,7 +102,7 @@ MonoBehaviour:
     eventMethod:
     - '$BACKGROUND
 
-      cs_meteor_idle'
+      cs_meteor_close'
   - text: "\uC11C\uB85C \uD638\uD761\uC744 \uB9DE\uCDB0\uC11C, \uD55C \uBAB8\uC778\uB4EF
       \uC11C\uB85C\uB97C \uB9E1\uAE30\uACE0 \uC2F8\uC6E0\uB294\uB370."
     speakingDir: 0
