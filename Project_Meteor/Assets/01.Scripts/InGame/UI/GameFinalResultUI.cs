@@ -41,10 +41,6 @@ public class GameFinalResultUI : MonoBehaviour
     {
         nextIndex = 0;
         restartBtn.onClick.AddListener(() => Global.LoadScene.LoadScene(SceneManager.GetActiveScene().name));
-        titleBtn.onClick.AddListener(() =>
-        {
-            Global.LoadScene.LoadScene("TitleScene");
-        });
         nextBtn.onClick.AddListener(() =>
         {
             DialogPanel.startActIndex = nextIndex;
@@ -59,6 +55,7 @@ public class GameFinalResultUI : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.R))
             {
                 Global.LoadScene.LoadScene(SceneManager.GetActiveScene().name);
+                buttonReady = false;
             }
         }
     }
