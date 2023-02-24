@@ -46,6 +46,15 @@ public class TitleActBtn : MonoBehaviour
     {
         if(!condition.IsUnlockable())
         {
+            Image[] buttonImgs = GetComponentsInChildren<Image>();
+            foreach(Image item in buttonImgs)
+            {
+                if(item.sprite != null)
+                {
+                    item.enabled = false;
+                }
+            }
+
             actDialogBtn.interactable = false;
             blackScreen.color = Color.black;
             actNameText.text = "???";
