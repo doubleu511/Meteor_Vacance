@@ -19,6 +19,7 @@ public class TutorialPanel : MonoBehaviour
     [SerializeField] Sprite[] tutorialHeadSprs;
 
     private int tutorialIndex = 0;
+    public static bool isTutorialOpen = false;
     [SerializeField] bool isTitleScene = false;
 
     [SerializeField] Button prevBtn;
@@ -44,20 +45,55 @@ public class TutorialPanel : MonoBehaviour
 
         prevBtn.onClick.AddListener(() =>
         {
+            Global.Sound.Play("SFX/Battle/b_ui_popup", eSound.Effect);
+
             tutorialIndex--;
             RefreshIndex();
         });
 
         nextBtn.onClick.AddListener(() =>
         {
+            Global.Sound.Play("SFX/Battle/b_ui_popup", eSound.Effect);
+
             tutorialIndex++;
             RefreshIndex();
         });
 
         cancelBtn.onClick.AddListener(() =>
         {
+            Global.Sound.Play("SFX/Battle/b_ui_popup", eSound.Effect);
+
             SetTutorialPanel(false);
         });
+    }
+
+    private void LateUpdate()
+    {
+        if(isTutorialOpen)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                if (tutorialIndex > 0)
+                {
+                    tutorialIndex--;
+                    RefreshIndex();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                if(tutorialIndex < tutorialGroups.Length - 1)
+                {
+                    tutorialIndex++;
+                    RefreshIndex();
+                }
+            }
+
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                SetTutorialPanel(false);
+            }
+        }
     }
 
     [ContextMenu("ResetTutorialPrefs")]
@@ -68,6 +104,7 @@ public class TutorialPanel : MonoBehaviour
 
     public void SetTutorialPanel(bool fade)
     {
+        isTutorialOpen = fade;
         Time.timeScale = fade ? 0 : 1;
         Global.UI.UIFade(canvasGroup, fade);
 
@@ -91,7 +128,6 @@ public class TutorialPanel : MonoBehaviour
         {
             if (tutorialGroups[i] != null)
             {
-                print(i);
                 tutorialGroups[i].SetActive(i == tutorialIndex);
             }
         }

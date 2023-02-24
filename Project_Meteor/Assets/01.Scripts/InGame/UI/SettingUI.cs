@@ -48,13 +48,13 @@ public class SettingUI : MonoBehaviour
 
     private void Update()
     {
-        if (!GameResultUI.isGameEnd)
+        if (GameResultUI.isGameEnd) return;
+        if (TutorialPanel.isTutorialOpen) return;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                isFade = !isFade;
-                Setting(isFade);
-            }
+            isFade = !isFade;
+            Setting(isFade);
         }
     }
 

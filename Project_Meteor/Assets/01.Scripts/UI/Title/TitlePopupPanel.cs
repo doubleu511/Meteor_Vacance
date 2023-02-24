@@ -17,6 +17,8 @@ public class TitlePopupPanel : MonoBehaviour
     [SerializeField] TitlePopupTabPanel settingPanel;
     [SerializeField] GameObject settingObject;
 
+    [SerializeField] Button resetBtn;
+
     private GameObject currentObject;
 
     private void Awake()
@@ -28,9 +30,28 @@ public class TitlePopupPanel : MonoBehaviour
     {
         prevBtn.onClick.AddListener(() =>
         {
+            Global.Sound.Play("SFX/Battle/b_ui_popup", eSound.Effect);
+
             OpenPopup(false, false);
             albumPanel.SetPanel(false);
             settingPanel.SetPanel(false);
+        });
+
+        resetBtn.onClick.AddListener(() =>
+        {
+            TitleGameRequestUI.Request.SetRequestText("데이터를 리셋하시겠습니까?\n(게임이 다시 시작됩니다.)", "돌아가기", "데이터 리셋");
+            TitleGameRequestUI.Request.SetRequestAction(() =>
+            {
+                TitleGameRequestUI.Request.RequestPopup(false);
+            },
+                () =>
+                {
+                    SecurityPlayerPrefs.DeleteKey("SeenTutorial");
+                    SecurityPlayerPrefs.DeleteKey("NormalEndingClear");
+                    SecurityPlayerPrefs.DeleteKey("HappyEndingClear");
+                    Global.LoadScene.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+                });
+            TitleGameRequestUI.Request.RequestPopup(true);
         });
     }
 

@@ -31,22 +31,30 @@ public class TitleSystem : MonoBehaviour
 
         startBtn.onClick.AddListener(() =>
         {
+            Global.Sound.Play("SFX/Battle/b_ui_popup", eSound.Effect);
+
             DialogPanel.startActIndex = 0;
             Global.LoadScene.LoadScene("DialogScene");
         });
 
         albumBtn.onClick.AddListener(() =>
         {
+            Global.Sound.Play("SFX/Battle/b_ui_popup", eSound.Effect);
+
             popupPanel.OpenAlbum(false);
         });
 
         settingBtn.onClick.AddListener(() =>
         {
+            Global.Sound.Play("SFX/Battle/b_ui_popup", eSound.Effect);
+
             popupPanel.OpenSetting();
         });
 
         titleExitBtn.onClick.AddListener(() =>
         {
+            Global.Sound.Play("SFX/Battle/b_ui_popup", eSound.Effect);
+
             TitleGameRequestUI.Request.SetRequestText("게임을 종료하시겠습니까?", "돌아가기", "게임 종료");
             TitleGameRequestUI.Request.SetRequestAction(() =>
                 {
@@ -100,6 +108,7 @@ public class TitleSystem : MonoBehaviour
     public void LobbyStart()
     {
         startBtnGroup.interactable = false;
+        Global.Sound.Play("SFX/Battle/b_ui_popup", eSound.Effect);
         StartCoroutine(BlackLoading());
     }
 
