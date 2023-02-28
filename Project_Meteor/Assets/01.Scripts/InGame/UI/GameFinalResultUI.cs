@@ -41,6 +41,10 @@ public class GameFinalResultUI : MonoBehaviour
     {
         nextIndex = 0;
         restartBtn.onClick.AddListener(() => Global.LoadScene.LoadScene(SceneManager.GetActiveScene().name));
+        titleBtn.onClick.AddListener(() =>
+        {
+            Global.LoadScene.LoadScene("TitleScene");
+        });
         nextBtn.onClick.AddListener(() =>
         {
             DialogPanel.startActIndex = nextIndex;
