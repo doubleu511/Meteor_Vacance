@@ -2983,7 +2983,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -949, y: 0.00005340576}
-  m_SizeDelta: {x: 622.35, y: 82.3}
+  m_SizeDelta: {x: 743.4, y: 82.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &284862417
 MonoBehaviour:
@@ -3006,9 +3006,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\uC774 \uAC8C\uC784\uC740 \uBAA8\uBC14\uC77C \uAC8C\uC784 '\uBA85\uC77C\uBC29\uC8FC
-    Arknights'\uC758 \uD32C\uAC8C\uC784\uC73C\uB85C,\r\n\uBA85\uC77C\uBC29\uC8FC
-    \uB9C8\uC774\uB108 \uAC24\uB7EC\uB9AC\uC758 \uBA54\uD14C\uC624 \uB300\uD68C \uCD9C\uD488\uC791\uC784\uC744
-    \uBC1D\uD799\uB2C8\uB2E4."
+    Arknights'\uC758 \uD32C\uAC8C\uC784 \uC784\uC744 \uBC1D\uD799\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d3dc4bd315a59634bb4b0bc820e55e38, type: 2}
   m_sharedMaterial: {fileID: 2787326351824777421, guid: d3dc4bd315a59634bb4b0bc820e55e38, type: 2}
@@ -31471,17 +31469,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC5B4\uB5A4 \uAE34\uAE09\uC791\uC804\n\n<b>\uC544\uD2B8</b> \t\t\t\t\uC2F1\uB808(\uD544\uB9BD)\r\n<b>\uAC1C\uBC1C</b> 
+  m_text: "\uC5B4\uB5A4 \uAE34\uAE09\uC791\uC804\n\n<b>\uC544\uD2B8</b> \t\t\t\t\uAD6C\uB514\n<b>\uAC1C\uBC1C</b> 
     \t\t\t\uB354\uBE14\uC720(not \uB9AC\uC720\uB2C8\uC628)\r\n<b>\uCEE8\uD150\uCE20
-    \uAE30\uD68D</b>  \t\t\uC2F1\uB808(\uD544\uB9BD)\r\n<b>\uBCA8\uB7F0\uC2F1 \uAE30\uD68D</b> 
-    \t\t\uB354\uBE14\uC720&\uC2F1\uB808\r\n<b>\uC2DC\uB098\uB9AC\uC624</b>  \t\t\t\uC2F1\uB808(\uD544\uB9BD)\r\n\r\n\uC81C\uC791\uAE30\uAC04
-    : 1. 14 ~ 2. 22\r\n\nSpecial Thanks\r\n\uD14C\uC2A4\uD2B8 \uD50C\uB808\uC774\uC5B4\t\uC775\uBA85\uC758
-    \uB3C5\uD0C0 \uB450 \uBD84\n\n\n\n\uC0AC\uC6A9\uB41C BGM\n\nArknights - systitle2022\nBattle
+    \uAE30\uD68D</b>  \t\t\uAD6C\uB514\n<b>\uBCA8\uB7F0\uC2F1 \uAE30\uD68D</b>  \t\t\uB354\uBE14\uC720&\uAD6C\uB514\r\n<b>\uC2DC\uB098\uB9AC\uC624</b> 
+    \t\t\t\uAD6C\uB514\n\r\n\uC81C\uC791\uAE30\uAC04 : 1. 14 ~ 2. 22\r\n\nSpecial
+    Thanks\r\n\uD14C\uC2A4\uD2B8 \uD50C\uB808\uC774\uC5B4\t\uC775\uBA85\uC758 \uB3C5\uD0C0
+    \uB450 \uBD84\n\n\n\n\uC0AC\uC6A9\uB41C BGM\n\nArknights - systitle2022\nBattle
     01\nlongmenmarketplace\nnightoflongmen\nwarm\nholiday\nrelax\nlongmenbar\nvictory\nbat
     failed\n\nSummer Wave\n\n\n\uC774 \uAC8C\uC784\uC740 \uBAA8\uBC14\uC77C \uAC8C\uC784
-    '\uBA85\uC77C\uBC29\uC8FC Arknights'\uC758 \uD32C\uAC8C\uC784\uC73C\uB85C,\r\n\uBA85\uC77C\uBC29\uC8FC
-    \uB9C8\uC774\uB108 \uAC24\uB7EC\uB9AC\uC758 \uBA54\uD14C\uC624 \uB300\uD68C \uCD9C\uD488\uC791\uC784\uC744
-    \uBC1D\uD799\uB2C8\uB2E4."
+    '\uBA85\uC77C\uBC29\uC8FC Arknights'\uC758 \uD32C\uAC8C\uC784 \uC784\uC744 \uBC1D\uD799\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d3dc4bd315a59634bb4b0bc820e55e38, type: 2}
   m_sharedMaterial: {fileID: 2787326351824777421, guid: d3dc4bd315a59634bb4b0bc820e55e38, type: 2}
